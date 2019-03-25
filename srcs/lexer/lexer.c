@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:35:46 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/24 17:46:18 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/25 18:29:33 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 ** wich token type it is.
 */
 
-static t_ast	*find_token(char **line, t_ast *new_tok)
+static t_ast	*find_token(char **line, t_ast *new_tok, bool *is_name)
 {
 	if (**line == '&')
-		return (and_find(line, new_tok));
+		return (and_find(line, new_tok/*, is_cmd*/));
 	else if (**line == '|')
-		return (or_find(line, new_tok));
-	else if (ft_isalnum(**line))
-		return (word_find(line, new_tok));
+		return (or_find(line, new_tok/*, is_cmd*/));
+	else if (**line == '\'' || **line == '\"')
+		return (quot_find(line, new_tok, **line));
 	else if (**line == '\0')
 	{
 		new_tok->type = TYPE_END;
@@ -37,12 +37,14 @@ static t_ast	*find_token(char **line, t_ast *new_tok)
 	}
 	else
 	{
-		ft_fprintf(STDERR_FILENO, "Error: unexpected symbol %c\n");
+			return (word_find(line, new_tok, is_name));
+//		ft_fprintf(STDERR_FILENO, UNEX_SYMB, **line);
+//		free(new_tok);
 		return (NULL);
 	}
 }
 
-t_ast			*next_token(char **line)
+t_ast			*next_token(char **line, bool *is_name)
 {
 	t_ast	*new_tok;
 
@@ -55,6 +57,7 @@ t_ast			*next_token(char **line)
 	new_tok->next = NULL;
 	new_tok->left = NULL;
 	new_tok->right = NULL;
+	new_tok->value = NULL;
 	consume(line);
-	return (find_token(line, new_tok));
+	return (find_token(line, new_tok, is_name));
 }

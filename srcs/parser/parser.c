@@ -6,16 +6,19 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/24 17:51:25 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/25 19:06:16 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "del_ast.h"
 #include "lexer.h"
 #include "libft.h"
+#include "sh_error.h"
+#include "check_next.h"
 
 /*
-** Here we build a list of tokens by calling next_token.
+** This is the file where  we build a list of tokens by calling next_token.
 ** The last token always have to be of type TYPE_END.
 ** Each new token have to be check by the previous token
 ** to see if the new token is enable by grammar.
@@ -28,29 +31,63 @@ void	print_token(t_ast *tok)
 	while (el)
 	{
 		ft_printf("actuel token => %s\n", el->value);
+		ft_printf("actuel type => %d\n", el->type);
 		el = el->next;
 	}
+}
+
+/*
+** Check if the current token is avaible by using check_next() of the actual
+** token_head
+** If token_head is null (first token), token can only be a name, word,
+** or sub_shell
+*/
+
+static int	check_token(t_ast **token_head, t_ast *tok/*, bool *is_cmd*/)
+{
+	if (*token_head == NULL && (tok->type & ENA_FIRST) == 0)
+		return (1);
+	else if (*token_head && (*token_head)->f_tok_next(tok))
+		return (1);
+	tok->next = *token_head;
+	*token_head = tok;
+	return (0);
+}
+
+static int	loop_tok(t_ast **token_head, char **line)
+{
+	t_ast	*token;
+	bool	is_name;
+
+	is_name = 0;
+	while ((token = next_token(line, &is_name)))
+	{
+		if (check_token(token_head, token/*, &is_name*/))
+		{
+			ft_fprintf(STDERR_FILENO, SYNTAX_ERR);
+			del_token(&token);
+			return (1);
+		}
+		if ((*token_head)->type == TYPE_END)
+			break ;
+	}
+	if (!token)
+		return (1);
+	return (0);
 }
 
 int	parser(char *line)
 {
 	t_ast	*token_head;
-	t_ast	*token;
 
 	token_head = NULL;
-	while ((token = next_token(&line)) && token->type != TYPE_END)
+	if (loop_tok(&token_head, &line))
 	{
-		token->next = token_head;
-		token_head = token;
-	}
-	if (token)
-	{
-		token->next = token_head;
-		token_head = token;
-		print_token(token_head);/////// this is for debug
+		del_ast(&token_head);
+		return (1);
 	}
 	else
-		ft_printf("HOLLY SHIT ! A problems appeared !\n");
+		print_token(token_head);/////// this is for debug
 	del_ast(&token_head);
 	return (0);
 }

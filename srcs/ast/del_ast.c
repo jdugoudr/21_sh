@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   del_ast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:12:03 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/25 17:23:47 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/03/24 17:25:38 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/03/25 17:28:22 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "del_ast.h"
+#include "libft.h"
 
-#include "token_define.h"
+void	del_ast(t_ast **ast_head)
+{
+	t_ast	*el;
+	t_ast	*el_next;
 
-int		parser(char *line);
-
-#endif
+	el = *ast_head;
+	while (el)
+	{
+		el_next = el->next;
+		del_token(&el);
+		el = el_next;
+	}
+	*ast_head = NULL;
+}

@@ -6,23 +6,79 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/24 17:57:14 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:28:54 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "check_next.h"
 #include "lexer.h"
+#include "del_ast.h"
 #include "token_define.h"
 #include "libft.h"
+#include "sh_error.h"
 
-t_ast	*word_find(char **line, t_ast *tok)
+/*
+** If a word doesn't start by a digit or a '=' and have a '=', it's a NAME
+** If a word start by '=' and token before was a NAME, it's a ASSIGN
+** Otherwise it's WORD
+*/
+
+static int	is_it_name(char *line)
 {
 	int	i;
 
-	i = 1;
-	while (ft_isalnum((*line)[i]))
+	i = 0;
+	if (ft_isdigit(*line) || *line == '=')
+		return (0);
+	while (ft_isalnum(line[i]) || line[i] == '_')
 		i++;
-	tok->type = WORD_TOK;
-	tok->value = ft_strndup(*line, i);
+	if (line[i] == '=')
+		return (i);
+	return (0);
+}
+
+static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != ' ' && ft_strchr(RESERVED, line[i]) == NULL
+			&& line[i] != '\0')
+		i++;
+	if (*is_name)
+	{
+		tok->type = ASSIGN_TOK;
+		tok->f_tok_next = &check_for_assign;
+	}
+	else
+	{
+		tok->type = WORD_TOK;
+		tok->f_tok_next = &check_for_word;
+	}
+	return (i);
+}
+
+t_ast	*word_find(char **line, t_ast *tok, bool *is_name)
+{
+	int	i;
+
+	i = 0;
+	if ((i = is_it_name(*line)))
+	{
+		tok->type = NAME_TOK;
+		*is_name = 1;
+		tok->f_tok_next = &check_for_name;
+	}
+	else
+	{
+		i = is_it_assign(*line, tok, is_name);
+		*is_name = 0;
+	}
+	if ((tok->value = ft_strndup(*line, i)) == NULL)
+	{
+		del_token(&tok);
+		ft_fprintf(STDERR_FILENO, INTERN_ERR);
+	}
 	(*line) += i;
 	return (tok);
 }

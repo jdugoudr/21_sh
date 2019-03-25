@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   or_find.c                                          :+:      :+:    :+:   */
+/*   quot_find.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 16:07:38 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/25 14:28:08 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/03/25 16:52:49 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/03/25 18:37:23 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "token_define.h"
-#include "sh_error.h"
-#include <unistd.h>
-//#include "libft.h"
+#include "del_ast.h"
 #include "check_next.h"
+#include "libft.h"
+#include "sh_error.h"
 
-t_ast	*or_find(char **line, t_ast *tok/*, bool *is_cmd*/)
+t_ast	*quot_find(char **line, t_ast *tok, char c)
 {
-	if ((*line)[1] == '|')
+	int	i;
+
+	i = 1;
+	while ((*line)[i] != c && (*line)[i])
+		i++;
+	if ((*line)[i] == '\0')
 	{
-		tok->type = OR_IF;
-		tok->value = NULL;
-		tok->f_tok_next = &check_for_and_or;
-		(*line) += 2;
-//		*is_cmd = 1;
+		ft_fprintf(STDERR_FILENO, SYNTAX_ERR);
+		del_token(&tok);
+	}
+	else if ((tok->value = ft_strndup((*line) + 1, i - 1)) == NULL)
+	{
+		del_token(&tok);
+		ft_fprintf(STDERR_FILENO, INTERN_ERR);
 	}
 	else
 	{
-		tok->type = PIPE_TOK;
-		tok->value = NULL;
-		tok->f_tok_next = &check_for_pipe;
-		(*line) += 1;
+		tok->type = QUOT_TOK;
+		tok->f_tok_next = &check_for_quot;
+		(*line) += i + 1;
 	}
 	return (tok);
 }

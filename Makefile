@@ -6,7 +6,7 @@
 #    By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/03/24 17:30:44 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/03/25 18:30:36 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,31 +14,48 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 NAME = 21sh
-HEAD_DIR = -I includes -I includes/parser -I includes/lexer -I includes/error
+HEAD_DIR = -I includes -I includes/parser -I includes/lexer -I includes/error \
+		   -I includes/ast
 LIB_DIR = libft/
 LIB_FT = libft/libft.a
 LIB_HEAD = libft/includes
 OBJ_DIR = objs/
 VPATH = srcs \
 		srcs/parser \
-		srcs/lexer
+		srcs/parser/check_next \
+		srcs/lexer \
+		srcs/ast
 VPATH += includes \
 		 includes/lexer \
 		 includes/parser \
-		 includes/error
-SRCS = main.c \
-	   lexer.c \
-	   and_find.c \
-	   or_find.c \
-	   word_find.c \
-	   consume.c \
-	   parser.c \
-	   del_ast.c
+		 includes/error \
+		 includes/ast
+##########################################
+SRCS = main.c
+######################
+#	files for lexer
+######################
+SRCS += lexer.c
+#	token detector
+SRCS += and_find.c or_find.c word_find.c consume.c quot_find.c
+######################
+#	files for parser
+######################
+SRCS += parser.c
+#	check syntax
+SRCS += check_for_and_or.c check_for_pipe.c check_for_word.c \
+	   check_for_name.c check_for_assign.c check_for_quot.c
+#	AST
+SRCS += del_ast.c del_token.c
+##########################################
 HEADERS = 21sh.h \
 		  lexer.h \
 		  token_define.h \
 		  parser.h \
-		  sh_error.h
+		  sh_error.h \
+		  check_next.h \
+		  del_ast.h
+##########################################
 OBJS:= $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 all: $(NAME)
