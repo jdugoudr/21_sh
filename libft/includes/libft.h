@@ -6,12 +6,18 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 09:49:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/24 13:22:57 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/26 10:30:53 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# ifdef __gnu_linux__
+#  define intmax_t	__intmax_t
+#  define uintmax_t	__uintmax_t
+
+# endif
 
 # include <unistd.h>
 # include <string.h>

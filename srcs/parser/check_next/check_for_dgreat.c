@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   check_for_dgreat.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:12:03 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:27:34 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/03/26 09:44:08 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/03/26 09:46:07 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "check_next.h"
 
-# include "token_define.h"
-
-int		parser(char *line);
-
-#endif
+int	check_for_dgreat(t_ast *next)
+{
+	if ((next->type & AFTER_DGREAT) == 0)
+		return (1);
+	return (0);
+}

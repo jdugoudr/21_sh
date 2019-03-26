@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:35:46 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/25 18:29:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/26 10:21:10 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,19 @@
 static t_ast	*find_token(char **line, t_ast *new_tok, bool *is_name)
 {
 	if (**line == '&')
-		return (and_find(line, new_tok/*, is_cmd*/));
+		return (and_find(line, new_tok));
 	else if (**line == '|')
-		return (or_find(line, new_tok/*, is_cmd*/));
+		return (or_find(line, new_tok));
 	else if (**line == '\'' || **line == '\"')
 		return (quot_find(line, new_tok, **line));
+	else if (**line == ';')
+		return (semi_find(line, new_tok));
+	else if (**line == '<')
+		return (less_find(line, new_tok));
+	else if (**line == '>')
+		return (great_find(line, new_tok));
+	else if (**line == '(')
+		return (sub_find(line, new_tok));
 	else if (**line == '\0')
 	{
 		new_tok->type = TYPE_END;
@@ -36,12 +44,7 @@ static t_ast	*find_token(char **line, t_ast *new_tok, bool *is_name)
 		return (new_tok);
 	}
 	else
-	{
-			return (word_find(line, new_tok, is_name));
-//		ft_fprintf(STDERR_FILENO, UNEX_SYMB, **line);
-//		free(new_tok);
-		return (NULL);
-	}
+		return (word_find(line, new_tok, is_name));
 }
 
 t_ast			*next_token(char **line, bool *is_name)

@@ -16,14 +16,10 @@
 int	manage_f(t_convert *t, t_flags *flags, va_list *ap)
 {
 	t_fcfl		tabf[NB_FLAGS];
-	int			precision;
 
 	init_tabf(tabf);
-	if (flags->fc & PR_FLAG)
-		precision = ft_atoi(flags->precision);
-	else
+	if ((flags->fc & PR_FLAG) == 0)
 	{
-		precision = 6;
 		flags->fc |= PR_FLAG;
 		flags->precision = ft_strdup("6");
 	}

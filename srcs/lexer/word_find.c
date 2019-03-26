@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/25 17:28:54 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/26 10:21:43 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
 	return (i);
 }
 
-t_ast	*word_find(char **line, t_ast *tok, bool *is_name)
+t_ast		*word_find(char **line, t_ast *tok, bool *is_name)
 {
 	int	i;
 

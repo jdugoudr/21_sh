@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   and_find.c                                         :+:      :+:    :+:   */
+/*   sub_find.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:59:49 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:18:47 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/03/26 10:05:24 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/03/26 10:19:32 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "token_define.h"
+#include "del_ast.h"
 #include "check_next.h"
 #include "libft.h"
 #include "sh_error.h"
 
-t_ast	*and_find(char **line, t_ast *tok)
+t_ast	*sub_find(char **line, t_ast *tok)
 {
-	if ((*line)[1] == '&')
+	int	i;
+
+	i = 1;
+	while ((*line)[i] != ')' && (*line)[i])
+		i++;
+	if ((*line)[i] == '\0')
 	{
-		tok->type = AND_IF;
-		tok->value = NULL;
-		tok->f_tok_next = &check_for_and_or;
-		(*line) += 2;
+		ft_fprintf(STDERR_FILENO, SYNTAX_ERR);
+		del_token(&tok);
+	}
+	else if ((tok->value = ft_strndup((*line) + 1, i - 1)) == NULL)
+	{
+		del_token(&tok);
+		ft_fprintf(STDERR_FILENO, INTERN_ERR);
 	}
 	else
 	{
-		ft_fprintf(STDERR_FILENO, UNEX_SYMB, (*line)[0]);
-		free(tok);
-		tok = NULL;
+		tok->type = SUB_SHELL;
+		tok->f_tok_next = &check_for_sub;
+		(*line) += i + 1;
 	}
 	return (tok);
 }

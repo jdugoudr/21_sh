@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/25 19:06:16 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/26 10:25:37 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@
 */
 
 ///////// delete this function before merge master !!
-void	print_token(t_ast *tok)
+
+void		print_token(t_ast *tok)
 {
-	t_ast *el = tok;
+	t_ast *el;
+
+	el = tok;
 	while (el)
 	{
 		ft_printf("actuel token => %s\n", el->value);
@@ -43,7 +46,7 @@ void	print_token(t_ast *tok)
 ** or sub_shell
 */
 
-static int	check_token(t_ast **token_head, t_ast *tok/*, bool *is_cmd*/)
+static int	check_token(t_ast **token_head, t_ast *tok)
 {
 	if (*token_head == NULL && (tok->type & ENA_FIRST) == 0)
 		return (1);
@@ -62,7 +65,7 @@ static int	loop_tok(t_ast **token_head, char **line)
 	is_name = 0;
 	while ((token = next_token(line, &is_name)))
 	{
-		if (check_token(token_head, token/*, &is_name*/))
+		if (check_token(token_head, token))
 		{
 			ft_fprintf(STDERR_FILENO, SYNTAX_ERR);
 			del_token(&token);
@@ -76,7 +79,7 @@ static int	loop_tok(t_ast **token_head, char **line)
 	return (0);
 }
 
-int	parser(char *line)
+int			parser(char *line)
 {
 	t_ast	*token_head;
 

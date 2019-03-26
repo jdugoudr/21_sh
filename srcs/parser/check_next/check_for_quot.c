@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 17:51:43 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/25 18:19:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/26 10:00:25 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 int	check_for_quot(t_ast *next)
 {
-	if (next->type == SUB_SHELL || next->type == NAME_TOK
-			|| next->type == ASSIGN_TOK)
+	if (next->type & AFTER_QUOT)
 		return (1);
 	return (0);
 }
