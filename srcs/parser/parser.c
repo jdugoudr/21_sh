@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 13:26:49 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/27 22:19:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int			parser(char *line)
 
 	token_head = NULL;
 	ast_root = NULL;
-	if (loop_tok(&token_head, &line) || create_ast(&ast_root, token_head))
+	if (loop_tok(&token_head, &line) || sort_redirect(&token_head)
+			|| create_ast(&ast_root, token_head))
 	{
 		del_ast(&token_head);
 		return (1);

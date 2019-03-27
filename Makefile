@@ -6,7 +6,7 @@
 #    By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/03/26 11:29:27 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/03/27 22:21:04 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRCS += and_find.c or_find.c word_find.c consume.c quot_find.c semi_find.c \
 ######################
 #	files for parser
 ######################
-SRCS += parser.c
+SRCS += parser.c sort_redirect.c
 #	check syntax
 SRCS += check_for_and_or.c check_for_pipe.c check_for_word.c \
 	   check_for_name.c check_for_assign.c check_for_quot.c check_for_semi.c \
