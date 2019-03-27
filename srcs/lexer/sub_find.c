@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 10:05:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:19:32 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/26 13:07:03 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ t_ast	*sub_find(char **line, t_ast *tok)
 		tok->f_tok_next = &check_for_sub;
 		(*line) += i + 1;
 	}
+	tok->level_prior = level_6;
 	return (tok);
 }

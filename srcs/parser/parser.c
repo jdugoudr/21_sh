@@ -6,16 +6,16 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:25:37 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/26 13:26:49 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "del_ast.h"
 #include "lexer.h"
 #include "libft.h"
 #include "sh_error.h"
 #include "check_next.h"
+#include "ast.h"
 
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
@@ -23,21 +23,6 @@
 ** Each new token have to be check by the previous token
 ** to see if the new token is enable by grammar.
 */
-
-///////// delete this function before merge master !!
-
-void		print_token(t_ast *tok)
-{
-	t_ast *el;
-
-	el = tok;
-	while (el)
-	{
-		ft_printf("actuel token => %s\n", el->value);
-		ft_printf("actuel type => %d\n", el->type);
-		el = el->next;
-	}
-}
 
 /*
 ** Check if the current token is avaible by using check_next() of the actual
@@ -82,15 +67,15 @@ static int	loop_tok(t_ast **token_head, char **line)
 int			parser(char *line)
 {
 	t_ast	*token_head;
+	t_ast	*ast_root;
 
 	token_head = NULL;
-	if (loop_tok(&token_head, &line))
+	ast_root = NULL;
+	if (loop_tok(&token_head, &line) || create_ast(&ast_root, token_head))
 	{
 		del_ast(&token_head);
 		return (1);
 	}
-	else
-		print_token(token_head);/////// this is for debug
 	del_ast(&token_head);
 	return (0);
 }

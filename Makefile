@@ -6,7 +6,7 @@
 #    By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/03/26 10:11:13 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/03/26 11:29:27 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRCS += check_for_and_or.c check_for_pipe.c check_for_word.c \
 	   check_for_dless.c check_for_less.c check_for_great.c \
 	   check_for_dgreat.c check_for_sub.c
 #	AST
-SRCS += del_ast.c del_token.c
+SRCS += del_ast.c del_token.c create_ast.c 
 ##########################################
 HEADERS = 21sh.h \
 		  lexer.h \
@@ -57,7 +57,8 @@ HEADERS = 21sh.h \
 		  parser.h \
 		  sh_error.h \
 		  check_next.h \
-		  del_ast.h
+		  del_ast.h \
+		  ast.h
 ##########################################
 OBJS:= $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 

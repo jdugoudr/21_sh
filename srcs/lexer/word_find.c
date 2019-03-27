@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:21:43 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/27 11:42:04 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
 	if (*is_name)
 	{
 		tok->type = ASSIGN_TOK;
+		tok->level_prior = level_5;
 		tok->f_tok_next = &check_for_assign;
 	}
 	else
 	{
 		tok->type = WORD_TOK;
+		tok->level_prior = level_6;
 		tok->f_tok_next = &check_for_word;
 	}
 	return (i);
@@ -66,6 +68,7 @@ t_ast		*word_find(char **line, t_ast *tok, bool *is_name)
 	if ((i = is_it_name(*line)))
 	{
 		tok->type = NAME_TOK;
+		tok->level_prior = level_6;
 		*is_name = 1;
 		tok->f_tok_next = &check_for_name;
 	}

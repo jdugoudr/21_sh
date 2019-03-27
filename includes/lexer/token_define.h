@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:08:06 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/27 12:32:06 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,16 @@
 # define WORD_TOK	0x0800
 # define NAME_TOK	0x1000
 
+# define LEVEL_MIN	level_6
+
 # define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK)
+
+enum {level_6 = 1, level_5, level_4, level_3, level_2, level_1};
 
 typedef struct		s_ast
 {
 	unsigned short	type;
+	int				level_prior;
 	char			*value;
 	char			**arg_cmd;
 	int				(*f_tok_next)(struct s_ast *);

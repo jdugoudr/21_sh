@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:34:07 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 09:57:58 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/03/27 13:23:59 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ t_ast	*great_find(char **line, t_ast *tok)
 		tok->f_tok_next = &check_for_great;
 		(*line) += 1;
 	}
+	tok->level_prior = level_4;
 	return (tok);
 }
