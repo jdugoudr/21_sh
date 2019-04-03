@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:16:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/27 13:50:43 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/03 20:19:32 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ static t_ast	*looking_token(t_ast *start, t_ast *end, short level_prior)
 
 	el = start;
 	while (el != end && el->level_prior < level_prior)
-	{
-
 		el = el->next;
-	}
 	if (el == end)
 		return (NULL);
 	return (el);
@@ -72,7 +69,7 @@ static t_ast	*looking_token(t_ast *start, t_ast *end, short level_prior)
 
 static t_ast	*build_tree(t_ast *start, t_ast *end, short level_prior)
 {
-	t_ast	*el;
+	t_ast		*el;
 
 	if (level_prior == LEVEL_MIN - 1)
 		return (NULL);

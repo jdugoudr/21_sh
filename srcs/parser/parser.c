@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/27 22:19:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/03 20:21:36 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int	check_token(t_ast **token_head, t_ast *tok)
 	else if (*token_head && (*token_head)->f_tok_next(tok))
 		return (1);
 	tok->next = *token_head;
+	if ((*token_head))
+		(*token_head)->prev = tok;/////////////////
 	*token_head = tok;
 	return (0);
 }
@@ -64,6 +66,24 @@ static int	loop_tok(t_ast **token_head, char **line)
 	return (0);
 }
 
+static t_ast	*look_redir(t_ast *start)
+{
+	t_ast	*el;
+
+	el = start;
+	if (start == NULL)
+		return (NULL);
+	while (el->next)
+	{
+		if (el->next->level_prior > level_4)
+			break ;
+		el = el->next;
+	}
+	start = sort_redirect(start, el->next);
+	el->next = look_redir(el->next);
+	return (start);
+}
+
 int			parser(char *line)
 {
 	t_ast	*token_head;
@@ -71,7 +91,7 @@ int			parser(char *line)
 
 	token_head = NULL;
 	ast_root = NULL;
-	if (loop_tok(&token_head, &line) || sort_redirect(&token_head)
+	if (loop_tok(&token_head, &line) || !(token_head = look_redir(token_head))
 			|| create_ast(&ast_root, token_head))
 	{
 		del_ast(&token_head);

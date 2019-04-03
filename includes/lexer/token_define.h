@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/27 12:32:06 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/03 17:01:44 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@
 
 # define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK)
 
+/*
+** level_1 ';'
+** level_2 '&&' '||'
+** level_3 '|'
+** level_4 '>' '>>' '<' '<<'
+** level_5 '=' 
+** level_6 WORD
+*/
+
 enum {level_6 = 1, level_5, level_4, level_3, level_2, level_1};
 
 typedef struct		s_ast
@@ -46,6 +55,7 @@ typedef struct		s_ast
 	char			**arg_cmd;
 	int				(*f_tok_next)(struct s_ast *);
 	struct s_ast	*next;
+	struct s_ast	*prev;//////////////
 	struct s_ast	*left;
 	struct s_ast	*right;
 }					t_ast;

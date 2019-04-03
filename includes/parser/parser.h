@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:12:03 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/27 22:19:54 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/03 20:21:34 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "token_define.h"
 
-int	parser(char *line);
-int	sort_redirect(t_ast **head);
+int		parser(char *line);
+t_ast	*sort_redirect(t_ast *start, t_ast *end);
 
 #endif
