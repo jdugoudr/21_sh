@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 10:32:42 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 12:18:59 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	loop_tok(t_ast **token_head, char **line)
 	t_ast	*token;
 	bool	is_name;
 
-	is_name = 0;
+	is_name = 1;
 	while ((token = next_token(line, &is_name)))
 	{
 		if (check_token(token_head, token))
@@ -60,6 +60,10 @@ static int	loop_tok(t_ast **token_head, char **line)
 		}
 		if ((*token_head)->type == TYPE_END)
 			break ;
+		if ((*token_head)->type & L_IS_NAME)
+			is_name = 0;
+		else
+			is_name = 1;
 	}
 	if (!token)
 		return (1);
@@ -83,6 +87,24 @@ static t_ast	*look_redir(t_ast *start)
 	el->next = look_redir(el->next);
 	return (start);
 }
+
+//static t_ast	*look_arg(t_ast *start)
+//{
+//	t_ast	*el;
+//
+//	el = start;
+//	if (start == NULL)
+//		return (NULL);
+//	while (el->next)
+//	{
+//		if (el->next->level_prior > level_4)
+//			break ;
+//		el = el->next;
+//	}
+//	start = make_arg(start, el->next);
+//	el->next = look_arg(el->next);
+//	return (start);
+//}
 
 int			parser(char *line)
 {

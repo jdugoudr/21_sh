@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 11:10:09 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 10:30:54 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 12:20:38 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define AFTER_ANOR		(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK)
 # define AFTER_NAME		(ASSIGN_TOK)
-# define AFTER_PIPE		(WORD_TOK | SUB_SHELL | QUOT_TOK)
+# define AFTER_PIPE		(WORD_TOK | SUB_SHELL | QUOT_TOK | NAME_TOK)
 # define AFTER_SEMI		(WORD_TOK | NAME_TOK | SUB_SHELL | QUOT_TOK)
 # define AFTER_DLESS	(WORD_TOK | QUOT_TOK)
 # define AFTER_LESS		(WORD_TOK | QUOT_TOK)

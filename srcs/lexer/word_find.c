@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 10:32:16 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 12:20:40 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
 	while (line[i] != ' ' && ft_strchr(RESERVED, line[i]) == NULL
 			&& line[i] != '\0')
 		i++;
-	if (*is_name)
+	if (*is_name && *line == '=')
 	{
 		tok->type = ASSIGN_TOK;
 		tok->level_prior = level_5;
@@ -93,7 +93,7 @@ t_ast		*word_find(char **line, t_ast *tok, bool *is_name)
 	int		i;
 
 	i = 0;
-	if ((i = is_it_name(*line)))
+	if ((*is_name) && (i = is_it_name(*line)))
 	{
 		tok->type = NAME_TOK;
 		tok->level_prior = level_6;

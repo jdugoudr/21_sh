@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 10:06:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 12:10:41 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define NAME_TOK	0x1000
 
 # define LEVEL_MIN	level_6
+# define L_IS_NAME	(WORD_TOK | GREAT_TOK | DGREAT_TOK | LESS_TOK | DLESS_TOK)
 
 # define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK)
 
