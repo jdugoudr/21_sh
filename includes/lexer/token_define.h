@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 12:10:41 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 16:28:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define NAME_TOK	0x1000
 
 # define LEVEL_MIN	level_6
+# define LEVEL_REDI	level_4
 # define L_IS_NAME	(WORD_TOK | GREAT_TOK | DGREAT_TOK | LESS_TOK | DLESS_TOK)
 
 # define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK)
@@ -46,7 +47,7 @@
 ** level_6 WORD
 */
 
-enum {level_6 = 1, level_5, level_4, level_3, level_2, level_1};
+enum {level_7, level_6 = 1, level_5, level_4, level_3, level_2, level_1};
 
 typedef struct		s_ast
 {

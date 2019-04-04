@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:16:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/03 20:19:32 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 17:21:47 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,19 @@ void	print_one(t_ast *el, int ind)
 	}
 	ft_printf("%*c type : %d\n", ind, ' ', el->type);
 	ft_printf("%*c level : %d\n", ind, ' ', el->level_prior);
-	ft_printf("%*c value : %s\n", ind, ' ', el->value);
+	ft_printf("%*c value : %s", ind, ' ', el->value);
+	if (el->arg_cmd)
+	{
+		int i = 0;
+		ft_printf("->");
+		while(el->arg_cmd[i])
+		{
+			ft_printf("%s:", el->arg_cmd[i]);
+			i++;
+		}
+	ft_printf("(null)");
+	}
+	ft_printf("\n");
 }
 ////// for debug
 void	print_ast(t_ast *el, int ind)

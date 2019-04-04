@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:12:03 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 11:56:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:00:27 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 
 int		parser(char *line);
 t_ast	*sort_redirect(t_ast *start, t_ast *end);
+t_ast	*create_arg(t_ast *start, t_ast *end);
 
 #endif

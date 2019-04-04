@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:35:46 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 10:15:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 16:34:34 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static t_ast	*find_token(char **line, t_ast *new_tok, bool *is_name)
 	{
 		new_tok->type = TYPE_END;
 		new_tok->value = NULL;
+		new_tok->level_prior = level_6;
 		return (new_tok);
 	}
 	else
