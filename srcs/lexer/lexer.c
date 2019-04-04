@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:35:46 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/03 10:53:41 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 10:15:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static t_ast	*find_token(char **line, t_ast *new_tok, bool *is_name)
 	else if (**line == ';')
 		return (semi_find(line, new_tok));
 	else if (**line == '<')
-		return (less_find(line, new_tok));
+		return (less_find(line, new_tok, NULL));
 	else if (**line == '>')
-		return (great_find(line, new_tok));
+		return (great_find(line, new_tok, NULL));
 	else if (**line == '(')
 		return (sub_find(line, new_tok));
 	else if (**line == '\0')

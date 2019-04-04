@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/03 13:12:28 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 10:32:16 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 /*
 ** If a word doesn't start by a digit or a '=' and have a '=', it's a NAME
 ** If a word start by '=' and token before was a NAME, it's a ASSIGN
+** If a word is make of digits caraters follow by '<' or '>' it's a redirect
 ** Otherwise it's WORD
 */
 
@@ -35,6 +36,33 @@ static int	is_it_name(char *line)
 	if (line[i] == '=')
 		return (i);
 	return (0);
+}
+
+static int	is_it_redirect(char **line, t_ast **tok)
+{
+	int		i;
+	char	*value;
+
+	i = 0;
+	while (ft_isdigit((*line)[i]))
+		i++;
+	if ((*line)[i] == '<' || (*line)[i] == '>')
+	{
+		if ((value = ft_strndup(*line, i)) == NULL)
+		{
+			ft_fprintf(STDERR_FILENO, INTERN_ERR);
+			del_token(tok);
+			return (-1);
+		}
+		(*line) += i;
+		if ((*line)[i] == '<')
+			*tok = less_find(line, *tok, value);
+		else
+			*tok = great_find(line, *tok, value);
+		return (1);
+	}
+	else
+		return (0);
 }
 
 static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
@@ -62,7 +90,7 @@ static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
 
 t_ast		*word_find(char **line, t_ast *tok, bool *is_name)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if ((i = is_it_name(*line)))
@@ -72,6 +100,8 @@ t_ast		*word_find(char **line, t_ast *tok, bool *is_name)
 		*is_name = 1;
 		tok->f_tok_next = &check_for_name;
 	}
+	else if (is_it_redirect(line, &tok))
+		return (tok);
 	else
 	{
 		i = is_it_assign(*line, tok, is_name);

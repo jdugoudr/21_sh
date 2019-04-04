@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/03 20:21:36 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/04 10:32:42 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_token(t_ast **token_head, t_ast *tok)
 		return (1);
 	tok->next = *token_head;
 	if ((*token_head))
-		(*token_head)->prev = tok;/////////////////
+		(*token_head)->prev = tok;
 	*token_head = tok;
 	return (0);
 }
