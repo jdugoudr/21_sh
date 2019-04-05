@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 17:21:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/05 09:32:03 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_ast		*create_arg(t_ast *start, t_ast *end)
 	nb_word = count_arg(start, end);
 	if (nb_word)
 	{
-		return (NULL);////////////////////////////
 		if ((tab_arg = malloc((nb_word + 1) * sizeof(char*))) == NULL)
 		{
 			ft_fprintf(STDERR_FILENO, INTERN_ERR);
