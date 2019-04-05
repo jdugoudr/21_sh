@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 10:05:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/26 13:07:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/05 11:20:01 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "check_next.h"
 #include "libft.h"
 #include "sh_error.h"
+#include "exec_cmd.h"
 
 t_ast	*sub_find(char **line, t_ast *tok)
 {
@@ -37,6 +38,7 @@ t_ast	*sub_find(char **line, t_ast *tok)
 	{
 		tok->type = SUB_SHELL;
 		tok->f_tok_next = &check_for_sub;
+		tok->f_exec = &exec_sub_shell;
 		(*line) += i + 1;
 	}
 	tok->level_prior = level_6;

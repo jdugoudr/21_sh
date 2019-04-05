@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:35:46 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 16:34:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/05 11:25:48 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_ast			*next_token(char **line, bool *is_name)
 	new_tok->left = NULL;
 	new_tok->right = NULL;
 	new_tok->value = NULL;
+	new_tok->f_exec = NULL;
 	consume(line);
 	return (find_token(line, new_tok, is_name));
 }

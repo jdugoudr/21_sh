@@ -6,16 +6,16 @@
 #    By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/04/04 12:58:55 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/04/05 14:55:40 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = #-Wall -Werror -Wextra
 RM = rm -rf
 NAME = 21sh
 HEAD_DIR = -I includes -I includes/parser -I includes/lexer -I includes/error \
-		   -I includes/ast
+		   -I includes/ast -I includes/exec
 LIB_DIR = libft/
 LIB_FT = libft/libft.a
 LIB_HEAD = libft/includes
@@ -24,12 +24,15 @@ VPATH = srcs \
 		srcs/parser \
 		srcs/parser/check_next \
 		srcs/lexer \
-		srcs/ast
+		srcs/ast \
+		srcs/exec \
+		srcs/exec/exec_cmd
 VPATH += includes \
 		 includes/lexer \
 		 includes/parser \
 		 includes/error \
-		 includes/ast
+		 includes/ast \
+		 includes/exec
 ##########################################
 SRCS = main.c
 ######################
@@ -50,6 +53,10 @@ SRCS += check_for_and_or.c check_for_pipe.c check_for_word.c \
 	   check_for_dgreat.c check_for_sub.c
 #	AST
 SRCS += del_ast.c del_token.c create_ast.c 
+#	EXEC
+SRCS += run_ast.c exec_pipe.c exec_less.c \
+		exec_dless.c exec_great.c exec_dgreat.c exec_sub_shell.c exec_assign.c \
+		exec_word.c
 ##########################################
 HEADERS = 21sh.h \
 		  lexer.h \
@@ -58,7 +65,9 @@ HEADERS = 21sh.h \
 		  sh_error.h \
 		  check_next.h \
 		  del_ast.h \
-		  ast.h
+		  ast.h \
+		  run_ast.h \
+		  exec_cmd.h
 ##########################################
 OBJS:= $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 

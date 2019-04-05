@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 12:53:26 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/05 11:27:00 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "token_define.h"
 #include "libft.h"
 #include "sh_error.h"
+#include "exec_cmd.h"
 
 /*
 ** If a word doesn't start by a digit or a '=' and have a '=', it's a NAME
@@ -78,12 +79,14 @@ static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
 		tok->type = ASSIGN_TOK;
 		tok->level_prior = level_5;
 		tok->f_tok_next = &check_for_assign;
+		tok->f_exec = &exec_assign;
 	}
 	else
 	{
 		tok->type = WORD_TOK;
 		tok->level_prior = level_6;
 		tok->f_tok_next = &check_for_word;
+		tok->f_exec = &exec_word;
 	}
 	return (i);
 }

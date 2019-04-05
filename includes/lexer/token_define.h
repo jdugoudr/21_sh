@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 16:28:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/05 14:51:00 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_ast
 	char			*value;
 	char			**arg_cmd;
 	int				(*f_tok_next)(struct s_ast *);
+	int				(*f_exec)(struct s_ast *, int);
 	struct s_ast	*next;
 	struct s_ast	*prev;
 	struct s_ast	*left;

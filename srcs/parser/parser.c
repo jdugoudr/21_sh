@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 17:21:47 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/05 12:57:18 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "sh_error.h"
 #include "check_next.h"
 #include "ast.h"
+#include "run_ast.h"
 
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
@@ -121,6 +122,7 @@ int			parser(char *line)
 		del_ast(&token_head);
 		return (1);
 	}
+	run_ast(ast_root);//////////////////a protoger
 	del_ast(&token_head);
 	return (0);
 }

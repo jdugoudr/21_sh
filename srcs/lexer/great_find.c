@@ -6,13 +6,14 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:34:07 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 10:17:11 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/05 11:19:15 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "check_next.h"
 #include <stdlib.h>
+#include "exec_cmd.h"
 
 t_ast	*great_find(char **line, t_ast *tok, char *value)
 {
@@ -21,6 +22,7 @@ t_ast	*great_find(char **line, t_ast *tok, char *value)
 		tok->type = DGREAT_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_dgreat;
+		tok->f_exec = &exec_dgreat;
 		(*line) += 2;
 	}
 	else
@@ -28,6 +30,7 @@ t_ast	*great_find(char **line, t_ast *tok, char *value)
 		tok->type = GREAT_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_great;
+		tok->f_exec = &exec_great;
 		(*line) += 1;
 	}
 	tok->level_prior = level_4;
