@@ -6,66 +6,12 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:16:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/04 17:21:47 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/06 19:56:52 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 #include "libft.h"
-
-///////// delete this function before merge master !!
-
-void	print_token(t_ast *tok)
-{
-	t_ast *el;
-
-	el = tok;
-	while (el)
-	{
-		ft_printf("actuel token => %s\n", el->value);
-		ft_printf("actuel type => %d\n", el->type);
-		el = el->next;
-	}
-}
-////// for debug
-void	print_one(t_ast *el, int ind)
-{
-	if (!el)
-	{
-		ft_printf("print el : NULL\n");
-		return ;
-	}
-	ft_printf("%*c type : %d\n", ind, ' ', el->type);
-	ft_printf("%*c level : %d\n", ind, ' ', el->level_prior);
-	ft_printf("%*c value : %s", ind, ' ', el->value);
-	if (el->arg_cmd)
-	{
-		int i = 0;
-		ft_printf("->");
-		while(el->arg_cmd[i])
-		{
-			ft_printf("%s:", el->arg_cmd[i]);
-			i++;
-		}
-	ft_printf("(null)");
-	}
-	ft_printf("\n");
-}
-////// for debug
-void	print_ast(t_ast *el, int ind)
-{
-	if (el->left)
-	{
-		print_ast(el->left, ind + 10);
-	}
-	if (el->right)
-	{
-		print_one(el, ind);
-		print_ast(el->right, ind + 10);
-	}
-	else
-		print_one(el, ind);
-}
 
 static t_ast	*looking_token(t_ast *start, t_ast *end, short level_prior)
 {
@@ -101,6 +47,5 @@ int			create_ast(t_ast **root, t_ast *list_head)
 	if (list_head->next == NULL)
 		return (0);
 	*root = build_tree(list_head->next, NULL, level_1);
-	print_ast(*root, 0);//////// just for debug
 	return (0);
 }

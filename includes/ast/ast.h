@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:17:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/03 20:20:55 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:16:21 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ typedef struct 	s_ast_reader
 }				t_ast_reader;
 
 int		create_ast(t_ast **root, t_ast *list_head);
+t_ast	*create_token();
 
 #endif

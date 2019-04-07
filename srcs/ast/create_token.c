@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   and_find.c                                         :+:      :+:    :+:   */
+/*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:59:49 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/06 16:15:21 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/04/07 10:12:35 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/04/07 10:46:39 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "ast.h"
 #include "token_define.h"
-#include "check_next.h"
-#include "libft.h"
 #include "sh_error.h"
-#include "exec_cmd.h"
+#include "libft.h"
 
-t_ast	*and_find(char **line, t_ast *tok)
+t_ast	*create_token()
 {
-	if ((*line)[1] == '&')
+	t_ast	*new_tok;
+
+	if ((new_tok = malloc(sizeof(t_ast))) == NULL)
 	{
-		tok->type = AND_IF;
-		tok->value = NULL;
-		tok->level_prior = level_2;
-		tok->f_tok_next = &check_for_and_or;
-		tok->f_exec = &exec_and_if;
-		(*line) += 2;
+		ft_fprintf(STDERR_FILENO, INTERN_ERR);
+		return (NULL);
 	}
-	else
-	{
-		ft_fprintf(STDERR_FILENO, UNEX_SYMB, (*line)[0]);
-		free(tok);
-		tok = NULL;
-	}
-	return (tok);
+	new_tok->arg_cmd = NULL;
+	new_tok->next = NULL;
+	new_tok->prev = NULL;
+	new_tok->left = NULL;
+	new_tok->right = NULL;
+	new_tok->value = NULL;
+	new_tok->f_exec = NULL;
+	return (new_tok);
 }

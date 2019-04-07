@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_sub_shell.c                                   :+:      :+:    :+:   */
+/*   exec_semi_col.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 11:07:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/06 17:08:38 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/04/06 15:53:20 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/04/06 16:58:30 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
+#include "run_ast.h"
 
 /*
-** Here we execute a subshell.
-**
+** Here we execute el->left then el->right.
+** Whatever the result of el->left.
 */
 
-int	exec_sub_shell(t_ast *el)
+int	exec_semi_col(t_ast *el)
 {
-	(void)el;
-	ft_printf("execution of ()\n");///////////////
-	return (0);
+	run_ast(el->left);
+	return (run_ast(el->right));
 }

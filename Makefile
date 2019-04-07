@@ -6,12 +6,12 @@
 #    By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/04/05 14:55:40 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/04/07 10:15:53 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 NAME = 21sh
 HEAD_DIR = -I includes -I includes/parser -I includes/lexer -I includes/error \
@@ -52,11 +52,11 @@ SRCS += check_for_and_or.c check_for_pipe.c check_for_word.c \
 	   check_for_dless.c check_for_less.c check_for_great.c \
 	   check_for_dgreat.c check_for_sub.c
 #	AST
-SRCS += del_ast.c del_token.c create_ast.c 
+SRCS += del_ast.c del_token.c create_ast.c create_token.c
 #	EXEC
 SRCS += run_ast.c exec_pipe.c exec_less.c \
 		exec_dless.c exec_great.c exec_dgreat.c exec_sub_shell.c exec_assign.c \
-		exec_word.c
+		exec_word.c exec_semi_col.c exec_and_if.c exec_or_if.c
 ##########################################
 HEADERS = 21sh.h \
 		  lexer.h \

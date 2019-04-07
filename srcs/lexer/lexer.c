@@ -6,11 +6,12 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:35:46 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/05 11:25:48 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:15:37 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "ast.h"
 #include "libft.h"
 #include "sh_error.h"
 
@@ -52,18 +53,8 @@ t_ast			*next_token(char **line, bool *is_name)
 {
 	t_ast	*new_tok;
 
-	if ((new_tok = malloc(sizeof(t_ast))) == NULL)
-	{
-		ft_fprintf(STDERR_FILENO, INTERN_ERR);
+	if ((new_tok = create_token()) == NULL)
 		return (NULL);
-	}
-	new_tok->arg_cmd = NULL;
-	new_tok->next = NULL;
-	new_tok->prev = NULL;
-	new_tok->left = NULL;
-	new_tok->right = NULL;
-	new_tok->value = NULL;
-	new_tok->f_exec = NULL;
 	consume(line);
 	return (find_token(line, new_tok, is_name));
 }

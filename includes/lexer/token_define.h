@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/05 14:51:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/06 17:05:55 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 
 # define LEVEL_MIN	level_6
 # define LEVEL_REDI	level_4
-# define L_IS_NAME	(WORD_TOK | GREAT_TOK | DGREAT_TOK | LESS_TOK | DLESS_TOK)
+# define IS_REDIR	(GREAT_TOK | DGREAT_TOK | LESS_TOK | DLESS_TOK)
+# define L_IS_NAME	(WORD_TOK | IS_REDIR)
 
 # define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK)
 
@@ -56,7 +57,7 @@ typedef struct		s_ast
 	char			*value;
 	char			**arg_cmd;
 	int				(*f_tok_next)(struct s_ast *);
-	int				(*f_exec)(struct s_ast *, int);
+	int				(*f_exec)(struct s_ast *);
 	struct s_ast	*next;
 	struct s_ast	*prev;
 	struct s_ast	*left;

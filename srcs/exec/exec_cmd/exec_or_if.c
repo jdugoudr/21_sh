@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_sub_shell.c                                   :+:      :+:    :+:   */
+/*   exec_or_if.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 11:07:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/06 17:08:38 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/04/06 16:01:18 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/04/07 10:56:48 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "run_ast.h"
 #include "exec_cmd.h"
 
 /*
-** Here we execute a subshell.
-**
+** Here we check the return of el->left.
+** If it's 0 (execution succeed), we return.
+** Otherwise (execution failed), we run el->right.
 */
 
-int	exec_sub_shell(t_ast *el)
+int	exec_or_if(t_ast *el)
 {
-	(void)el;
-	ft_printf("execution of ()\n");///////////////
-	return (0);
+	int	r;
+
+	r = run_ast(el->left);
+	if (r)
+		return (run_ast(el->right));
+	return (r);
 }

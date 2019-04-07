@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/05 11:27:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:56:55 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_ast		*word_find(char **line, t_ast *tok, bool *is_name)
 		tok->level_prior = level_6;
 		*is_name = 1;
 		tok->f_tok_next = &check_for_name;
-	}
 	else if (is_it_redirect(line, &tok))
 		return (tok);
 	else

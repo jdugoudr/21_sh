@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:27:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/05 11:18:13 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/07 10:56:48 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,30 @@
 #include <stdlib.h>
 #include "exec_cmd.h"
 
-t_ast	*less_find(char **line, t_ast *tok, char *value)
+//static int		is_valid(char **line)
+//{
+//
+//}
+//
+//static t_ast	*aggreg_redirect(char **line, t_ast *tok)
+//{
+//	t_ast	*new_tok;
+//
+//	if (**line != '&')
+//		return (tok);
+//	if (is_valid(line))
+//	{
+//		if ((new_tok = create_token()) == NULL)
+//		{
+//			del_tok(tok);
+//			return (NULL);
+//		}
+//
+//	}
+//
+//}
+
+t_ast		*less_find(char **line, t_ast *tok, char *value)
 {
 	if ((*line)[1] == '<')
 	{

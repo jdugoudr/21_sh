@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:07:38 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/05 14:51:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/06 16:11:35 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_ast	*or_find(char **line, t_ast *tok)
 		tok->level_prior = level_2;
 		tok->value = NULL;
 		tok->f_tok_next = &check_for_and_or;
+		tok->f_exec = &exec_or_if;
 		(*line) += 2;
 	}
 	else
