@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21sh.c                                             :+:      :+:    :+:   */
+/*   tputs_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 13:27:15 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/24 14:09:34 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/03/11 19:06:12 by mdaoud            #+#    #+#             */
+/*   Updated: 2019/03/11 19:56:12 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
-#include "libft.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-int	main(void)
+int			tputs_char(int c)
 {
-	ft_printf("Hi !\nI'm suppose to be a 21sh but for now I'm just printing this stupid debug message\n");
-	ft_printf("My creaters just want to check the current Makefile by using me...\nWhat a life...\n");
+	write(STDOUT_FILENO, &c, 1);
 	return (0);
 }
+

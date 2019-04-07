@@ -41,9 +41,7 @@ char		*put_point(char *nb, size_t nb_dec_a, size_t nb_dec_b)
 {
 	char	*tmp;
 	size_t	len;
-	size_t	i;
 
-	i = 0;
 	len = ft_strlen(nb);
 	if (nb_dec_a + nb_dec_b == 0)
 		return (ft_strdup(nb));
