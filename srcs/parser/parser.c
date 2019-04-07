@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/07 10:56:49 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/07 14:39:15 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "ast.h"
 #include "run_ast.h"
 
+#include "../print_ast.c"////////////////////////
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
 ** The last token always have to be of type TYPE_END.
@@ -34,10 +35,19 @@
 
 static int	check_token(t_ast **token_head, t_ast *tok)
 {
+	int	r;
+
+	r = 0;
 	if (*token_head == NULL && (tok->type & ENA_FIRST) == 0)
-		return (1);
+		r = 1;
 	else if (*token_head && (*token_head)->f_tok_next(tok))
+		r = 1;
+	if (r)
+	{
+		ft_fprintf(STDERR_FILENO, SYNTAX_ERR);
+		del_token(&tok);
 		return (1);
+	}
 	tok->next = *token_head;
 	if ((*token_head))
 		(*token_head)->prev = tok;
@@ -45,26 +55,34 @@ static int	check_token(t_ast **token_head, t_ast *tok)
 	return (0);
 }
 
+/*
+** We take and check the next token.
+** We have to check if the new token next already point on new token
+** because redirect can create two token. Redirect token and WORD_TOKEN if
+** this kind of command are given  :  cmd >&2 
+*/
+
 static int	loop_tok(t_ast **token_head, char **line)
 {
 	t_ast	*token;
 	bool	is_name;
 
 	is_name = 1;
-	while ((token = next_token(line, &is_name)))
+	token = NULL;
+	while (token || (token = next_token(line, &is_name)))
 	{
 		if (check_token(token_head, token))
-		{
-			ft_fprintf(STDERR_FILENO, SYNTAX_ERR);
-			del_token(&token);
 			return (1);
-		}
 		if ((*token_head)->type == TYPE_END)
 			break ;
 		if ((*token_head)->type & L_IS_NAME)
 			is_name = 0;
 		else
 			is_name = 1;
+		if ((*token_head)->prev != NULL)
+			token = (*token_head)->prev;
+		else
+			token = NULL;
 	}
 	if (!token)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/06 17:01:52 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/04/07 14:39:14 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include "token_define.h"
 #include "libft.h"///////////////////////////
 
-# define READ_END	0
-# define WRITE_END	1
+# define READ_END		0
+# define WRITE_END		1
+# define CLOSE_OUTPUT	"/dev/null"
 
 int	exec_semi_col(t_ast *el);
 int	exec_and_if(t_ast *el);
