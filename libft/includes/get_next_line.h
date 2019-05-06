@@ -3,28 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marwa <marwa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/15 17:23:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/03/10 12:59:48 by jdugoudr         ###   ########.fr       */
+/*   Created: 2018/11/21 14:45:42 by mdaoud            #+#    #+#             */
+/*   Updated: 2019/01/01 04:04:25 by marwa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <unistd.h>
 # include "libft.h"
 
-# define BUFF_SIZE	50
+# define GNL_BUFF_SIZE 4095
 
-typedef struct		s_fd
-{
-	char			*str;
-	int				fd;
-}					t_fd;
-
-int					get_next_line(const int fd, char **line);
-void				del_fd(void *del);
+int		get_next_line(const int fd, char **line);
 
 #endif

@@ -1,113 +1,186 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/07 13:20:41 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/03/24 14:04:51 by jdugoudr         ###   ########.fr        #
+#    Created: 2019/04/02 12:38:55 by mdaoud            #+#    #+#              #
+#    Updated: 2019/04/07 17:00:54 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-AR = ar rcs
-CFLAGS = -Wall -Werror -Wextra
-NAME = libft.a
-HEAD_DIR = -I includes -I includes/includes_printf
-LIBS =
-VPATH = srcs \
-		srcs/srcs_printf
-VPATH += includes \
-		 includes/includes_printf
-OBJ_DIR = objs/
-HEADERS = libft.h \
-		  ldbtoa.h \
-		  dbtoa.h \
-		  get_next_line.h \
-		  ft_printf.h \
-		  printf_error.h \
-		  init_convert.h \
-		  flags.h \
-		  flag_utility.h
-################################################################################
-#####								print				 				   #####
-SRCS = ft_putchar.c ft_putchar_fd.c ft_putstr.c ft_putnstr.c ft_putstr_fd.c \
-	ft_putnstr_fd.c ft_putendl.c ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c
-#####								print utility						   #####
-SRCS += ft_isalnum.c ft_isprint.c ft_toupper.c ft_tolower.c 
-#####								number								   #####
-SRCS += ft_atoi.c ft_atoi_base.c ft_atoui_base.c ft_atoul_base.c ft_isdigit.c \
-	ft_nblen.c ft_swap.c 
-#####								maths str							   #####
-SRCS += ft_addstr.c ft_faddstr.c ft_subtrackstr.c ft_multistr.c \
-	ft_fmultistr.c ft_divstr.c ft_fdivstr.c ft_expstr.c ft_powerstr.c \
-	ft_fmultistr_utility.c
-#####								str basic							   #####
-SRCS += ft_isascii.c ft_isalpha.c ft_strtoupper.c ft_strlen.c ft_strcmp.c \
-	ft_acmpi.c ft_strncmp.c ft_strcpy.c ft_strncpy.c ft_strcat.c ft_strncat.c \
-	ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strstr.c ft_strnstr.c ft_strdup.c \
-	ft_strndup.c ft_strjoin.c ft_strjoinfree.c ft_strsub.c	ft_strtrim.c 
-#####								str utility							   #####
-SRCS += ft_strnew.c ft_strdel.c ft_tabstrdel.c ft_strclr.c ft_striter.c \
-	ft_striteri.c ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c \
-	ft_strsplit.c ft_tablen.c ft_swapstr.c ft_strfill.c ft_tabsort.c \
-	ft_strrev.c
-#####								to str								   #####
-SRCS += ft_itoa.c ft_stoa.c ft_ctoa.c ft_ltoa.c ft_lltoa.c ft_dbtoa.c \
-	ft_ldbtoa.c ft_imaxtoa.c ft_zttoa.c ft_szttoa.c \
-	ft_uitoa.c ft_uctoa.c ft_ustoa.c ft_ultoa.c ft_ulltoa.c ft_uimaxtoa.c \
-	ft_itoa_base.c ft_stoa_base.c ft_ltoa_base.c ft_zttoa_base.c \
-	ft_uitoa_base.c ft_uctoa_base.c ft_ustoa_base.c ft_ultoa_base.c \
-	ft_ulltoa_base.c ft_uimaxtoa_base.c ft_itoa_hex.c ft_ltoa_hex.c \
-	ft_zttoa_hex.c ft_uitoa_hex.c ft_ultoa_hex.c ft_ulltoa_hex.c \
-	ft_uimaxtoa_hex.c ft_zttoa_oct.c ft_uitoa_oct.c ft_uctoa_oct.c \
-	ft_ustoa_oct.c ft_ultoa_oct.c ft_ulltoa_oct.c ft_uimaxtoa_oct.c \
-	ft_lsttostr.c ft_lstjoinstr.c ft_tabtostr.c 
-#####								list								   #####
-SRCS += ft_lstnew.c ft_lstdel.c ft_lstadd.c ft_lstdelone.c ft_lstappend.c \
-	ft_lstdelstr.c ft_lstremove.c ft_lstnewstr.c
-#####								list utility						   #####
-SRCS += ft_lstprint.c ft_splittolst.c ft_lstlen.c ft_strtolst.c ft_lstiter.c \
-	ft_lstmap.c 
-#####								memory								   #####
-SRCS += ft_memalloc.c ft_memdel.c ft_memset.c ft_bzero.c ft_memmove.c \
-	ft_memcpy.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memprint.c
-#####								utility								   #####
-SRCS += ft_ftoa_utility.c ft_faddstr_utility.c  get_next_line.c \
-		ft_tabstr_realloc.c
-################################################################################
-#####								printf								   #####
-SRCS += ft_printf.c ft_fprintf.c convert_dcs.c convert_c.c convert_dd.c \
-		convert_prc.c convert_p.c convert_x.c convert_u.c convert_o.c \
-		convert_f.c convert_utility.c printf_error.c init_convert.c \
-		init_flags.c flag_blank.c flag_less.c flag_minisize.c \
-		flag_more.c flag_point.c flag_point_utility.c flag_zero.c \
-		flag_l.c flag_ll.c flag_lll.c flag_hh.c flag_h.c flag_diese.c \
-		flag_z.c flag_j.c flag_star.c flag_utility.c
-################################################################################
-OBJS:= $(addprefix $(OBJ_DIR),$(SRCS:.c=.o))
-RM= rm -rf
+NAME			=	libft.a
+CC				= 	gcc
+CFlAGS			=	-Wall -Werror -Wextra
+HEADERS			=	includes
+
+SRC				=	./src
+
+FT_PRINTF_DIR	=	ft_printf
+FT_PRINTF_FILES =	buff_flush.c \
+					buff_pad.c \
+					buff_put.c \
+					dispatch_handlers.c \
+					ft_printf.c \
+					handler_char.c \
+					handler_float.c \
+					handler_int.c \
+					handler_pointer.c \
+					handler_string.c \
+					handler_unsigned.c \
+					parse_format.c \
+					process_plus.c \
+					process_precision.c \
+					process_sharp.c \
+					process_space.c \
+					process_zero.c \
+					set_flag.c \
+					set_length.c
+
+FT_DPRINTF_DIR	=	ft_dprintf
+FT_DPRINTF_FILES =	buff_flush.c \
+					buff_pad.c \
+					buff_put.c \
+					dispatch_handlers.c \
+					ft_dprintf.c \
+					handler_char.c \
+					handler_float.c \
+					handler_int.c \
+					handler_pointer.c \
+					handler_string.c \
+					handler_unsigned.c \
+					parse_dformat.c \
+					process_plus.c \
+					process_precision.c \
+					process_sharp.c \
+					process_space.c \
+					process_zero.c \
+					set_flag.c \
+					set_length.c
+
+GNL_DIR			=	GNL
+GNL_FILES		=	get_next_line.c
+
+IO_DIR		 	= 	IO
+IO_FILES		=	ft_putchar_fd.c \
+					ft_putchar.c \
+					ft_putendl.c \
+					ft_putnbr_fd.c \
+					ft_putnbr.c \
+					ft_putnbrln.c \
+					ft_putstr_fd.c \
+					ft_putstr.c \
+					ft_putstrln.c \
+					ft_putstrln.c
+
+MEMORY_DIR		=	Memory
+MEMORY_FILES	=	ft_bzero.c \
+					ft_memalloc.c \
+					ft_memccpy.c \
+					ft_memchr.c \
+					ft_memcmp.c \
+					ft_memcpy.c \
+					ft_memdel.c \
+					ft_memmove.c \
+					ft_memset.c
+
+STRING_DIR		=	String
+STRING_FILES	=	ft_atoi.c \
+					ft_atol.c \
+					ft_ftoa.c \
+					ft_isalnum.c \
+					ft_isalpha.c \
+					ft_isascii.c \
+					ft_isdigit.c \
+					ft_isprint.c \
+					ft_isspace.c \
+					ft_itoa_base.c \
+					ft_itoa.c \
+					ft_ltoa_base.c \
+					ft_ltoa.c \
+					ft_strcat.c \
+					ft_strchr.c \
+					ft_strclr.c \
+					ft_strcmp.c \
+					ft_strcontains.c \
+					ft_strcpy.c \
+					ft_strdel.c \
+					ft_strdup_free.c \
+					ft_strdup.c \
+					ft_strequ.c \
+					ft_striter.c \
+					ft_striteri.c \
+					ft_strjoin.c \
+					ft_strlcat.c \
+					ft_strlen.c \
+					ft_strmap.c \
+					ft_strmapi.c \
+					ft_strncat.c \
+					ft_strncmp.c \
+					ft_strncpy.c \
+					ft_strndup.c \
+					ft_strnequ.c \
+					ft_strnew.c \
+					ft_strnstr.c \
+					ft_strrchr.c \
+					ft_strreplace.c \
+					ft_strrev.c \
+					ft_strsplit.c \
+					ft_strstr.c \
+					ft_strsub.c \
+					ft_strtok.c \
+					ft_strtrim.c \
+					ft_tabstrdel.c \
+					ft_tolower.c \
+					ft_toupper.c \
+					ft_ultoa.c
+
+MATH_DIR		=	Math
+MATH_FILES		=	ft_abs.c \
+					ft_pow.c \
+					ft_max.c \
+					ft_min.c
+					
+
+OBJ_DIR			=	./objs
+
+OBJ				=	$(FT_PRINTF_FILES:%.c=$(OBJ_DIR)/$(FT_PRINTF_DIR)/%.o) \
+					$(FT_DPRINTF_FILES:%.c=$(OBJ_DIR)/$(FT_DPRINTF_DIR)/%.o) \
+					$(GNL_FILES:%.c=$(OBJ_DIR)/$(GNL_DIR)/%.o) \
+					$(IO_FILES:%.c=$(OBJ_DIR)/$(IO_DIR)/%.o) \
+					$(MEMORY_FILES:%.c=$(OBJ_DIR)/$(MEMORY_DIR)/%.o) \
+					$(STRING_FILES:%.c=$(OBJ_DIR)/$(STRING_DIR)/%.o) \
+					$(MATH_FILES:%.c=$(OBJ_DIR)/$(MATH_DIR)/%.o)
+
+ALL_DIR			=	$(OBJ_DIR) \
+					$(OBJ_DIR)/$(FT_PRINTF_DIR) \
+					$(OBJ_DIR)/$(FT_DPRINTF_DIR) \
+					$(OBJ_DIR)/$(GNL_DIR) \
+					$(OBJ_DIR)/$(IO_DIR) \
+					$(OBJ_DIR)/$(MEMORY_DIR) \
+					$(OBJ_DIR)/$(STRING_DIR) \
+					$(OBJ_DIR)/$(MATH_DIR)
 
 all: $(NAME)
-	@:
 
-$(NAME): $(OBJ_DIR) $(OBJS)
-	@$(AR) $@ $(OBJS)
+$(NAME): $(ALL_DIR) $(OBJ)
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME) 
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
-	@echo $<
-	@$(CC) $(CFLAGS) -c $< -o $@ $(HEAD_DIR)
+$(ALL_DIR):
+	mkdir -p $@
 
-$(OBJ_DIR):
-	@mkdir $@
+$(OBJ_DIR)/%.o: $(SRC)/%.c
+	$(CC) $(CFlAGS) -o $@ -c $< -I$(HEADERS)
 
 clean:
-	@$(RM) $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@$(RM) $(NAME)
+	rm -f $(NAME)
 
-re: fclean all
+re: fclean
+	$(MAKE)
 
 .PHONY: all clean fclean re
