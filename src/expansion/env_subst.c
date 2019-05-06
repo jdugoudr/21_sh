@@ -1,0 +1,78 @@
+
+#include "sh_error.h"
+#include "libft.h"
+
+/*
+** Here we extract a variable name from string ($VAR1$VAR2),
+** looking for it in env, and replace it if exist. If it not, the variable is
+** remove and ignored
+*/
+
+static int	replace_in(char **str, char *tmp, int i, int j)
+{
+	char	*new;
+	size_t	len;
+	size_t	len_add;
+
+	if (!tmp)
+		len_add = 0;
+	else
+		len_add = ft_strlen(tmp);
+	len = ft_strlen(*str) - j + len_add;
+	if ((new = ft_strnew(len)) == NULL)
+	{
+		free(*str);
+		*str = NULL;
+		return (-1);
+	}
+	(*str)[i] = '\0';
+	ft_strcat(new, *str);
+	if (tmp)
+		ft_strcat(new, tmp);
+	ft_strcat(new, (*str) + i + j);
+	free(*str);
+	*str = new;
+	return (i + len_add);
+}
+
+static char	*replace_each(int i, char *str, char until)
+{
+	int		j;
+	char	c;
+	char	*tmp;
+
+	while (str && str[i])
+	{
+		j = i + 1;
+		while (str[j] && str[j] != until)
+			j++;
+		c = str[j];
+		str[j] = '\0';
+		if ((tmp = getenv(str + i + 1)) && !(tmp = ft_strdup(tmp)))//remplacer getenv
+		{
+			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+			return (NULL);
+		}
+		str[j] = c;
+		if ((i = replace_in(&str, tmp, i, j - i)) < 0)
+			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		free(tmp);
+	}
+	return (str);
+}
+
+char		*env_subst(char *str, char until)
+{
+	int		i;
+
+	i = 0;
+	if (!str)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (NULL);
+	}
+	while (str && str[i] && str[i] != until)
+		i++;
+	str = replace_each(i, str, until);
+	return (str);
+}
