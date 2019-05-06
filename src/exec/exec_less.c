@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:00:55 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/02 18:34:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:47:43 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <fcntl.h>
 
 /*
-** Here we redirect el->right file int el->left input.
+** Here we redirect el->right file in el->left input.
 ** We save the current input, dup the new input in the current input,
 ** execute the command, and then set again the input to the save one.
 */

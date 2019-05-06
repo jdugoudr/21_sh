@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_subst.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/05/06 18:37:34 by jdugoudr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "sh_error.h"
 #include "libft.h"
@@ -35,29 +46,26 @@ static int	replace_in(char **str, char *tmp, int i, int j)
 	return (i + len_add);
 }
 
-static char	*replace_each(int i, char *str, char until)
+static char	*replace_each(int *i, char *str, char until)
 {
 	int		j;
 	char	c;
 	char	*tmp;
 
-	while (str && str[i])
+	j = *i + 1;
+	while (str[j] && str[j] != until && str[j] != ' ' && str[j] != '\t')
+		j++;
+	c = str[j];
+	str[j] = '\0';
+	if ((tmp = getenv(str + *i + 1)) && !(tmp = ft_strdup(tmp)))//remplacer getenv
 	{
-		j = i + 1;
-		while (str[j] && str[j] != until)
-			j++;
-		c = str[j];
-		str[j] = '\0';
-		if ((tmp = getenv(str + i + 1)) && !(tmp = ft_strdup(tmp)))//remplacer getenv
-		{
-			ft_dprintf(STDERR_FILENO, INTERN_ERR);
-			return (NULL);
-		}
-		str[j] = c;
-		if ((i = replace_in(&str, tmp, i, j - i)) < 0)
-			ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		free(tmp);
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (NULL);
 	}
+	str[j] = c;
+	if ((*i = replace_in(&str, tmp, *i, j - *i)) < 0)
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+	free(tmp);
 	return (str);
 }
 
@@ -71,8 +79,11 @@ char		*env_subst(char *str, char until)
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		return (NULL);
 	}
-	while (str && str[i] && str[i] != until)
-		i++;
-	str = replace_each(i, str, until);
+	while (str && str[i])
+	{
+		while (str && str[i] && str[i] != until)
+			i++;
+		str = replace_each(&i, str, until);
+	}
 	return (str);
 }

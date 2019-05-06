@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/02 19:09:16 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/06 13:54:10 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define READ_END		0
 # define WRITE_END		1
 # define CLOSE_OUTPUT	"/dev/null"
+# define HERE_DOC		"/tmp/heredoc_21"
 # define NB_BUILT		5
 
 typedef struct	s_built
