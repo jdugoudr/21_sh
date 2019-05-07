@@ -6,12 +6,13 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/07 11:07:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/07 15:28:33 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token_define.h"
 #include "ast.h"
+#include "sh_error.h"
 #include "libft.h"
 
 //#include "../print_ast.c"/////////////////
@@ -78,6 +79,26 @@ static int	convert_var(char *str, t_ast *old, t_ast **new)
 	return (r);
 }
 
+static int	convert_tild(char **str)
+{
+	char	*tmp;
+
+	tmp = getenv("HOME");///////////////////
+	if (tmp == NULL)
+		(*str)[0] = '\0';
+	else
+	{
+		if ((tmp = ft_strdup(tmp)) == NULL)
+		{
+			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+			return (1);
+		}
+		free(*str);
+		*str = tmp;
+	}
+	return (0);
+}
+
 static int	check_var(t_ast **el)
 {
 	t_ast	*new;
@@ -98,6 +119,8 @@ static int	check_var(t_ast **el)
 		del_token(el);
 		*el = new;
 	}
+	else if (ft_strcmp((*el)->value, "~") == 0)
+		r = convert_tild(&((*el)->value));
 	return (r);
 }
 
@@ -108,7 +131,7 @@ int			expansion_tok(t_ast *head)
 	el = head->next;
 	while (el)
 	{
-		if (el->type & WORD_TOK && el->prev->type != DLESS_TOK)
+		if (el->type & WORD_TOK && (!(el->next) || el->next->type != DLESS_TOK))
 		{
 			if (check_var(&el))
 				return (1);
