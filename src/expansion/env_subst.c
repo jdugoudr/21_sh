@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/06 18:37:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/07 11:10:58 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static char	*replace_each(int *i, char *str, char until)
 	char	*tmp;
 
 	j = *i + 1;
-	while (str[j] && str[j] != until && str[j] != ' ' && str[j] != '\t')
+	while (str[j] && str[j] != until && str[j] != ' '
+			&& str[j] != '\t' && str[j] != '\n')
 		j++;
 	c = str[j];
 	str[j] = '\0';
@@ -69,7 +70,7 @@ static char	*replace_each(int *i, char *str, char until)
 	return (str);
 }
 
-char		*env_subst(char *str, char until)
+char		*env_subst(char *str)
 {
 	int		i;
 
@@ -81,9 +82,10 @@ char		*env_subst(char *str, char until)
 	}
 	while (str && str[i])
 	{
-		while (str && str[i] && str[i] != until)
+		while (str && str[i] && str[i] != '$')
 			i++;
-		str = replace_each(&i, str, until);
+		if (str && str[i])
+			str = replace_each(&i, str, '$');
 	}
 	return (str);
 }

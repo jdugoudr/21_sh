@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/06 16:38:19 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/07 11:07:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	convert_var(char *str, t_ast *old, t_ast **new)
 	int		r;
 
 	r = 0;
-	if ((new_str = env_subst(ft_strdup(str), '$')) == NULL)
+	if ((new_str = env_subst(ft_strdup(str))) == NULL)
 		return (1);
 	tmp = new_str;
 	if (split_arg(&tmp, &arg, old) == 0)
