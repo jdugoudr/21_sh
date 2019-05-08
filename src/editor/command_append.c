@@ -14,9 +14,11 @@
 
 void			command_append(char *str, int rewrite_flag)
 {
+	if (rewrite_flag)
+		command_erase();
 	ft_strcat(g_editor->cmd, str);
 	g_editor->cmd_sze = ft_strlen(g_editor->cmd);
 	g_editor->cur_pos = ft_strlen(g_editor->cmd);
 	if (rewrite_flag)
-		rewrite_lines();
+		command_write();
 }

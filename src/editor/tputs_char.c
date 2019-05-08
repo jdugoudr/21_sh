@@ -6,16 +6,17 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:06:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/03/11 19:56:12 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/24 18:15:08 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "shell21.h"
 
 int			tputs_char(int c)
 {
-	write(STDOUT_FILENO, &c, 1);
+	write(g_editor->tty_fd, &c, 1);
 	return (0);
 }
 

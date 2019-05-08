@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 15:06:45 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/03/28 13:44:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/23 15:38:29 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void			keypress_delete(void)
 {
 	if (g_editor->cmd_sze != 0 && g_editor->cur_pos != g_editor->cmd_sze)
 	{
+		command_erase();
 		shift_string_left();
 		g_editor->cmd_sze--;
-		rewrite_lines();
+		command_write();
 	}
 }

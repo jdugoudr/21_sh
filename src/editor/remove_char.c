@@ -33,7 +33,7 @@ void			remove_char(void)
 	{
 		g_editor->cmd_sze--;
 		shift_string_left();
-		rewrite_lines();
+		command_write();
 		move_cursor_left();
 	}
 }

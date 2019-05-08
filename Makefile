@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/02 09:52:28 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/05/08 17:11:54 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,9 @@ SRC				+=		builtin_cd.c builtin_echo.c builtin_env.c builtin_setenv.c builtin_un
 SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_set.c \
 					detect_input.c display_prompt.c free_shell.c ft_exit.c init_signal_handlers.c \
 					init_term.c move_cursor_home.c move_cursor_left.c move_cursor_right.c remove_char.c \
-					restore_default_conf.c rewrite_lines.c set_prompt.c tputs_char.c
+					restore_default_conf.c command_write.c prompt_set.c set_terminfo.c tputs_char.c \
+					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c exec_cmd.c \
+					write_in_visual.c
 
 ##################################################
 ##########			EXEC				##########
@@ -77,10 +79,11 @@ SRC				+=	run_ast.c exec_pipe.c exec_less.c \
 ##################################################
 ##########			KEYPRESS			##########
 ##################################################
-SRC				+=	dispatch_keypress.c keypress_backspace.c keypress_ctrl_l.c \
-					keypress_ctrl_r.c keypress_ctrl_u.c keypress_delete.c \
-					keypress_downarrow.c keypress_end.c keypress_home.c keypress_leftarrow.c \
-					keypress_rightarrow.c keypress_shift_down.c keypress_shift_left.c keypress_shift_right.c \
+SRC				+=	dispatch_keypress.c keypress_backspace.c keypress_ctrl_b.c \
+					keypress_ctrl_k.c keypress_ctrl_l.c keypress_ctrl_p.c \
+					start_search_mode.c keypress_ctrl_u.c keypress_delete.c \
+					keypress_downarrow.c keypress_end.c keypress_home.c  start_visual_mode.c \
+					keypress_shift_down.c keypress_shift_left.c keypress_shift_right.c \
 					keypress_shift_up.c keypress_uparrow.c
 
 ##################################################
@@ -105,9 +108,9 @@ SRC				+=	env_subst.c expansion_tok.c
 ##################################################
 ##########			UTILS				##########
 ##################################################
-SRC				+=	add_env_var.c change_directory.c check_cmd_format.c clear_buf.c display_history.c \
+SRC				+=	add_env_var.c change_directory.c check_cmd_format.c display_history.c \
 					free_string_array.c get_count.c get_env_value.c get_var_ind.c history_append.c \
-					set_last_history_entry.c
+					set_last_history_entry.c free_editor.c
 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

@@ -14,10 +14,12 @@
 
 void			command_set(char *str, int rewrite_flag)
 {
+	if (rewrite_flag)
+		command_erase();
 	command_reset();
 	ft_strcpy(g_editor->cmd, str);
 	g_editor->cur_pos = ft_strlen(str);
 	g_editor->cmd_sze = ft_strlen(str);
 	if (rewrite_flag)
-		rewrite_lines();
+		command_write();
 }

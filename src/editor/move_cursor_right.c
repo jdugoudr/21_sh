@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 17:53:27 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/03/28 13:44:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/23 15:52:34 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void		move_cursor_right(void)
 {
-	if (g_editor->col == g_editor->win_width - 1)
+	if (g_editor->cur_pos == g_editor->cmd_sze)
+		return ;
+	if (g_editor->col == g_editor->win_width - 1 ||
+		g_editor->cmd[g_editor->cur_pos] == '\n')
 	{
 		tputs(tgetstr("do", NULL), 1, tputs_char);
 		g_editor->col = 0;
 		g_editor->line++;
-		if (g_editor->cur_pos == g_editor->cmd_sze)
-			g_editor->max_line++;
+		g_editor->max_line++;
 	}
 	else
 	{

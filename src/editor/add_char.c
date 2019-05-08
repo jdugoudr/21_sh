@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 16:38:49 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/03/30 15:24:12 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/23 15:50:08 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ void			add_char(char c)
 {
 	if (g_editor->cmd_sze < ARG_MAX)
 	{
+		command_erase();
 		shift_string_right();
 		g_editor->cmd[g_editor->cur_pos] = c;
 		g_editor->cmd_sze++;
-		rewrite_lines();
+		command_write();
 		move_cursor_right();
 	}
 }

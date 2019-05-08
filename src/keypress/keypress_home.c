@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:22:09 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/03/28 13:44:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/24 17:12:31 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 void			keypress_home(void)
 {
-	size_t	i;
+	// size_t	i;
 
-	i = g_editor->line;
-	while (i > 0)
-	{
-		tputs(tgetstr("up", NULL), 1, tputs_char);
-		i--;
-	}
-	tputs(tgetstr("cr", NULL), 1, tputs_char);
-	i = 0;
-	while (i < g_editor->offset)
-	{
-		tputs(tgetstr("nd", NULL), 1, tputs_char);
-		i++;
-	}
-	g_editor->line = 0;
-	g_editor->col = g_editor->offset;
+	// i = g_editor->line;
+	// while (i > 0)
+	// {
+	// 	tputs(tgetstr("up", NULL), 1, tputs_char);
+	// 	i--;
+	// }
+	// tputs(tgetstr("cr", NULL), 1, tputs_char);
+	// i = 0;
+	// while (i < g_editor->offset)
+	// {
+	// 	tputs(tgetstr("nd", NULL), 1, tputs_char);
+	// 	i++;
+	// }
+	// g_editor->line = 0;
+	// g_editor->col = g_editor->offset;
+	// g_editor->cur_pos = 0;
+	command_erase();
 	g_editor->cur_pos = 0;
+	command_write();
 }
 
 // void			keypress_home(void)

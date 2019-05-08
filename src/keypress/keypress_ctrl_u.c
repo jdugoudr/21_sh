@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:41:21 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/03/30 18:47:42 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/11 17:28:53 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void			keypress_ctrl_u(void)
 {
 	command_erase();
 	command_reset();
-	rewrite_lines();
+	command_write();
 }

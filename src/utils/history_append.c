@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 17:51:35 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/03/29 16:37:37 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/08 17:40:20 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell21.h"
+#include "sh_error.h"
 
 /*
 ** Append a command to the history.
@@ -39,7 +40,7 @@ void			history_append(t_shell *shell, char *name)
 	if (!to_add(shell, name))
 		return ;
 	if ((node = malloc(sizeof(t_history))) == NULL)
-		ft_exit("malloc", 1, EXIT_FAILURE);
+		ft_exit(INTERN_ERR, 1, 1, EXIT_FAILURE);
 	ft_strcpy(node->name, name);
 	shell->hist_ptr = node;
 	node->next = NULL;
