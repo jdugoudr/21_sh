@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 18:26:32 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/08 19:21:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 
-static void		init_env(t_shell *sh, char **environ)
+static void		init_env(char **environ)
 {
 	char	**env;
 	int		count;
@@ -40,26 +40,24 @@ static void		init_env(t_shell *sh, char **environ)
 		}
 		count++;
 	}
-	sh->env = env;
+	g_shell->env = env;
 }
 
 static t_shell		*init_shell(char **enviro)
 {
-	t_shell	*sh;
-
-	if ((sh = malloc(sizeof(t_shell))) == NULL)
+	if ((g_shell = malloc(sizeof(t_shell))) == NULL)
 		ft_exit(INTERN_ERR, 0, 1, EXIT_FAILURE);
-	sh->hist = NULL;
-	sh->hist_ptr = NULL;
+	g_shell->hist = NULL;
+	g_shell->hist_ptr = NULL;
 	if (enviro == NULL || *enviro == NULL)
 	{
-		free(sh);
+		free(g_shell);
 		ft_exit("No environment specified.", 0, 1, EXIT_FAILURE);
 	}
 	else
-		init_env(sh, enviro);
+		init_env(enviro);
 
-	return (sh);
+	return (g_shell);
 }
 
 static void		init_editor(void)
@@ -87,19 +85,16 @@ static void		init_editor(void)
 
 int				main(int argc, char **argv, char **enviro)
 {
-	t_shell	*shell;
-
 	(void)argv;
 	(void)argc;
 	init_editor();
-	shell = init_shell(enviro);
+	g_shell = init_shell(enviro);
 	init_term();
 	init_signal_handlers();
 	while(1)
 	{
 		display_prompt();
-		detect_input(shell);
+		detect_input();
 	}
-	ft_printf("HI mdaoud\n");
 	return (0);
 }

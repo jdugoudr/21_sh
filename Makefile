@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/08 17:11:54 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/08 19:22:14 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 					detect_input.c display_prompt.c free_shell.c ft_exit.c init_signal_handlers.c \
 					init_term.c move_cursor_home.c move_cursor_left.c move_cursor_right.c remove_char.c \
 					restore_default_conf.c command_write.c prompt_set.c set_terminfo.c tputs_char.c \
-					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c exec_cmd.c \
+					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c \
 					write_in_visual.c
 
 ##################################################

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 14:15:34 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/08 19:19:22 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ typedef struct s_history	t_history;
 /*
 ** We use a global variable for propre handling of signals.
 */
-t_editor					*g_editor;
+t_editor				*g_editor;
+t_shell					*g_shell;
 
 void					add_char(char c);
 void					clear_string(char *str);
@@ -109,9 +110,8 @@ void					command_erase(void);
 void					command_reset();
 void					command_set(char *str, int rewrite_flag);
 void					command_write(void);
-void					detect_input(t_shell *shell);
+void					detect_input(void);
 void					display_prompt(void);
-void					exec_cmd(t_shell *shell);	// delete
 void					get_editor_dim(void);
 void					init_signal_handlers(void);
 void					move_cursor_home(void);
@@ -123,7 +123,7 @@ int						quotes_balanced(void);
 void					remove_char(void);
 void					restore_default_conf(void);
 void					set_terminfo(void);
-void					start_search_mode(t_shell *shell);
+void					start_search_mode(void);
 void					start_visual_mode(void);
 void					init_term(void);
 int						tputs_char(int c);
@@ -134,7 +134,7 @@ void					write_in_visual(size_t start, size_t end);
 ** Keypresses
 */
 
-int						dispatch_keypress(t_shell *shell, unsigned long val);
+int						dispatch_keypress(unsigned long val);
 void					keypress_backspace(void);
 void					keypress_ctrl_b(size_t s, size_t e);
 void					keypress_ctrl_k(size_t s, size_t e);
@@ -142,14 +142,14 @@ void					keypress_ctrl_l(void);
 void					keypress_ctrl_p(void);
 void					keypress_ctrl_u(void);
 void					keypress_delete(void);
-void					keypress_downarrow(t_shell *shell);
+void					keypress_downarrow(void);
 void					keypress_end(void);
 void					keypress_home(void);
 void					keypress_shift_down(void);
 void					keypress_shift_left();
 void					keypress_shift_right(void);
 void					keypress_shift_up(void);
-void					keypress_uparrow(t_shell *shell);
+void					keypress_uparrow(void);
 
 /*
 ** Utils
@@ -157,16 +157,16 @@ void					keypress_uparrow(t_shell *shell);
 void					add_env_var(char *key, char *val);
 void					change_directory(char *path, int print_dir);
 int						check_cmd_format(char **cmd, size_t param_num);
-void					display_history(t_shell *shell);
+void					display_history(void);
 void					free_editor(void);
 void					free_string_array(char **array);
-void					free_shell(t_shell *sh);
+void					free_shell(void);
 void					ft_exit(char *msg, int rstr, int free_fl, int ex_val);
 size_t					get_count(char **t);
 char					*get_env_value(char *key);
 int						get_env_ind(char *env_var);
-void					history_append(t_shell *shell, char *name);
-void					set_last_history_entry(t_shell *shell);
+void					history_append(char *name);
+void					set_last_history_entry(void);
 
 
 /*
@@ -175,7 +175,7 @@ void					set_last_history_entry(t_shell *shell);
 void					builtin_cd(char **cmd);
 void					builtin_echo(char **cmd);
 void					builtin_env(void);
-void					builtin_history(t_shell *shell);
+void					builtin_history(void);
 void					builtin_setenv(char **cmd);
 void					builtin_unsetenv(char **cmd);
 

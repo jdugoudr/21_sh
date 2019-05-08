@@ -12,28 +12,28 @@
 
 #include "shell21.h"
 
-static int		get_search_entry(char *str, t_shell *shell, int fresh_search)
+static int		get_search_entry(char *str, int fresh_search)
 {
 	t_history	*tmp;
 
-	if (shell->hist == NULL || ft_strequ(str, ""))
+	if (g_shell->hist == NULL || ft_strequ(str, ""))
 		return (0);
-	if (fresh_search || shell->hist_ptr == NULL)
-		set_last_history_entry(shell);
-	else if (shell->hist_ptr != NULL && shell->hist_ptr != NULL)
+	if (fresh_search || g_shell->hist_ptr == NULL)
+		set_last_history_entry();
+	else if (g_shell->hist_ptr != NULL && g_shell->hist_ptr != NULL)
 	{
-		tmp = shell->hist_ptr;
-		shell->hist_ptr = shell->hist_ptr->prev;
+		tmp = g_shell->hist_ptr;
+		g_shell->hist_ptr = g_shell->hist_ptr->prev;
 	}
-	while (shell->hist_ptr != NULL)
+	while (g_shell->hist_ptr != NULL)
 	{
-		if (ft_strstr(shell->hist_ptr->name, str) != NULL)
+		if (ft_strstr(g_shell->hist_ptr->name, str) != NULL)
 			return (1);
-		shell->hist_ptr = shell->hist_ptr->prev;
+		g_shell->hist_ptr = g_shell->hist_ptr->prev;
 	}
 	if (!fresh_search && ft_strstr(tmp->name, str) != NULL)
 	{
-		shell->hist_ptr = tmp;
+		g_shell->hist_ptr = tmp;
 		return (1);
 	}
 	return (0);
@@ -57,14 +57,14 @@ static int		process_keypress(unsigned int val)
 		return (2);
 }
 
-static void		exit_search_mode(t_shell *shell, char *prmpt, char *search_str)
+static void		exit_search_mode(char *prmpt, char *search_str)
 {
 	prompt_set(prmpt);
-	if (shell->hist_ptr == NULL || search_str[0] == '\0')
+	if (g_shell->hist_ptr == NULL || search_str[0] == '\0')
 		command_reset();
 	else
-		command_set(shell->hist_ptr->name, 0);
-	shell->hist_ptr = NULL;
+		command_set(g_shell->hist_ptr->name, 0);
+	g_shell->hist_ptr = NULL;
 	command_erase();
 	command_write();
 	return ;
@@ -82,7 +82,7 @@ static void		init_search(char buf[], char prmpt[], char srch[], char tmp[])
 	command_write();
 }
 
-void			start_search_mode(t_shell *shell)
+void			start_search_mode(void)
 {
 	char	prmpt_backup[PATH_MAX];
 	char	tmp[ARG_MAX];
@@ -97,11 +97,11 @@ void			start_search_mode(t_shell *shell)
 		fresh_search = process_keypress(*(unsigned int *)buf);
 		clear_string(tmp);
 		if (fresh_search == 2)
-			return (exit_search_mode(shell, prmpt_backup, search_str));
+			return (exit_search_mode(prmpt_backup, search_str));
 		ft_strcpy(search_str, g_editor->cmd);
 		command_append("': ", 1);
-		if (get_search_entry(search_str, shell, fresh_search))
-			command_append(shell->hist_ptr->name, 1);
+		if (get_search_entry(search_str, fresh_search))
+			command_append(g_shell->hist_ptr->name, 1);
 		ft_strcpy(tmp, g_editor->cmd);
 		command_set(search_str, 0);
 		ft_memset(buf, '\0', READ_BUF_SZE);

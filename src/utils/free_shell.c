@@ -6,32 +6,32 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:37:29 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/24 18:11:15 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/08 19:18:15 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shell21.h>
 #include <stdlib.h>
 
-void			free_shell(t_shell *sh)
+void			free_shell(void)
 {
 	size_t		i;
 	t_history	*tmp;
 
-	if (sh->env != NULL)
+	if (g_shell->env != NULL)
 	{
 		i = 0;
-		while (sh->env[i] != NULL)
+		while (g_shell->env[i] != NULL)
 		{
-			free(sh->env[i]);
+			free(g_shell->env[i]);
 			i++;
 		}
-		free(sh->env);
+		free(g_shell->env);
 	}
-	while (sh->hist != NULL)
+	while (g_shell->hist != NULL)
 	{
-		tmp = sh->hist->next;
-		free(sh->hist);
-		sh->hist = tmp;
+		tmp = g_shell->hist->next;
+		free(g_shell->hist);
+		g_shell->hist = tmp;
 	}
 }
