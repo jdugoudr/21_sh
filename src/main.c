@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 17:10:44 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/08 18:26:32 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ int				main(int argc, char **argv, char **enviro)
 		display_prompt();
 		detect_input(shell);
 	}
+	ft_printf("HI mdaoud\n");
 	return (0);
 }
