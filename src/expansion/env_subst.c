@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/07 14:30:26 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 11:39:51 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,16 @@ static char	*replace_each(int *i, char *str, char until)
 		j++;
 	c = str[j];
 	str[j] = '\0';
-	if ((tmp = getenv(str + *i + 1)) && !(tmp = ft_strdup(tmp)))//remplacer getenv
-	{
-		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		return (NULL);
-	}
+	tmp = getenv(str + *i + 1);
+//	if ((tmp = getenv(str + *i + 1)) && !(tmp = ft_strdup(tmp)))//remplacer getenv
+//	{
+//		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+//		return (NULL);
+//	}
 	str[j] = c;
 	if ((*i = replace_in(&str, tmp, *i, j - *i)) < 0)
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-	free(tmp);
+//	free(tmp);
 	return (str);
 }
 
@@ -95,7 +96,7 @@ char		*env_subst(char *str)
 	{
 		while (str[i] && str[i] != '$')
 			i++;
-		if (str[i] && str[i])
+		if (str[i])
 		{
 //			if (str[i + 1] == '?' || str[i + 1] == '$')
 //				str = spec_char(&i, str, str[i + 1]);

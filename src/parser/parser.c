@@ -6,13 +6,14 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/07 15:28:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:48:16 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
 #include "libft.h"
+#include "../print_ast.c"
 #include "sh_error.h"
 #include "ast.h"
 
@@ -45,7 +46,9 @@ int				parser(char *line, t_shell *shell)
 				|| create_ast(&ast_root, token_head))
 			ret = 1;
 		else
+		{
 			run_ast(ast_root, shell, token_head);
+		}
 	}
 	del_ast(&token_head);
 	return (ret);

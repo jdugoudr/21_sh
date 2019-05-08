@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/02 09:52:28 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/05/08 11:35:43 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ SRC				+=	env_subst.c expansion_tok.c
 ##################################################
 SRC				+=	add_env_var.c change_directory.c check_cmd_format.c clear_buf.c display_history.c \
 					free_string_array.c get_count.c get_env_value.c get_var_ind.c history_append.c \
-					set_last_history_entry.c
+					set_last_history_entry.c split_whitespaces.c
 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

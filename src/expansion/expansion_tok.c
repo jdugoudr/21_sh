@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/07 15:28:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:48:10 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,60 +23,55 @@
 ** If yes we split the the string and add tokens in the list.
 */
 
-static int		split_arg(char **str, t_ast **el, t_ast *old)
+static int	init_convert(char ***tmp, char **str, int *count, t_ast **new)
 {
-	int		i;
-	char	*tmp;
-	char	c;
+	char	*new_str;
 
-	tmp = *str;
-	i = 0;
-	while (tmp[i] != ' ' && tmp[i] != '\t' && tmp[i] != '\0')
-		i++;
-	c = tmp[i];
-	tmp[i] = '\0';
-	if (i == 0)
-	{
-		*str = NULL;
-		*el = NULL;
-		return (0);
-	}
-	if ((*el = create_tok_el(tmp, old->prev, old->next)) == NULL)
+	if ((new_str = env_subst(ft_strdup(*str))) == NULL)
 		return (1);
-	tmp[i] = c;
-	while (tmp[i] == ' ' || tmp[i] == '\t')
-		i++;
-	*str = tmp + i;
+	if ((*tmp = split_whitespaces(new_str)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		free(new_str);
+		ft_strdel(str);
+		return (1);
+	}
+	if ((*tmp)[0] == NULL)
+		*new = NULL;
+	else if ((*new = create_tok_el((*tmp)[0], NULL, NULL)) == NULL)
+	{
+		ft_tabstrdel(tmp, 0);
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
+	}
+	else
+		*count = 1;
+	free(new_str);
 	return (0);
 }
 
-static int	convert_var(char *str, t_ast *old, t_ast **new)
+static int	convert_var(char *str, int *count, t_ast **new)
 {
-	char	*new_str;
-	char	*tmp;
-	t_ast	*arg;
-	t_ast	*el;
-	int		r;
+	char	**tmp;
+	int		i;
 
-	r = 0;
-	if ((new_str = env_subst(ft_strdup(str))) == NULL)
+	i = 1;
+	tmp = NULL;
+	*count = 0;
+	if (init_convert(&tmp, &str, count, new))
 		return (1);
-	tmp = new_str;
-	if (split_arg(&tmp, &arg, old) == 0)
+	else if (*count)
 	{
-		el = arg;
-		while (el && (r = split_arg(&tmp, &(el->next), old)) == 0)
+		while (tmp[i])
 		{
-			if (!el->next)
-				break ;
-			el = el->next;
+			(*new)->prev = create_tok_el(tmp[i], NULL, *new);// PROTEGE !!
+			(*new) = (*new)->prev;
+			i++;
+			(*count)++;
 		}
-	if (!r && el)
-		el->next = old->next;
 	}
-	free(new_str);
-	*new = arg;
-	return (r);
+	ft_tabstrdel(&tmp, 0);
+	return (0);
 }
 
 static int	convert_tild(char **str)
@@ -102,41 +97,56 @@ static int	convert_tild(char **str)
 static int	check_var(t_ast **el)
 {
 	t_ast	*new;
-	int		r;
+	t_ast	*tmp_del;
+	int		count;
 
-	r = 0;
-	if (ft_strchr((*el)->value, '$'))
+	tmp_del = (*el)->next;
+	if ((convert_var((*el)->next->value, &count, &new)))
+		return (1);
+	if (!new)
 	{
-		if ((convert_var((*el)->value, (*el), &new)))
-			return (1);
-		if (!new)
-		{
-			new = (*el)->next;
-		}
-		(*el)->prev->next = new;
-		if ((*el)->next)
-			(*el)->next->prev = new;
-		del_token(el);
-		*el = new;
+		if ((*el)->next->next)
+			(*el)->next->next->prev = *el;
+		(*el)->next = (*el)->next->next;
 	}
-	else if (ft_strcmp((*el)->value, "~") == 0)
-		r = convert_tild(&((*el)->value));
-	return (r);
+	else
+	{
+		new->prev = (*el);
+		(*el)->next = new;
+		while (count-- > 1)
+			new = new->next;
+		new->next = tmp_del->next;
+		tmp_del->next->prev = new;
+		(*el) = new;
+	}
+	del_token(&(tmp_del));
+	return (0);
 }
 
 int			expansion_tok(t_ast *head)
 {
 	t_ast	*el;
 
-	el = head->next;
-	while (el)
+	el = head;
+	while (el->next)
 	{
-		if (el->type & WORD_TOK && (!(el->next) || el->next->type != DLESS_TOK))
+		if (el->next->type & WORD_TOK
+				&& (!(el->next->next) || el->next->next->type != DLESS_TOK))
 		{
-			if (check_var(&el))
-				return (1);
+			if (ft_strchr(el->next->value, '$'))
+			{
+				if (check_var(&el))
+					return (1);
+			}
+			else 
+			{
+				if (ft_strcmp(el->next->value, "~") == 0)
+					convert_tild(&(el->next->value));////a protoger !!!!
+				el = el->next;
+			}
 		}
-		el = el->next;
+		else
+			el = el->next;
 	}
 	return (0);
 }
