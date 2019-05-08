@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:17:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 11:39:27 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:20:03 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct 	s_ast_reader
 	char		**arg;
 }				t_ast_reader;
 
-int		run_ast(t_ast *root, t_shell *shell, t_ast *head);
+int		run_ast(t_ast *root, t_ast *head);
 
 int		expansion_tok(t_ast *head);
 char	*env_subst(char *str);

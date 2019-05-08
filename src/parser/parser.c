@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 19:50:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:19:39 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "sh_error.h"
 #include "ast.h"
 
-//#include "../print_ast.c"//////////////
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
 ** The last token always have to be of type TYPE_END.
@@ -24,7 +23,7 @@
 ** to see if the new token is enable by grammar.
 */
 
-int				parser(char *line, t_shell *shell)
+int				parser(char *line)
 {
 	t_ast	*token_head;
 	t_ast	*tmp;
@@ -46,7 +45,7 @@ int				parser(char *line, t_shell *shell)
 			ret = 1;
 		else
 		{
-			run_ast(ast_root, shell, token_head);
+			run_ast(ast_root, token_head);
 		}
 	}
 	del_ast(&token_head);

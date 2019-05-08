@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 12:10:25 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/02 18:46:19 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:26:29 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	get_fd(char *name_file)
 	return (fd);
 }
 
-static int	do_dup(t_ast *el, int fd_in, t_shell *shell, t_ast *head)
+static int	do_dup(t_ast *el, int fd_in, t_ast *head)
 {
 	int	r;
 	int	save_fd;
@@ -58,7 +58,7 @@ static int	do_dup(t_ast *el, int fd_in, t_shell *shell, t_ast *head)
 		r = -1;
 	else if (dup2(fd, fd_in) == -1)
 		r = -1;
-	r = run_ast(el->left, shell, head);
+	r = run_ast(el->left, head);
 	if (dup2(save_fd, fd_in) == -1)
 		r = -1;
 	if (r == -1)
@@ -70,7 +70,7 @@ static int	do_dup(t_ast *el, int fd_in, t_shell *shell, t_ast *head)
 	return (r);
 }
 
-int			exec_less_fd(t_ast *el, t_shell *shell, t_ast *head)
+int			exec_less_fd(t_ast *el, t_ast *head)
 {
 	int	fd_in;
 
@@ -79,5 +79,5 @@ int			exec_less_fd(t_ast *el, t_shell *shell, t_ast *head)
 		return (1);
 	if (el->value)
 		fd_in = ft_atoi(el->value);
-	return (do_dup(el, fd_in, shell, head));
+	return (do_dup(el, fd_in, head));
 }

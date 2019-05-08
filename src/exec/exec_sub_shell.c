@@ -6,13 +6,14 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:07:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/02 18:37:43 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:33:17 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "ast.h"
 #include "sh_error.h"
+#include "shell21.h"
 #include <sys/types.h>
 #include <sys/wait.h>//needed on linux
 
@@ -21,7 +22,7 @@
 ** We just have to call the function run_ast with sub_tree of token structur
 */
 
-int	exec_sub_shell(t_ast *el, t_shell *shell, t_ast *head)
+int	exec_sub_shell(t_ast *el, t_ast *head)
 {
 	pid_t	child;
 	int		ret;
@@ -35,9 +36,9 @@ int	exec_sub_shell(t_ast *el, t_shell *shell, t_ast *head)
 	}
 	else if (child == 0)
 	{
-		ret = run_ast(el->ast_sub, shell, head);
-		//free_shell(shell);
-		//free_editor(editor);
+		ret = run_ast(el->ast_sub, head);
+		free_shell();
+		free_editor();
 		del_ast(&head);
 		if (ret)
 			exit(EXIT_FAILURE);

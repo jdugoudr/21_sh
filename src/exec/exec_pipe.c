@@ -6,13 +6,14 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:59:40 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 18:05:29 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:32:27 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "ast.h"
 #include "sh_error.h"
+#include "shell21.h"
 #include <sys/types.h>
 #include <sys/wait.h>//linux
 
@@ -25,17 +26,15 @@
 ** of the input in father process will still be effective when we return.
 */
 
-static void	free_exit(int r, t_shell *shell, t_ast *head)
+static void	free_exit(int r, t_ast *head)
 {
-	(void)shell;
-	(void)head;
-	//free_shell(shell);
-	//free_editor(editor);
+	free_shell();
+	free_editor();
 	del_ast(&head);
 	exit(r);
 }
 
-static int	do_pipe(t_ast *el, int *pdes, t_shell *shell, t_ast *head)
+static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 {
 	int		r;
 	pid_t	child;
@@ -51,18 +50,18 @@ static int	do_pipe(t_ast *el, int *pdes, t_shell *shell, t_ast *head)
 	{
 		dup2(pdes[WRITE_END], STDOUT_FILENO);
 		close(pdes[READ_END]);
-		r = run_ast(el->left, shell, head);
-		free_exit(r, shell, head);
+		r = run_ast(el->left, head);
+		free_exit(r, head);
 
 	}
 	dup2(pdes[READ_END], STDIN_FILENO);
 	close(pdes[WRITE_END]);
 	waitpid(child, &r, 0);
-	r = run_ast(el->right, shell, head);
+	r = run_ast(el->right, head);
 	return (r);
 }
 
-int	exec_pipe(t_ast *el, t_shell *shell, t_ast *head)
+int	exec_pipe(t_ast *el, t_ast *head)
 {
 	int		pdes[2];
 	pid_t	child;
@@ -82,8 +81,8 @@ int	exec_pipe(t_ast *el, t_shell *shell, t_ast *head)
 			ft_dprintf(STDERR_FILENO, INTERN_ERR);
 			return (1);
 		}
-		r = do_pipe(el, pdes, shell, head);
-		free_exit(r, shell, head);
+		r = do_pipe(el, pdes, head);
+		free_exit(r, head);
 	}
 	else
 		waitpid(child, &r, 0);

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/02 19:08:39 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:21:08 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define TOKEN_DEFINE_H
 
 # include "stdbool.h"
-# include "shell21.h"
 
 # define RESERVED	";&|<>()\'\""
 
@@ -68,7 +67,7 @@ typedef struct		s_ast
 	char			*value;
 	char			**arg_cmd;
 	int				(*f_tok_next)(struct s_ast *, char **);
-	int				(*f_exec)(struct s_ast *, t_shell *, struct s_ast *);
+	int				(*f_exec)(struct s_ast *, struct s_ast *);
 	struct s_ast	*next;
 	struct s_ast	*prev;
 	struct s_ast	*left;

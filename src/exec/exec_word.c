@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 18:05:28 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:36:44 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ static void	init_built(t_built *built_tab)
 	built_tab[4].func = NULL;
 }
 
-int	exec_word(t_ast *el, t_shell *shell, t_ast *head)
+int	exec_word(t_ast *el, t_ast *head)
 {
 	t_built	built_tab[NB_BUILT];
 	int		i;
 
-	(void)shell;
 	(void)head;
 	init_built(built_tab);
 	i = 0;

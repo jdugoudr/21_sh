@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:26:07 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/08 20:17:07 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void			end_of_input(char buf[], char line[])
 	keypress_end();
 	dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
-	parser(g_editor->cmd, g_shell);
+	parser(g_editor->cmd);
 	set_terminfo();
 	history_append(g_editor->cmd);
 	command_reset();

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:01:58 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/06 16:22:13 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:26:52 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	write_heredoc(int fd, char *str)
 	return (0);
 }
 
-static int	do_dup(t_ast *el, int fd_in, t_shell *shell, t_ast *head)
+static int	do_dup(t_ast *el, int fd_in, t_ast *head)
 {
 	int	r;
 	int	save_fd;
@@ -54,7 +54,7 @@ static int	do_dup(t_ast *el, int fd_in, t_shell *shell, t_ast *head)
 		r = -1;
 	else if (dup2(fd, fd_in) == -1)
 		r = -1;
-	r = run_ast(el->left, shell, head);
+	r = run_ast(el->left, head);
 	if (dup2(save_fd, fd_in) == -1)
 		r = -1;
 	if (r == -1)
@@ -67,7 +67,7 @@ static int	do_dup(t_ast *el, int fd_in, t_shell *shell, t_ast *head)
 }
 
 
-int	exec_dless(t_ast *el, t_shell *shell, t_ast *head)
+int	exec_dless(t_ast *el, t_ast *head)
 {
 	int	fd;
 	int	fd_in;
@@ -81,5 +81,5 @@ int	exec_dless(t_ast *el, t_shell *shell, t_ast *head)
 	if (write_heredoc(fd, el->right->value))
 		return (1);
 	close(fd);
-	return (do_dup(el, fd_in, shell, head));
+	return (do_dup(el, fd_in, head));
 }
