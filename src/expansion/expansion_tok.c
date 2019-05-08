@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 16:48:10 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:10:19 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	init_convert(char ***tmp, char **str, int *count, t_ast **new)
 {
 	char	*new_str;
 
+	*count = 0;
 	if ((new_str = env_subst(ft_strdup(*str))) == NULL)
 		return (1);
 	if ((*tmp = split_whitespaces(new_str)) == NULL)
@@ -57,14 +58,19 @@ static int	convert_var(char *str, int *count, t_ast **new)
 
 	i = 1;
 	tmp = NULL;
-	*count = 0;
 	if (init_convert(&tmp, &str, count, new))
 		return (1);
 	else if (*count)
 	{
 		while (tmp[i])
 		{
-			(*new)->prev = create_tok_el(tmp[i], NULL, *new);// PROTEGE !!
+			if (((*new)->prev = create_tok_el(tmp[i], NULL, *new)) == NULL)
+			{
+				ft_tabstrdel(&tmp, 0);
+				del_ast(new);
+				ft_dprintf(STDERR_FILENO, INTERN_ERR);
+				return (1);
+			}
 			(*new) = (*new)->prev;
 			i++;
 			(*count)++;
@@ -141,7 +147,8 @@ int			expansion_tok(t_ast *head)
 			else 
 			{
 				if (ft_strcmp(el->next->value, "~") == 0)
-					convert_tild(&(el->next->value));////a protoger !!!!
+					if (convert_tild(&(el->next->value)))
+						return (1);
 				el = el->next;
 			}
 		}

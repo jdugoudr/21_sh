@@ -6,14 +6,13 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 16:48:16 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:10:20 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
 #include "libft.h"
-#include "../print_ast.c"
 #include "sh_error.h"
 #include "ast.h"
 
