@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:17:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/07 11:06:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/08 11:39:27 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ typedef struct 	s_ast_reader
 }				t_ast_reader;
 
 int		run_ast(t_ast *root, t_shell *shell, t_ast *head);
+
 int		expansion_tok(t_ast *head);
 char	*env_subst(char *str);
 
+char	**split_whitespaces(char *str);
 int		create_ast(t_ast **root, t_ast *list_head);
 t_ast	*create_token();
 t_ast	*create_tok_el(char *str, t_ast *prev, t_ast *next);
