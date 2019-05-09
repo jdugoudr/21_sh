@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/09 15:09:54 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:53:28 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "sh_error.h"
 #include "ast.h"
 
-#include "../print_ast.c"
+// #include "../print_ast.h"
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
 ** The last token always have to be of type TYPE_END.
