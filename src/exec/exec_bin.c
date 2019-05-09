@@ -28,7 +28,10 @@ static int	exec_bin(char *path, char **arg)
 	}
 	else if (child == 0)
 	{
-		execve(path, arg, NULL);
+		// mdaoud: changed this from execve(path, arg, NULL) to the following line
+		// this is the reason why the command "man printf" didn't work before
+		// because we need to pass the environnement variable to execve
+		execve(path, arg, g_shell->env);
 	}
 	else
 		waitpid(child, &ret, 0);
