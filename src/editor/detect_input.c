@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:44:50 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 17:40:00 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,12 @@ void				detect_input(void)
 			ret = dispatch_keypress(*(unsigned long *)buf);
 			if (ret > 0)
 			{
+				// if (!expression_balanced())
 				if (!quotes_balanced())
 				{
 					ft_strcat(g_editor->cmd, "\n");
 					ft_strcat(cmd_line, g_editor->cmd);
+					// continue_until_balanced();
 					continue_until_quote();
 				}
 				else

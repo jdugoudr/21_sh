@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 17:35:43 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@
 # define SHIFT_RIGHT_KEY	0X43323B315B1B
 # define SHIFT_LEFT_KEY		0X44323B315B1B
 # define READ_BUF_SZE		8
+# define BALANCED			0
+# define SINGLE_Q			1
+# define DOUBLE_Q			2
+# define PARANTH			4
 // # define COL_RES			"\033[00m"
 // # define COL_CYAN			"\033[1;36m"
 // # define COL_CYAN_BG		"\033[1;106m"
@@ -65,6 +69,7 @@ struct					s_history
 **					0: no quotes that need to be closed.
 **					1: a single quote that needs to be closed.
 **					2: a double quote that needs to be closed.
+**					4: a parantheses that needs to be closed.
 */
 struct					s_editor
 {
@@ -110,10 +115,12 @@ void					command_erase(void);
 void					command_reset();
 void					command_set(char *str, int rewrite_flag);
 void					command_write(void);
+void					continue_until_balanced(void);
 void					detect_input(void);
 void					prompt_display(void);
 void					get_editor_dim(void);
 int						ends_with_newline(void);
+int						expression_balanced(void);
 void					init_signal_handlers(void);
 void					move_cursor_home(void);
 void					move_cursor_left(void);
