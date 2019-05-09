@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 17:10:21 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/21 20:10:27 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 16:45:54 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,3 @@ void			get_editor_dim(void)
 	}
 	get_col_row();
 }
-
-// void		get_editor_dim(void)
-// {
-// 	size_t		i;
-
-// 	if (!ft_strchr(g_editor->cmd, '\n'))
-// 	{
-// 		calc_dim();
-// 		return ;
-// 	}
-// 	g_editor->max_line = 0;
-// 	g_editor->col = g_editor->offset;
-// 	g_editor->line = 0;
-// 	i = 0;
-// 	while (g_editor->cmd[i])
-// 	{
-// 		if (g_editor->cmd[i] == '\n' || g_editor->col == g_editor->win_width - 1)
-// 		{
-// 			g_editor->max_line++;
-// 			g_editor->line++;
-// 			g_editor->col = 0;
-// 		}
-// 		else
-// 			g_editor->col++;
-// 		i++;
-// 	}
-// }

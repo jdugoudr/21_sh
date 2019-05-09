@@ -17,20 +17,6 @@
 ** set the prompt to display the current working directory.
 */
 
-// for simplicity, i'm using "$>> " for now
-
-// void			prompt_reset(void)
-// {
-// 	ft_bzero(g_editor->prompt, PATH_MAX);
-// 	if (getcwd(g_editor->prompt, PATH_MAX) == NULL)
-// 	{
-// 		prompt_set("$>> ");
-// 		return ;
-// 	}
-// 	ft_strcat(g_editor->prompt, "$ ");
-// 	g_editor->offset = ft_strlen(g_editor->prompt);
-// }
-
 void			prompt_reset(void)
 {
 	ft_bzero(g_editor->prompt, PATH_MAX);
@@ -43,5 +29,4 @@ void			prompt_reset(void)
 	g_editor->offset = ft_strlen(g_editor->prompt);
 	// ft_bzero(g_editor->prompt, PATH_MAX);
 	// 	prompt_set("$>> ");
-
 }

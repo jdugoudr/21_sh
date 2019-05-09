@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:06:31 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:22:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 16:46:13 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,16 @@ static void		dispatch_home_end(unsigned long touch)
 // delete
 static void fun()
 {
-	// command_erase();
+
+	ends_with_newline();
 }
 int				dispatch_keypress(unsigned long touch)
 {
 	if (touch == RET_KEY)
 	{
-		// dprintf(g_editor->tty_fd, "\nWidth: %d\tHeight: %d\n", g_editor->win_width, g_editor->win_height);
-		// dprintf(g_editor->tty_fd, "Size: %d\tPos: %d\n", g_editor->cmd_sze, g_editor->cur_pos);
-		// dprintf(g_editor->tty_fd, "line: %d\tcol: %d\tmax lines: %d\n", g_editor->line, g_editor->col, g_editor->max_line);
+		// dprintf(g_editor->tty_fd, "\nWidth: %zu\tHeight: %zu\n", g_editor->win_width, g_editor->win_height);
+		// dprintf(g_editor->tty_fd, "Size: %zu\tPos: %zu\n", g_editor->cmd_sze, g_editor->cur_pos);
+		// dprintf(g_editor->tty_fd, "line: %zu\tcol: %zu\tmax lines: %zu\n", g_editor->line, g_editor->col, g_editor->max_line);
 		return (1);
 	}
 	else if (touch == ESC_KEY)

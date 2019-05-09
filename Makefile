@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/08 19:51:13 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,11 +61,11 @@ SRC				+=		builtin_cd.c builtin_echo.c builtin_env.c builtin_setenv.c builtin_un
 ##########			EDITOR				##########
 ##################################################
 SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_set.c \
-					detect_input.c display_prompt.c free_shell.c ft_exit.c init_signal_handlers.c \
+					detect_input.c prompt_display.c free_shell.c ft_exit.c init_signal_handlers.c \
 					init_term.c move_cursor_home.c move_cursor_left.c move_cursor_right.c remove_char.c \
 					restore_default_conf.c command_write.c prompt_set.c set_terminfo.c tputs_char.c \
 					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c \
-					write_in_visual.c
+					write_in_visual.c ends_with_newline.c
 
 ##################################################
 ##########			EXEC				##########

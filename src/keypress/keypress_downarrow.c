@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 15:36:58 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:16:55 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			keypress_downarrow(void)
 	{
 		command_erase();
 		command_reset();
-		display_prompt();
+		prompt_display();
 		g_shell->hist_ptr = NULL;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:36:49 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/03 14:52:46 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			write_in_visual(size_t start, size_t end)
 	size_t	i;
 
 	get_editor_dim();
-	display_prompt();
+	prompt_display();
 	write_cmd_in_visual(start, end);
 	move_cursor_home();
 	i = 0;

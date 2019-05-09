@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 20:17:07 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:44:50 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void			end_of_input(char buf[], char line[])
 		ft_memset(buf, '\0', READ_BUF_SZE);
 		return ;
 	}
-	keypress_end();
 	dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
 	parser(g_editor->cmd);
@@ -56,6 +55,8 @@ static void			end_of_input(char buf[], char line[])
 	prompt_reset();
 	g_shell->hist_ptr = NULL;
 	ft_memset(buf, '\0', READ_BUF_SZE);
+	if (!ends_with_newline())
+		dprintf(g_editor->tty_fd, "\033[7m%%\033[m\n");
 }
 
 static void			continue_until_quote(void)
@@ -92,9 +93,6 @@ void				detect_input(void)
 				}
 				else
 				{
-					// dprintf(g_editor->tty_fd, "\nline: %d\tcol: %d\tmax lines: %d\n", g_editor->line, g_editor->col, g_editor->max_line);
-					// dprintf(g_editor->tty_fd, "Size: %d\tpos: %d\n", g_editor->cmd_sze, g_editor->cur_pos);
-					// dprintf(g_editor->tty_fd, "Width: %d\tHeight: %d\n", g_editor->win_width, g_editor->win_height);
 					ft_strcat(cmd_line, g_editor->cmd);
 					command_set(cmd_line, 0);
 					end_of_input(buf, cmd_line);

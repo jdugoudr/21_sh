@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:19:22 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,9 @@ void					command_reset();
 void					command_set(char *str, int rewrite_flag);
 void					command_write(void);
 void					detect_input(void);
-void					display_prompt(void);
+void					prompt_display(void);
 void					get_editor_dim(void);
+int						ends_with_newline(void);
 void					init_signal_handlers(void);
 void					move_cursor_home(void);
 void					move_cursor_left(void);

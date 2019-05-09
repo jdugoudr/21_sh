@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:21:18 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int				main(int argc, char **argv, char **enviro)
 	init_signal_handlers();
 	while(1)
 	{
-		display_prompt();
+		prompt_display();
 		detect_input();
 	}
 	return (0);
