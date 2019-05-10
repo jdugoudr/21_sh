@@ -20,6 +20,11 @@ static int	exec_bin(char *path, char **arg)
 	int		ret;
 
 	ret = 0;
+	if (access(path, X_OK))
+	{
+		ft_dprintf(STDERR_FILENO, NO_PERM, path);
+		return (1);
+	}
 	child = fork();
 	if (child == -1)
 	{
@@ -27,12 +32,7 @@ static int	exec_bin(char *path, char **arg)
 		return (1);
 	}
 	else if (child == 0)
-	{
-		// mdaoud: changed this from execve(path, arg, NULL) to the following line
-		// this is the reason why the command "man printf" didn't work before
-		// because we need to pass the environnement variable to execve
 		execve(path, arg, g_shell->env);
-	}
 	else
 		waitpid(child, &ret, 0);
 	return (ret);

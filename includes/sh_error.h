@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:25:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/09 15:09:55 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 14:27:51 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@
 # define AMBI_REDIR	"21sh: %s: Ambiguous redirect\n"
 # define CANT_OPEN	"21sh: %s: Failed to open\n"
 # define NO_CMD		"21sh: %s: Command not found\n"
+# define NO_PERM	"21sh: %s: Permission denied\n"
 
 #endif
