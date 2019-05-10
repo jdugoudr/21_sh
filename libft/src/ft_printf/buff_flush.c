@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 11:52:11 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/02 12:40:16 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 17:06:21 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	buff_flush(t_pf_arg *arg)
 {
-	if ((write(1, arg->buff, arg->it)) < 0)
+	if ((write(arg->fd, arg->buff, arg->it)) < 0)
 		return ;
 	arg->it = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 13:26:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:17:40 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 16:40:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			display_history(void)
 	tmp = g_shell->hist;
 	while (tmp != NULL)
 	{
-		dprintf(STDOUT_FILENO, "%d: %s\n", i, tmp->name);
+		ft_dprintf(STDOUT_FILENO, "%d: %s\n", i, tmp->name);
 		tmp = tmp->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 16:04:56 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/02 12:31:15 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 17:08:32 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ static void		process_number(t_pf_arg *arg, char *num)
 	}
 }
 
-int				parse_format(char *c, va_list ap, int *percent)
+int				parse_format(int fd, char *c, va_list ap, int *percent)
 {
-	static t_pf_arg arg = {' ', {0}, 0, 0, 0, 0, 0, 0};
+	static t_pf_arg arg = {' ', {0}, 0, 0, 0, 0, 0, 0, 0};
 	int				ret;
 
 	ret = 0;
+	arg.fd = fd;
 	if (c == NULL)
 		buff_flush(&arg);
 	else if (*percent == 0 && *c != '%')

@@ -6,12 +6,12 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 12:38:55 by mdaoud            #+#    #+#              #
-#    Updated: 2019/04/07 17:00:54 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/10 17:07:16 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	libft.a
-CC				= 	gcc
+CC				= 	clang
 CFlAGS			=	-Wall -Werror -Wextra
 HEADERS			=	includes
 
@@ -22,6 +22,7 @@ FT_PRINTF_FILES =	buff_flush.c \
 					buff_pad.c \
 					buff_put.c \
 					dispatch_handlers.c \
+					ft_dprintf.c \
 					ft_printf.c \
 					handler_char.c \
 					handler_float.c \
@@ -30,27 +31,6 @@ FT_PRINTF_FILES =	buff_flush.c \
 					handler_string.c \
 					handler_unsigned.c \
 					parse_format.c \
-					process_plus.c \
-					process_precision.c \
-					process_sharp.c \
-					process_space.c \
-					process_zero.c \
-					set_flag.c \
-					set_length.c
-
-FT_DPRINTF_DIR	=	ft_dprintf
-FT_DPRINTF_FILES =	buff_flush.c \
-					buff_pad.c \
-					buff_put.c \
-					dispatch_handlers.c \
-					ft_dprintf.c \
-					handler_char.c \
-					handler_float.c \
-					handler_int.c \
-					handler_pointer.c \
-					handler_string.c \
-					handler_unsigned.c \
-					parse_dformat.c \
 					process_plus.c \
 					process_precision.c \
 					process_sharp.c \
@@ -146,7 +126,6 @@ MATH_FILES		=	ft_abs.c \
 OBJ_DIR			=	./objs
 
 OBJ				=	$(FT_PRINTF_FILES:%.c=$(OBJ_DIR)/$(FT_PRINTF_DIR)/%.o) \
-					$(FT_DPRINTF_FILES:%.c=$(OBJ_DIR)/$(FT_DPRINTF_DIR)/%.o) \
 					$(GNL_FILES:%.c=$(OBJ_DIR)/$(GNL_DIR)/%.o) \
 					$(IO_FILES:%.c=$(OBJ_DIR)/$(IO_DIR)/%.o) \
 					$(MEMORY_FILES:%.c=$(OBJ_DIR)/$(MEMORY_DIR)/%.o) \
@@ -155,7 +134,6 @@ OBJ				=	$(FT_PRINTF_FILES:%.c=$(OBJ_DIR)/$(FT_PRINTF_DIR)/%.o) \
 
 ALL_DIR			=	$(OBJ_DIR) \
 					$(OBJ_DIR)/$(FT_PRINTF_DIR) \
-					$(OBJ_DIR)/$(FT_DPRINTF_DIR) \
 					$(OBJ_DIR)/$(GNL_DIR) \
 					$(OBJ_DIR)/$(IO_DIR) \
 					$(OBJ_DIR)/$(MEMORY_DIR) \

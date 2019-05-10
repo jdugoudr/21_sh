@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:06:31 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:46:13 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 16:40:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int				dispatch_keypress(unsigned long touch)
 {
 	if (touch == RET_KEY)
 	{
-		// dprintf(g_editor->tty_fd, "\nWidth: %zu\tHeight: %zu\n", g_editor->win_width, g_editor->win_height);
-		// dprintf(g_editor->tty_fd, "Size: %zu\tPos: %zu\n", g_editor->cmd_sze, g_editor->cur_pos);
-		// dprintf(g_editor->tty_fd, "line: %zu\tcol: %zu\tmax lines: %zu\n", g_editor->line, g_editor->col, g_editor->max_line);
+		// ft_dprintf(g_editor->tty_fd, "\nWidth: %zu\tHeight: %zu\n", g_editor->win_width, g_editor->win_height);
+		// ft_dprintf(g_editor->tty_fd, "Size: %zu\tPos: %zu\n", g_editor->cmd_sze, g_editor->cur_pos);
+		// ft_dprintf(g_editor->tty_fd, "line: %zu\tcol: %zu\tmax lines: %zu\n", g_editor->line, g_editor->col, g_editor->max_line);
 		return (1);
 	}
 	else if (touch == ESC_KEY)
@@ -93,7 +93,7 @@ int				dispatch_keypress(unsigned long touch)
 	else if (touch >= ' ' && touch <= '~')
 		add_char(touch);
 	// else
-	// 	dprintf(g_editor->tty_fd, "%#X\n", touch);
+	// 	ft_dprintf(g_editor->tty_fd, "%#X\n", touch);
 	
 	return (0);
 }
