@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:22:56 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 17:33:51 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 21:06:41 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void			continue_until_balanced(void)
 	int	q_flag;
 
 	q_flag = g_editor->quotes;
-	ft_printf("%d", g_editor->quotes);
 	if (q_flag == 1)
 		prompt_set("quote> ");
 	else if (q_flag == 2)
