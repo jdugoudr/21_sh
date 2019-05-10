@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 15:19:29 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "sh_error.h"
 #include "shell21.h"
 #include <sys/ioctl.h>
+#include "parser.h"
 #include <fcntl.h>
 
 static void		init_env(char **environ)
@@ -85,12 +86,23 @@ static void		init_editor(void)
 
 int				main(int argc, char **argv, char **enviro)
 {
+	char	*str;
 	(void)argv;
 	(void)argc;
 	init_editor();
 	g_shell = init_shell(enviro);
 	init_term();
 	init_signal_handlers();
+	if (!isatty(STDIN_FILENO))
+	{
+		while (get_next_line(STDIN_FILENO, &str) != 0)
+		{
+			parser(str);
+			free(str);
+		}
+		restore_default_conf();
+		return (0);
+	}
 	while(1)
 	{
 		prompt_display();
