@@ -1,0 +1,100 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
+/*   Updated: 2019/05/10 18:33:01 by mdaoud           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef EDITOR_H
+# define EDITOR_H
+
+# include <limits.h>
+# include <term.h>
+# include <termios.h>
+# include <stdlib.h>
+
+# define READ_BUF_SZE		8
+# define BALANCED			0
+# define SINGLE_Q			1
+# define DOUBLE_Q			2
+# define PARANTH			4
+# define COL_RES			"\033[00m"
+# define COL_CYAN			"\033[1;36m"
+
+/*
+** Our Structure for line editing.
+** cmd: 		the command being written.
+** prompt:		the prompt string.
+** quotes:		an integer representing the status of the open/closed quotes
+**					0: no quotes that need to be closed.
+**					1: a single quote that needs to be closed.
+**					2: a double quote that needs to be closed.
+**					4: a parantheses that needs to be closed.
+*/
+struct					s_editor
+{
+	char				cmd[ARG_MAX + 1];	//check arg_max
+	char				cpy_buff[ARG_MAX + 1];
+	char				prompt[PATH_MAX];
+	int					quotes;
+	int					open_subsh;
+	int					tty_fd;
+	size_t				cur_pos;
+	size_t				cmd_sze;
+	size_t				line;
+	size_t				col;
+	size_t				max_line;
+	size_t				offset;
+	size_t				win_width;
+	size_t				win_height;
+	struct termios		*term;
+	struct termios		*oldterm;
+};
+
+typedef struct termios		t_termios;
+typedef struct s_editor		t_editor;
+
+/*
+** We use a global variable for propre handling of signals.
+*/
+t_editor				*g_editor;
+
+/*
+Editor
+*/
+void					add_char(char c);
+void					clear_string(char *str);
+void					command_append(char *str, int rewrite_flag);
+void					command_erase(void);
+void					command_reset();
+void					command_set(char *str, int rewrite_flag);
+void					command_write(void);
+void					continue_until_balanced(void);
+void					detect_input(void);
+void					free_editor(void);
+void					get_editor_dim(void);
+int						ends_with_newline(void);
+int						expression_balanced(void);
+void					init_signal_handlers(void);
+void					move_cursor_home(void);
+void					move_cursor_left(void);
+void					move_cursor_right(void);
+void					prompt_display(void);
+void					prompt_reset(void);
+void					prompt_set(char *str);
+int						quotes_balanced(void);
+void					remove_char(void);
+void					restore_default_conf(void);
+void					set_terminfo(void);
+void					start_search_mode(void);
+void					start_visual_mode(void);
+void					init_term(void);
+int						tputs_char(int c);
+void					write_in_visual(size_t start, size_t end);
+
+#endif

@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 19:41:43 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/24 16:11:50 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:23:02 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "keypress.h"
+#include "editor.h"
 
 static void		paste(char *str)
 {

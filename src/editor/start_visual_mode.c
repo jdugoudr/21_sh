@@ -6,11 +6,13 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:23:40 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/24 16:55:30 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:32:46 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
+#include "libft.h"
+#include "keypress.h"
 
 static void		right_key(size_t *start, size_t *end)
 {

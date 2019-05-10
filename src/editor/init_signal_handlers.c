@@ -6,11 +6,14 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:21:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 16:40:24 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:19:23 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "editor.h"
+#include "libft.h" // delete
 #include "shell21.h"
+#include <stdlib.h>
 #include <signal.h>
 #include <sys/ioctl.h>
 

@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:22:56 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 17:33:51 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:32:13 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
+#include "libft.h"
 
 void			continue_until_balanced(void)
 {

@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/09 17:36:05 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/10 18:33:33 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ LIB_HEAD		=	libft/includes
 
 HEADERS			=	ast.h \
 					check_next.h \
+					editor.h \
 					exec_cmd.h \
+					keypress.h \
 					lexer.h \
 					libft.h \
 					parser.h \
@@ -61,7 +63,7 @@ SRC				+=		builtin_cd.c builtin_echo.c builtin_env.c builtin_setenv.c builtin_un
 ##########			EDITOR				##########
 ##################################################
 SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_set.c \
-					detect_input.c prompt_display.c free_shell.c ft_exit.c init_signal_handlers.c \
+					detect_input.c prompt_display.c free_editor.c free_shell.c  init_signal_handlers.c \
 					init_term.c move_cursor_home.c move_cursor_left.c move_cursor_right.c remove_char.c \
 					restore_default_conf.c command_write.c prompt_set.c set_terminfo.c tputs_char.c \
 					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c \
@@ -110,7 +112,7 @@ SRC				+=	env_subst.c expansion_tok.c
 ##################################################
 SRC				+=	add_env_var.c change_directory.c check_cmd_format.c display_history.c \
 					free_string_array.c get_count.c get_env_value.c get_var_ind.c history_append.c \
-					set_last_history_entry.c free_editor.c split_whitespaces.c
+					set_last_history_entry.c split_whitespaces.c ft_exit.c
 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

@@ -6,10 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 15:33:49 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:17:12 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:25:58 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "keypress.h"
+#include "editor.h"
 #include "shell21.h"
 
 void			keypress_uparrow(void)

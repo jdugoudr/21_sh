@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 17:10:21 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:45:54 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:31:51 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
+#include "libft.h"
 
 static void		calc_dim(void)
 {

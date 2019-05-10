@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
-
+#include "editor.h"
+#include "libft.h"
 
 /*
 ** set the prompt to display the current working directory.

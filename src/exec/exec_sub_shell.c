@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_sub_shell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:07:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:33:17 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:21:36 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "ast.h"
 #include "sh_error.h"
+#include "editor.h"
 #include "shell21.h"
 #include <sys/types.h>
 #include <sys/wait.h>//needed on linux

@@ -6,13 +6,13 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 19:06:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/24 18:15:08 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:00:26 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "shell21.h"
+#include "editor.h"
 
 int			tputs_char(int c)
 {

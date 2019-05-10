@@ -6,14 +6,14 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:59:40 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/09 10:17:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:21:12 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "ast.h"
 #include "sh_error.h"
-#include "shell21.h"
+#include "editor.h"
 #include <sys/types.h>
 #include <sys/wait.h>//linux
 

@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "editor.h"
 #include "shell21.h"
+#include "keypress.h"
+#include "libft.h"
 
 static int		get_search_entry(char *str, int fresh_search)
 {

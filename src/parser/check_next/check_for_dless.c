@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check_for_dless.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:37:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/07 15:28:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 18:26:57 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "check_next.h"
 #include "sh_error.h"
 #include "ast.h"
+#include "libft.h"
 
-#define BUFF	150
+#define BUFF	150 // define in .c ?!
 
 /*
 ** We read on std_in until next->value are found.

@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 15:06:45 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:46:23 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:22:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "keypress.h"
+#include "editor.h"
 
 static void		shift_string_left(void)
 {
