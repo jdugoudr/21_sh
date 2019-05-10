@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 15:16:13 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 15:36:35 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ static void			end_of_input(char buf[], char line[])
 		dprintf(g_editor->tty_fd, "\033[7m%%\033[m\n");
 }
 
-static void			continue_until_quote(void)
-{
-	if (g_editor->quotes == 1)
-		prompt_set("quote> ");
-	else
-		prompt_set("dquote> ");
-	dprintf(g_editor->tty_fd, "\n");
-	command_reset();
-}
+// static void			continue_until_quote(void)
+// {
+// 	if (g_editor->quotes == 1)
+// 		prompt_set("quote> ");
+// 	else
+// 		prompt_set("dquote> ");
+// 	dprintf(g_editor->tty_fd, "\n");
+// 	command_reset();
+// }
 
 void				detect_input(void)
 {
@@ -86,13 +86,13 @@ void				detect_input(void)
 			ret = dispatch_keypress(*(unsigned long *)buf);
 			if (ret > 0)
 			{
-				// if (!expression_balanced())
-				if (!quotes_balanced())
+				if (!expression_balanced())
+				// if (!quotes_balanced())
 				{
 					ft_strcat(g_editor->cmd, "\n");
 					ft_strcat(cmd_line, g_editor->cmd);
-					// continue_until_balanced();
-					continue_until_quote();
+					continue_until_balanced();
+					// continue_until_quote();
 				}
 				else
 				{
