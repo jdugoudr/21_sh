@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 17:35:43 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 19:02:00 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void					keypress_uparrow(void);
 /*
 ** Utils
 */
-void					add_env_var(char *key, char *val);
+int						add_env_var(char *key, char *val);
 void					change_directory(char *path, int print_dir);
 int						check_cmd_format(char **cmd, size_t param_num);
 void					display_history(void);
@@ -172,7 +172,7 @@ void					free_shell(void);
 void					ft_exit(char *msg, int rstr, int free_fl, int ex_val);
 size_t					get_count(char **t);
 char					*get_env_value(char *key);
-int						get_env_ind(char *env_var);
+int						get_env_ind(char *env_var, int *r);
 void					history_append(char *name);
 void					set_last_history_entry(void);
 
@@ -180,11 +180,12 @@ void					set_last_history_entry(void);
 /*
 ** Builtins
 */
-void					builtin_cd(char **cmd);
-void					builtin_echo(char **cmd);
-void					builtin_env(void);
-void					builtin_history(void);
-void					builtin_setenv(char **cmd);
-void					builtin_unsetenv(char **cmd);
+int						builtin_cd(char **cmd);
+int						builtin_echo(char **cmd);
+int						builtin_env(char **cmd);
+int						builtin_history(char **cmd);
+int						builtin_setenv(char **cmd);
+int						builtin_unsetenv(char **cmd);
+int						builtin_exit(char **cmd);
 
 #endif
