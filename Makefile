@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/09 17:36:05 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/10 15:40:29 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 SRC				+=	run_ast.c exec_pipe.c exec_less.c \
 					exec_dless.c exec_great.c exec_dgreat.c exec_sub_shell.c exec_assign.c \
 					exec_word.c exec_semi_col.c exec_and_if.c exec_or_if.c \
-					exec_dless_fd.c exec_less_fd.c exec_great_fd.c exec_dgreat_fd.c \
+					exec_less_fd.c exec_great_fd.c exec_dgreat_fd.c \
 					exec_bin.c lsttotab.c
 
 ##################################################

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:17:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:20:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:54:39 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 
 # define RUN_AFTER	(AND_IF | OR_IF)
 # define NOT_DO_R	(LESS_TOK | DLESS_TOK | GREAT_TOK | DGREAT_TOK)
-
-typedef struct 	s_ast_reader
-{
-	t_ast		*node;
-	int			out;
-	int			in;
-	char		**arg;
-}				t_ast_reader;
 
 int		run_ast(t_ast *root, t_ast *head);
 

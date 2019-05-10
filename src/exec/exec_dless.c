@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:01:58 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:26:52 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:44:43 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ static int	do_dup(t_ast *el, int fd_in, t_ast *head)
 	return (r);
 }
 
-
-int	exec_dless(t_ast *el, t_ast *head)
+int			exec_dless(t_ast *el, t_ast *head)
 {
 	int	fd;
 	int	fd_in;

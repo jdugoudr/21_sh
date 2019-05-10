@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 17:35:43 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 15:59:24 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ struct					s_history
 */
 struct					s_editor
 {
-	char				cmd[ARG_MAX + 1];	//check arg_max
+	char				cmd[ARG_MAX + 1];//check arg_max
 	char				cpy_buff[ARG_MAX + 1];
 	char				prompt[PATH_MAX];
 	int					quotes;
@@ -137,11 +137,9 @@ void					init_term(void);
 int						tputs_char(int c);
 void					write_in_visual(size_t start, size_t end);
 
-
 /*
 ** Keypresses
 */
-
 int						dispatch_keypress(unsigned long val);
 void					keypress_backspace(void);
 void					keypress_ctrl_b(size_t s, size_t e);
@@ -175,7 +173,6 @@ char					*get_env_value(char *key);
 int						get_env_ind(char *env_var);
 void					history_append(char *name);
 void					set_last_history_entry(void);
-
 
 /*
 ** Builtins

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:23:11 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:56:48 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define EXEC_CMD_H
 
 # include "token_define.h"
-# include "libft.h"///////////////////////////
 # include "shell21.h"
 
 # define READ_END		0
@@ -29,23 +28,24 @@ typedef struct	s_built
 	int			(*func)(char **);
 }				t_built;
 
-int	exec_semi_col(t_ast *el, t_ast *head);
-int	exec_or_if(t_ast *el, t_ast *head);
-int	exec_and_if(t_ast *el, t_ast *head);
-int	exec_pipe(t_ast *el, t_ast *head);
-int	exec_less(t_ast *el, t_ast *head);
-int	exec_less_fd(t_ast *el, t_ast *head);
-int	exec_dless(t_ast *el, t_ast *head);
-int	exec_great(t_ast *el, t_ast *head);
-int	exec_great_fd(t_ast *el, t_ast *head);
-int	exec_dgreat(t_ast *el, t_ast *head);
-int	exec_dgreat_fd(t_ast *el, t_ast *head);
-int	exec_sub_shell(t_ast *el, t_ast *head);
-int	exec_assign(t_ast *el, t_ast *head);
-int	exec_word(t_ast *el, t_ast *head);
-int	exec_dless_fd(t_ast *el, t_ast *head);
+int				exec_semi_col(t_ast *el, t_ast *head);
+int				exec_or_if(t_ast *el, t_ast *head);
+int				exec_and_if(t_ast *el, t_ast *head);
+int				exec_pipe(t_ast *el, t_ast *head);
+int				exec_less(t_ast *el, t_ast *head);
+int				exec_less_fd(t_ast *el, t_ast *head);
+int				exec_dless(t_ast *el, t_ast *head);
+int				exec_great(t_ast *el, t_ast *head);
+int				exec_great_fd(t_ast *el, t_ast *head);
+int				exec_dgreat(t_ast *el, t_ast *head);
+int				exec_dgreat_fd(t_ast *el, t_ast *head);
+int				exec_sub_shell(t_ast *el, t_ast *head);
+int				exec_assign(t_ast *el, t_ast *head);
+int				exec_word(t_ast *el, t_ast *head);
+int				exec_dless_fd(t_ast *el, t_ast *head);
 
-int	check_bin(t_ast *el);
+int				check_bin(t_ast *el);
 
-char	**lsttotab(t_arg *lst);
+char			**lsttotab(t_arg *lst);
+
 #endif

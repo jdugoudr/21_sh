@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 11:10:09 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/08 14:16:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:55:11 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 # define AFTER_ASS		(WORD_TOK | NAME_TOK | QUOT_TOK | SUB_SHELL)
 # define AFTER_WORD		(SUB_SHELL | NAME_TOK | ASSIGN_TOK)
-//# define AFTER_QUOT		(SUB_SHELL | NAME_TOK | ASSIGN_TOK)
 # define AFTER_SUB		(WORD_TOK | NAME_TOK | QUOT_TOK | SUB_SHELL)
 
 /*
@@ -47,7 +46,6 @@ int	check_for_word(t_ast *next, char **line);
 int	check_for_name(t_ast *next, char **line);
 int	check_for_and_or(t_ast *next, char **line);
 int	check_for_pipe(t_ast *next, char **line);
-//int	check_for_quot(t_ast *next, char **line);
 int	check_for_semi(t_ast *next, char **line);
 int	check_for_dless(t_ast *next, char **line);
 int	check_for_less(t_ast *next, char **line);

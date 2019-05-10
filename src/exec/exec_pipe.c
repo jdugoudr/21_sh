@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:59:40 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/09 10:17:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:48:25 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "sh_error.h"
 #include "shell21.h"
 #include <sys/types.h>
-#include <sys/wait.h>//linux
+//#include <sys/wait.h>//linux
 
 /*
 ** Here we redirect el->left output in el->right input.
@@ -38,9 +38,7 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 {
 	int		r;
 	pid_t	child;
-	static	int i = 0;
 
-	i++;
 	r = 0;
 	child = fork();
 	if (child == -1)
@@ -62,7 +60,7 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 	return (r);
 }
 
-int	exec_pipe(t_ast *el, t_ast *head)
+int			exec_pipe(t_ast *el, t_ast *head)
 {
 	int		pdes[2];
 	pid_t	child;
