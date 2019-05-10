@@ -6,19 +6,18 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 19:02:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 20:36:27 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL21_H
 # define SHELL21_H
 
-// # include <linux/limits.h>
 # include <limits.h>
 # include <term.h>
 # include <termios.h>
-# include <libft.h>
-# include <stdio.h>	//delete
+# include "libft.h"
+
 # define RET_KEY			0xA
 # define ESC_KEY			0x1B
 # define CTRL_A_KEY			0x1
@@ -77,6 +76,7 @@ struct					s_editor
 	char				cpy_buff[ARG_MAX + 1];
 	char				prompt[PATH_MAX];
 	int					quotes;
+	int					open_subsh;
 	int					tty_fd;
 	size_t				cur_pos;
 	size_t				cmd_sze;

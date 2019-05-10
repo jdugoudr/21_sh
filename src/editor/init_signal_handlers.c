@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:21:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/03 14:52:32 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 16:40:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		handler_sigint(int signo)
 {
 	if (signo == SIGINT)
 	{
-		dprintf(STDOUT_FILENO, "SIGINT CAUGHT\n");
+		ft_dprintf(STDOUT_FILENO, "SIGINT CAUGHT\n");
 		ft_exit(NULL, 1, 1, EXIT_FAILURE);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:58:29 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/07 16:19:55 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/04/07 16:59:16 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct			s_list
 /*
 **		IO Functions
 */
-int						ft_printf(const char *format, ...);
 void					ft_putchar(char c);
 void					ft_putchar_fd(char c, int fd);
 void					ft_putendl(void);
@@ -78,7 +77,6 @@ int						ft_strcontains(char *charset, char c);
 char					*ft_strcpy(char *dest, char *src);
 void					ft_strdel(char **as);
 char					*ft_strdup(char *s);
-char					*ft_strndup(char *s, size_t len);
 char					*ft_strdup_free(char *s);
 int						ft_strequ(char *s1, char *s2);
 void					ft_striter(char *s, void (*f)(char *));
@@ -91,6 +89,7 @@ char					*ft_strmapi(char *s, char(*f)(unsigned int, char));
 char					*ft_strncat(char *dest, char *src, size_t n);
 int						ft_strncmp(char *s1, char *s2, size_t n);
 char					*ft_strncpy(char *dest, char *src, size_t n);
+char					*ft_strndup(char *src, size_t len);
 int						ft_strnequ(char *s1, char *s2, size_t n);
 char					*ft_strnew(size_t size);
 char					*ft_strnstr(char *haystack, char *needle,

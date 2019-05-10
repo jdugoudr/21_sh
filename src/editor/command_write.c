@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 15:20:33 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 16:40:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			command_write(void)
 
 	get_editor_dim();
 	prompt_display();
-	dprintf(g_editor->tty_fd, "%s", g_editor->cmd);
+	ft_dprintf(g_editor->tty_fd, "%s", g_editor->cmd);
 	move_cursor_home();
 	i = 0;
 	while (i < g_editor->line)

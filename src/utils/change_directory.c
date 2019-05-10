@@ -53,16 +53,16 @@
 // 	char	old_dir[PATH_MAX];
 
 // 	if (print_dir)
-// 		dprintf(g_editor->tty_fd, "%s\n", path);
+// 		ft_dprintf(g_editor->tty_fd, "%s\n", path);
 // 	getcwd(old_dir, PATH_MAX);
 // 	if (chdir(path) == -1)
 // 	{
 // 		if ((access(path, F_OK) == -1))
-// 			dprintf(g_editor->tty_fd, "cd: no such file or directory: %s\n", path);
+// 			ft_dprintf(g_editor->tty_fd, "cd: no such file or directory: %s\n", path);
 // 		else if ((access(path, R_OK) == -1))
-// 			dprintf(g_editor->tty_fd, "cd: permission denied: %s\n", path);
+// 			ft_dprintf(g_editor->tty_fd, "cd: permission denied: %s\n", path);
 // 		else
-// 			dprintf(g_editor->tty_fd, "cd: not a directory: %s\n", path);
+// 			ft_dprintf(g_editor->tty_fd, "cd: not a directory: %s\n", path);
 // 		return ;
 // 	}
 // 	set_oldpwd(old_dir);

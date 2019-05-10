@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:04:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 15:38:39 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 17:43:25 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,20 @@ static void		open_paranthesis(void)
 	if ((g_editor->quotes & (SINGLE_Q | DOUBLE_Q)) == 0)
 	{
 		g_editor->quotes |= PARANTH;
+		g_editor->open_subsh++;
 	}
 }
 
 static void		close_paranthesis(void)
 {
 	if ((g_editor->quotes & (SINGLE_Q | DOUBLE_Q)) == 0)
-		g_editor->quotes &= ~PARANTH;
+	{
+		if (g_editor->open_subsh <= 0)
+			return ;
+		g_editor->open_subsh--;
+		if (g_editor->open_subsh == 0)
+			g_editor->quotes &= ~PARANTH;
+	}
 }
 
 static int		expression_result(void)
