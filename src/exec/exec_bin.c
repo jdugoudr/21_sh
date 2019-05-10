@@ -84,6 +84,8 @@ int			check_bin(t_ast *el)
 	char	**path_tab;
 
 	ret = 0;
+	if (access(el->value, F_OK) == 0)
+		return (exec_bin(el->value, el->arg_cmd));
 	if ((path = getenv("PATH")) != NULL)//getenv non autoriser, a remplace par le builtin
 	{
 		ret = 1;
