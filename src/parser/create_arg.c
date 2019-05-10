@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 14:33:31 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:15:33 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_ast	*skip_el(t_ast *start)
 	return (start);
 }
 
-static int	count_arg(t_ast *start, t_ast **end)
+static int		count_arg(t_ast *start, t_ast **end)
 {
 	t_ast	*el;
 	int		count;
@@ -56,7 +56,7 @@ static t_ast	*del_arg(t_ast *el)
 	return (tmp);
 }
 
-static int	add_arg(t_ast *el, char **lst_arg, int count)
+static int		add_arg(t_ast *el, char **lst_arg, int count)
 {
 	char	*el_arg;
 	t_ast	*el_next;
@@ -64,7 +64,6 @@ static int	add_arg(t_ast *el, char **lst_arg, int count)
 	if (!el || el->type != WORD_TOK)
 		return (0);
 	el_next = el->prev;
-//	ft_printf("ici ca vaux %s et %s\n", el->value, el_next->value);
 	if ((el_arg = ft_strdup(el->value)) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
@@ -80,7 +79,7 @@ static int	add_arg(t_ast *el, char **lst_arg, int count)
 	return (add_arg(el_next, lst_arg, count));
 }
 
-int			create_arg(t_ast *start)
+int				create_arg(t_ast *start)
 {
 	char	**lst_arg;
 	t_ast	*end;

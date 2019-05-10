@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:43:32 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:28:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:21:28 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	file_descriptor(t_ast *el)
 		ft_dprintf(STDERR_FILENO, BAD_FD, fd);
 		return (1);
 	}
-	
 	return (fd);
 }
 

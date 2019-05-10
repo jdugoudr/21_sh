@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:03:53 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:28:10 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:18:50 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	do_dup(t_ast *el, int fd_in, t_ast *head)
 	return (r);
 }
 
-int	exec_dgreat(t_ast *el, t_ast *head)
+int			exec_dgreat(t_ast *el, t_ast *head)
 {
 	int		fd_in;
 

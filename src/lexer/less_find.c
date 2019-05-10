@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:27:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/06 12:32:52 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:04:18 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_ast	*dless_find(char **line, t_ast *tok, char *value)
 	return (tok);
 }
 
-t_ast		*less_find(char **line, t_ast *tok, char *value)
+t_ast			*less_find(char **line, t_ast *tok, char *value)
 {
 	tok->level_prior = level_4;
 	if ((*line)[1] == '<')

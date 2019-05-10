@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:12:35 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 16:48:17 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 14:44:33 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_ast	*create_tok_el(char *str, t_ast *prev, t_ast *next)
 	return (el);
 }
 
-t_ast	*create_token()
+t_ast	*create_token(void)
 {
 	t_ast	*new_tok;
 

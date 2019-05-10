@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_bin.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/10 15:22:13 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/05/10 15:22:29 by jdugoudr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "sh_error.h"
 #include "ast.h"
 #include <sys/types.h>
-#include <sys/wait.h>//linux
+//#include <sys/wait.h>//linux
 
 /*
 ** We check on the env variable PATH if the binary file of the command exist.

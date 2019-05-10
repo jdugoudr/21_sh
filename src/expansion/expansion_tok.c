@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 19:10:19 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:03:20 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "ast.h"
 #include "sh_error.h"
 #include "libft.h"
-
-//#include "../print_ast.c"/////////////////
 
 /*
 ** For each word token, we look if a varible is present.
@@ -144,7 +142,7 @@ int			expansion_tok(t_ast *head)
 				if (check_var(&el))
 					return (1);
 			}
-			else 
+			else
 			{
 				if (ft_strcmp(el->next->value, "~") == 0)
 					if (convert_tild(&(el->next->value)))

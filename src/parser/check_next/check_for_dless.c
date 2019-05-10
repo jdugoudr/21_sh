@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:37:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/07 15:28:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:11:36 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@
 ** The new line is stock in next->value
 */
 
-static int	add_line(char **line, char *buff, int len_buff)
+static int	add_line(char **line, char *buff, int len_buff, int len_line)
 {
 	char	*new;
-	int		len_line;
 	int		ret;
 
 	ret = 0;
-	len_line = ft_strlen(*line);
 	if ((new = malloc((len_line + len_buff + 2) * sizeof(char))) == NULL)
 	{
 		free(*line);
@@ -70,16 +68,16 @@ static int	heredoc_read(char **line, char *end_here)
 		buff[rd - 1] = '\0';
 		if (ft_strcmp(buff, end_here) == 0)
 			break ;
-		else 
+		else
 		{
-			if (add_line(line, buff, rd))
+			if (add_line(line, buff, rd, ft_strlen(*line)))
 				return (1);
 		}
 	}
 	return (0);
 }
 
-int	check_for_dless(t_ast *next, char **line)
+int			check_for_dless(t_ast *next, char **line)
 {
 	char	*new;
 

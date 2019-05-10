@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/10 14:35:39 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 15:11:52 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static int	ambigous_redirect(t_ast *token)
 
 	while (token->next)
 	{
-		if (token->next->level_prior == level_4 && (tmp = ft_strchr(token->value, '$')))
+		if (token->next->level_prior == level_4
+				&& (tmp = ft_strchr(token->value, '$')))
 		{
-			if ((tmp = getenv(tmp)) == NULL || ft_strchr(tmp, ' ') || ft_strchr(tmp, '\t'))//remplacer getenv
+			if ((tmp = getenv(tmp)) == NULL || ft_strchr(tmp, ' ')
+					|| ft_strchr(tmp, '\t'))//remplacer getenv
 			{
 				ft_dprintf(STDERR_FILENO, AMBI_REDIR, token->value);
 				return (1);
@@ -42,7 +44,7 @@ static int	ambigous_redirect(t_ast *token)
 	return (0);
 }
 
-int				parser(char *line)
+int			parser(char *line)
 {
 	t_ast	*token_head;
 	t_ast	*tmp;

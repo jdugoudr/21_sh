@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:16:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/08 10:57:56 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/10 14:43:56 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_ast	*build_tree(t_ast *start, t_ast *end, int level_prior)
 	return (el);
 }
 
-int			create_ast(t_ast **root, t_ast *list_head)
+int				create_ast(t_ast **root, t_ast *list_head)
 {
 	if (list_head->next == NULL)
 		return (0);
