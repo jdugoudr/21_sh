@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:59:40 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/11 20:33:49 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/11 21:31:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 {
 	int		r;
 	pid_t	child;
-	static	int i = 0;
 
-	i++;
 	r = 0;
 	child = fork();
 	if (child == -1)
@@ -53,12 +51,14 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 		dup2(pdes[WRITE_END], STDOUT_FILENO);
 		close(pdes[READ_END]);
 		r = run_ast(el->left, head);
+		close(pdes[WRITE_END]);
 		free_exit(r, head);
 
 	}
 	dup2(pdes[READ_END], STDIN_FILENO);
 	close(pdes[WRITE_END]);
 	r = run_ast(el->right, head);
+	close(pdes[READ_END]);
 	return (r);
 }
 
