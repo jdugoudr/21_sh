@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:33:01 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 19:55:33 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # define SINGLE_Q			1
 # define DOUBLE_Q			2
 # define PARANTH			4
-# define COL_RES			"\033[00m"
-# define COL_CYAN			"\033[1;36m"
+# define RED				"\033[1;31m"
+# define RES_COL			"\033[0m"
+# define GREEN				"\033[1;32m"
 
 /*
 ** Our Structure for line editing.

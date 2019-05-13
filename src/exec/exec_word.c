@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/13 17:46:09 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 19:12:58 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static void	init_built(t_built *built_tab)
 	built_tab[0].name = "echo";
 	built_tab[0].func = builtin_echo;
 	built_tab[1].name = "cd";
-	built_tab[1].func = NULL;//builtin_cd;
+	built_tab[1].func = builtin_cd;
 	built_tab[2].name = "setenv";
 	built_tab[2].func = builtin_setenv;
 	built_tab[3].name = "unsetenv";
-	built_tab[3].func = NULL;
+	built_tab[3].func = builtin_unsetenv;
 	built_tab[4].name = "env";
 	built_tab[4].func = builtin_env;
 	built_tab[5].name = "history";

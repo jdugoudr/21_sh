@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell21.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 18:40:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/13 19:16:47 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int						add_env_var(char *key, char *val);
 void					change_directory(char *path, int print_dir);
 int						check_cmd_format(char **cmd, size_t param_num);
 void					display_history(void);
-void					free_string_array(char **array);
 void					free_shell(void);
+void					free_string_array(char **array);
 void					ft_exit(char *msg, int rstr, int free_fl, int ex_val);
 size_t					get_count(char **t);
 char					*get_env_value(char *key);

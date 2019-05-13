@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 19:24:57 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 17:48:01 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 19:36:17 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtin_env(char **cmd)
 	i = 0;
 	while (g_shell->env[i])
 	{
-		ft_printf("%s\n", g_shell->env[i]);
+		ft_dprintf(STDOUT_FILENO, "%s\n", g_shell->env[i]);
 		i++;
 	}
 	return (0);
