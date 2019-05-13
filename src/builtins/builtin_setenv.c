@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_setenv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:14:16 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 17:48:21 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 18:41:38 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int			builtin_setenv(char **cmd)
 	}
 	if (check_var(cmd, 0, &key, &var))
 		return (1);
-	if ((get_env_ind(key, &var_ind)))
+	if ((var_ind = get_env_ind(key)) == -1)
 		return (1);
-	else if (var_ind == -1)
+	else if (var_ind == -2)
 		return (add_env_var(key, var));
 	else
 		return (set_env_value(var_ind, key, var));
