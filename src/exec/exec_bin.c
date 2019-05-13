@@ -1,6 +1,7 @@
 
 #include "exec_cmd.h"
 #include "sh_error.h"
+#include "editor.h"
 #include "ast.h"
 #include <sys/types.h>
 #include <sys/wait.h>//linux
