@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 23:49:36 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:23:22 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 15:32:56 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void			keypress_shift_down(void)
 	flag = 0;
 	while (i < g_editor->win_width)
 	{
-		move_cursor_right();
 		if (g_editor->cmd[g_editor->cur_pos] == '\n')
 		{
 			if (flag)
@@ -30,6 +29,7 @@ void			keypress_shift_down(void)
 			else
 				flag = 1;
 		}
+		move_cursor_right();
 		i++;
 	}
 }
