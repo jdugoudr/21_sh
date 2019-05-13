@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 18:09:42 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 18:28:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void			end_of_input(char buf[], char line[])
 		ft_memset(buf, '\0', READ_BUF_SZE);
 		return ;
 	}
-	keypress_end();
+	while (g_editor->cur_pos < g_editor->cmd_sze)
+		move_cursor_right();
 	ft_dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
 	parser(g_editor->cmd);
@@ -65,19 +66,28 @@ static void			end_of_input(char buf[], char line[])
 
 }
 
-// static void			unbalance_exp_handler(char *cmd_line)
-// {
-// 	ft_strcat(g_editor->cmd, "\n");
-// 	ft_strcat(cmd_line, g_editor->cmd);
-// 	continue_until_balanced();
-// }
+static void			unbalance_exp_handler(char *cmd_line)
+{
+	ft_strcat(g_editor->cmd, "\n");
+	ft_strcat(cmd_line, g_editor->cmd);
+	continue_until_balanced();
+}
+
+static void			set_up_for_execution(char *cmd_line, char buf[])
+{
+	size_t		pos;
+	pos = g_editor->cur_pos + ft_strlen(cmd_line);
+	ft_strcat(cmd_line, g_editor->cmd);
+	command_set(cmd_line, 0);
+	g_editor->cur_pos = pos;
+	end_of_input(buf, cmd_line);
+}
 
 void				detect_input(void)
 {
 	char		buf[READ_BUF_SZE];
 	static char	cmd_line[ARG_MAX] = {'\0'};
 	int			ret;
-	size_t		pos;
 
 	ft_memset(buf, '\0', READ_BUF_SZE);
 	while ((ret = read(STDIN_FILENO, buf, READ_BUF_SZE - 1)) != 0)
@@ -88,19 +98,9 @@ void				detect_input(void)
 		if (ret > 0)
 		{
 			if (!expression_balanced())
-			{
-				ft_strcat(g_editor->cmd, "\n");
-				ft_strcat(cmd_line, g_editor->cmd);
-				continue_until_balanced();
-			}
+				unbalance_exp_handler(cmd_line);
 			else
-			{
-				pos = g_editor->cur_pos + ft_strlen(cmd_line);
-				ft_strcat(cmd_line, g_editor->cmd);
-				command_set(cmd_line, 0);
-				g_editor->cur_pos = pos;
-				end_of_input(buf, cmd_line);
-			}
+				set_up_for_execution(cmd_line, buf);
 			break ;
 		}
 		ft_memset(buf, '\0', READ_BUF_SZE);
