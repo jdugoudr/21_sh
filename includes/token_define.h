@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_define.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:21:08 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/13 13:19:06 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_ast
 	struct s_ast	*prev;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	struct s_ast	*father;
 	struct s_ast	*head_sub;
 	struct s_ast	*ast_sub;
 }					t_ast;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/11 20:19:41 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/13 14:42:07 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	exec_word(t_ast *el, t_ast *head)
 {
 	t_built	built_tab[NB_BUILT];
 	int		i;
+	int		*close_fd;
+//	int 	child;
 
 	(void)head;
 	init_built(built_tab);
@@ -49,6 +51,10 @@ int	exec_word(t_ast *el, t_ast *head)
 		ft_printf("on execute builtin %s\n", built_tab[i].name);////
 //		return (built_tab[i].func(el->arg_cmd));
 	else
-		return (check_bin(el, head));
+		{
+		//	child = fork();
+		//	if (child == -1)
+			return (check_bin(el, head));
+		}
 	return (0);//a suprimer
 }

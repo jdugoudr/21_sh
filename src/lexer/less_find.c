@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   less_find.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:27:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/06 12:32:52 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/13 13:41:08 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_ast	*dless_find(char **line, t_ast *tok, char *value)
 		tok->type = DLESS_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_dless;
-		tok->f_exec = &exec_dless;
+		tok->f_exec = &exec_redirect;
 	}
 	(*line) += 1;
 	return (tok);
@@ -60,7 +60,7 @@ t_ast		*less_find(char **line, t_ast *tok, char *value)
 			tok->type = LESS_FD_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_redir_fd;
-			tok->f_exec = &exec_less_fd;
+			tok->f_exec = &exec_redirect;
 			(*line) += 1;
 		}
 		else
@@ -68,7 +68,7 @@ t_ast		*less_find(char **line, t_ast *tok, char *value)
 			tok->type = LESS_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_less;
-			tok->f_exec = &exec_less;
+			tok->f_exec = &exec_redirect;
 		}
 		(*line) += 1;
 	}

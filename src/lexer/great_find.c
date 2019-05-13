@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   great_find.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:34:07 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/06 19:07:10 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/13 13:41:20 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_ast	*dgreat_find(char **line, t_ast *tok, char *value)
 		tok->type = DGREAT_FD_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_redir_fd;
-		tok->f_exec = &exec_dgreat_fd;
+		tok->f_exec = &exec_redirect;
 		(*line) += 1;
 	}
 	else
@@ -45,7 +45,7 @@ static t_ast	*dgreat_find(char **line, t_ast *tok, char *value)
 		tok->type = DGREAT_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_dgreat;
-		tok->f_exec = &exec_dgreat;
+		tok->f_exec = &exec_redirect;
 	}
 	(*line) += 1;
 	return (tok);
@@ -62,7 +62,7 @@ t_ast	*great_find(char **line, t_ast *tok, char *value)
 			tok->type = GREAT_FD_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_redir_fd;
-			tok->f_exec = &exec_great_fd;
+			tok->f_exec = &exec_redirect;
 			(*line) += 1;
 		}
 		else
@@ -70,7 +70,7 @@ t_ast	*great_find(char **line, t_ast *tok, char *value)
 			tok->type = GREAT_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_great;
-			tok->f_exec = &exec_great;
+			tok->f_exec = &exec_redirect;
 		}
 		(*line) += 1;
 	}

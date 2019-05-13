@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
+#    By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/09 17:36:05 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/13 13:50:21 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ SRC				+=	run_ast.c exec_pipe.c exec_less.c \
 					exec_dless.c exec_great.c exec_dgreat.c exec_sub_shell.c exec_assign.c \
 					exec_word.c exec_semi_col.c exec_and_if.c exec_or_if.c \
 					exec_dless_fd.c exec_less_fd.c exec_great_fd.c exec_dgreat_fd.c \
-					exec_bin.c lsttotab.c
+					exec_bin.c lsttotab.c exec_redirect.c
 
 ##################################################
 ##########			KEYPRESS			##########
