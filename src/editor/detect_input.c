@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 17:43:57 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 18:09:42 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void			end_of_input(char buf[], char line[])
 		ft_memset(buf, '\0', READ_BUF_SZE);
 		return ;
 	}
+	keypress_end();
 	ft_dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
 	parser(g_editor->cmd);
@@ -61,40 +62,48 @@ static void			end_of_input(char buf[], char line[])
 	ft_memset(buf, '\0', READ_BUF_SZE);
 	if (!ends_with_newline())
 		ft_dprintf(g_editor->tty_fd, "\033[7m%%\033[m\n");
+
 }
+
+// static void			unbalance_exp_handler(char *cmd_line)
+// {
+// 	ft_strcat(g_editor->cmd, "\n");
+// 	ft_strcat(cmd_line, g_editor->cmd);
+// 	continue_until_balanced();
+// }
 
 void				detect_input(void)
 {
 	char		buf[READ_BUF_SZE];
 	static char	cmd_line[ARG_MAX] = {'\0'};
 	int			ret;
+	size_t		pos;
 
 	ft_memset(buf, '\0', READ_BUF_SZE);
 	while ((ret = read(STDIN_FILENO, buf, READ_BUF_SZE - 1)) != 0)
 	{
 		if (ret == -1)
-			ft_exit("read", 1, 1, EXIT_FAILURE) ;
-		else
+			ft_exit("read", 1, 1, EXIT_FAILURE);
+		ret = dispatch_keypress(*(unsigned long *)buf);
+		if (ret > 0)
 		{
-			ret = dispatch_keypress(*(unsigned long *)buf);
-			if (ret > 0)
+			if (!expression_balanced())
 			{
-				if (!expression_balanced())
-				{
-					ft_strcat(g_editor->cmd, "\n");
-					ft_strcat(cmd_line, g_editor->cmd);
-					continue_until_balanced();
-				}
-				else
-				{
-					ft_strcat(cmd_line, g_editor->cmd);
-					command_set(cmd_line, 0);
-					end_of_input(buf, cmd_line);
-				}
-				break ;
+				ft_strcat(g_editor->cmd, "\n");
+				ft_strcat(cmd_line, g_editor->cmd);
+				continue_until_balanced();
 			}
-			ft_memset(buf, '\0', READ_BUF_SZE);
-			continue ;
+			else
+			{
+				pos = g_editor->cur_pos + ft_strlen(cmd_line);
+				ft_strcat(cmd_line, g_editor->cmd);
+				command_set(cmd_line, 0);
+				g_editor->cur_pos = pos;
+				end_of_input(buf, cmd_line);
+			}
+			break ;
 		}
+		ft_memset(buf, '\0', READ_BUF_SZE);
+		continue ;
 	}
 }
