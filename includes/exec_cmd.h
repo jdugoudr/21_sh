@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:23:11 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/11 20:19:47 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	exec_assign(t_ast *el, t_ast *head);
 int	exec_word(t_ast *el, t_ast *head);
 int	exec_dless_fd(t_ast *el, t_ast *head);
 
-int	check_bin(t_ast *el);
+int	check_bin(t_ast *el, t_ast *head);
 
 char	**lsttotab(t_arg *lst);
 #endif

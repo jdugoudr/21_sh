@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:36:44 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/11 20:19:41 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	exec_word(t_ast *el, t_ast *head)
 		ft_printf("on execute builtin %s\n", built_tab[i].name);////
 //		return (built_tab[i].func(el->arg_cmd));
 	else
-		return (check_bin(el));
+		return (check_bin(el, head));
 	return (0);//a suprimer
 }

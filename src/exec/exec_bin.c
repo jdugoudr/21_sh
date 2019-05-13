@@ -14,7 +14,15 @@
 ** 		  If you do the program will stop with a double free issue.
 */
 
-static int	exec_bin(char *path, char **arg)
+static void	free_exit(int r, t_ast *head)
+{
+	free_shell();
+	free_editor();
+	del_ast(&head);
+	exit(r);
+}
+
+static int	exec_bin(char *path, char **arg, t_ast *head)
 {
 	pid_t	child;
 	int		ret;
@@ -32,7 +40,11 @@ static int	exec_bin(char *path, char **arg)
 		return (1);
 	}
 	else if (child == 0)
+	{
 		execve(path, arg, g_shell->env);
+		ft_dprintf(STDERR_FILENO, "21sh: A problem appeared with execve.\n");
+		free_exit(1, head);
+	}
 	else
 		waitpid(child, &ret, 0);
 	return (ret);
@@ -50,7 +62,7 @@ static char	*complete_path(char *path, char *name)
 	return (com_path);
 }
 
-static int	check_path(t_ast *el, char **path_tab)
+static int	check_path(t_ast *el, char **path_tab, t_ast *head)
 {
 	char	*com_path;
 	int		ret;
@@ -66,7 +78,7 @@ static int	check_path(t_ast *el, char **path_tab)
 		}
 		if (access(com_path, F_OK) == 0)
 		{
-			ret = exec_bin(com_path, el->arg_cmd);
+			ret = exec_bin(com_path, el->arg_cmd, head);
 			free(com_path);
 			return (ret);
 		}
@@ -77,7 +89,7 @@ static int	check_path(t_ast *el, char **path_tab)
 	return (1);
 }
 
-int			check_bin(t_ast *el)
+int			check_bin(t_ast *el, t_ast *head)
 {
 	int		ret;
 	char	*path;
@@ -85,13 +97,13 @@ int			check_bin(t_ast *el)
 
 	ret = 0;
 	if (access(el->value, F_OK) == 0)
-		return (exec_bin(el->value, el->arg_cmd));
+		return (exec_bin(el->value, el->arg_cmd, head));
 	if ((path = getenv("PATH")) != NULL)//getenv non autoriser, a remplace par le builtin
 	{
 		ret = 1;
 		if ((path_tab = ft_strsplit(path, ':')) != NULL)
 		{
-			ret = check_path(el, path_tab);
+			ret = check_path(el, path_tab, head);
 			ft_tabstrdel(&path_tab, 0);
 		}
 		else
