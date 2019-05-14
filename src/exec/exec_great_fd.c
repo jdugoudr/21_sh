@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_great_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 15:59:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:27:43 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:22:16 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,28 @@
 ** execute the command, and then set again the output to the save one.
 */
 
-static int	get_fd(char *name_file)
+//static int	get_fd(char *name_file)
+//{
+//	int	fd;
+//
+//	fd = open(name_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//	if (fd == -1)
+//	{
+//		ft_dprintf(STDERR_FILENO, CANT_OPEN, name_file);
+//		return (-1);
+//	}
+//	return (fd);
+//}
+
+static int	get_fd(char *name_file, int open_flag)
 {
 	int	fd;
 
-	fd = open(name_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//	fd = open(name_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (open_flag & O_CREAT)
+		fd = open(name_file, open_flag, 0644);
+	else
+		fd = open(name_file, open_flag);
 	if (fd == -1)
 	{
 		ft_dprintf(STDERR_FILENO, CANT_OPEN, name_file);
@@ -36,12 +53,17 @@ static int	get_fd(char *name_file)
 	return (fd);
 }
 
-static int	file_descriptor(t_ast *el)
+static int	file_descriptor(t_ast *el, int open_flag)
 {
 	int	fd;
 
-	if ((el->right->value)[0] == '-')
-		fd = get_fd(CLOSE_OUTPUT);
+	if (el->type == LESS_FD_TOK && (el->right->value)[0] == '-')
+	{
+		ft_dprintf(STDERR_FILENO, BAD_FD, "stdin");
+		return (-1);
+	}
+	else if ((el->right->value)[0] == '-')
+		fd = get_fd(CLOSE_OUTPUT, open_flag);
 	else
 		fd = ft_atoi(el->right->value);
 	if (write(fd, "", 0) == -1)
@@ -52,40 +74,58 @@ static int	file_descriptor(t_ast *el)
 	return (fd);
 }
 
-static int	do_dup(t_ast *el, int fd_in, t_ast *head)
+static int	do_dup(t_ast *el, int fd_in, int ***save_fd, int open_flag)
 {
-	int	r;
-	int	save_fd;
 	int	fd;
+	int	save;
 
-	r = 0;
-	if ((fd = file_descriptor(el)) == -1)
-		return (1);
-	save_fd = dup(fd_in);
-	if (save_fd == -1)
-		r = -1;
-	else if (dup2(fd, fd_in) == -1)
-		r = -1;
-	r = run_ast(el->left, head);
-	if (dup2(save_fd, fd_in) == -1)
-		r = -1;
-	if (r == -1)
+	if ((fd = file_descriptor(el, open_flag)) == -1)
+		return (-1);
+	if (is_saved(*save_fd, fd_in, 0) == 0)
 	{
-		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		return (1);
+		if ((save = dup(fd_in)) == -1)
+			return (-1);
+		if ((*save_fd = add_value(*save_fd, fd_in, save)) == NULL)
+			return (-1);
 	}
-	close(fd);
-	return (r);
+	if (dup2(fd, fd_in) == -1)
+		return (-1);
+	return (fd);
 }
+//static int	do_dup(t_ast *el, int fd_in, t_ast *head)
+//{
+//	int	r;
+//	int	save_fd;
+//	int	fd;
+//
+//	r = 0;
+//	if ((fd = file_descriptor(el)) == -1)
+//		return (1);
+//	save_fd = dup(fd_in);
+//	if (save_fd == -1)
+//		r = -1;
+//	else if (dup2(fd, fd_in) == -1)
+//		r = -1;
+//	r = run_ast(el->left, head);
+//	if (dup2(save_fd, fd_in) == -1)
+//		r = -1;
+//	if (r == -1)
+//	{
+//		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+//		return (1);
+//	}
+//	close(fd);
+//	return (r);
+//}
 
-int			exec_great_fd(t_ast *el, t_ast *head)
+int			exec_great_fd(t_ast *el, int ***save_fd, int open_flag, int fd_in)
 {
-	int	fd_in;
+//	int	fd_in;
 
-	fd_in = STDOUT_FILENO;
+//	fd_in = STDOUT_FILENO;
 	if (el->right == NULL || el->right->value == NULL)
 		return (1);
 	if (el->value)
 		fd_in = ft_atoi(el->value);
-	return (do_dup(el, fd_in, head));
+	return (do_dup(el, fd_in, save_fd, open_flag));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/11 21:31:06 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:38:50 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ int				parser(char *line)
 				|| ambigous_redirect(token_head)
 				|| expansion_tok(token_head)
 				|| create_arg(token_head)
-				|| !(token_head = look_redir(tmp))
+//				|| !(token_head = look_redir(tmp))
 				|| create_ast(&ast_root, token_head))
 			ret = 1;
 		else
+		{
 			run_ast(ast_root, token_head);
+		}
 	}
 	del_ast(&token_head);
 	return (ret);

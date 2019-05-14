@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:12:35 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 16:48:17 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/14 11:49:29 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_ast	*create_tok_el(char *str, t_ast *prev, t_ast *next)
 	el->arg_cmd = NULL;
 	el->left = NULL;
 	el->right = NULL;
+	el->father = NULL;
 	el->f_exec = NULL;
 	el->f_tok_next = NULL;
 	return (el);
@@ -54,6 +55,7 @@ t_ast	*create_token()
 	new_tok->prev = NULL;
 	new_tok->left = NULL;
 	new_tok->right = NULL;
+	new_tok->father = NULL;
 	new_tok->head_sub = NULL;
 	new_tok->ast_sub = NULL;
 	new_tok->value = NULL;

@@ -6,7 +6,7 @@
 #    By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/13 13:50:21 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/05/14 16:22:56 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,12 +70,11 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 ##################################################
 ##########			EXEC				##########
 ##################################################
-SRC				+=	run_ast.c exec_pipe.c exec_less.c \
-					exec_dless.c exec_great.c exec_dgreat.c exec_sub_shell.c exec_assign.c \
+SRC				+=	run_ast.c exec_pipe.c exec_great.c exec_great_fd.c \
+					exec_sub_shell.c exec_assign.c \
 					exec_word.c exec_semi_col.c exec_and_if.c exec_or_if.c \
-					exec_dless_fd.c exec_less_fd.c exec_great_fd.c exec_dgreat_fd.c \
-					exec_bin.c lsttotab.c exec_redirect.c
-
+					exec_bin.c lsttotab.c exec_redirect.c exec_utils.c
+					
 ##################################################
 ##########			KEYPRESS			##########
 ##################################################
