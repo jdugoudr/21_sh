@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:05:30 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/19 16:40:19 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void		init_editor(void)
 	g_editor->open_subsh = 0;
 	g_editor->term = NULL;
 	g_editor->oldterm = NULL;
+	g_editor->flag_sigint = 0;
 }
 
 int				main(int argc, char **argv, char **enviro)

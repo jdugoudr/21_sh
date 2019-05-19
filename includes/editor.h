@@ -6,14 +6,17 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 19:55:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/19 16:39:34 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EDITOR_H
 # define EDITOR_H
 
-# include <limits.h>
+// # include <limits.h>
+// # include <linux/limits.h>
+# define ARG_MAX 10000
+# define PATH_MAX 10000
 # include <term.h>
 # include <termios.h>
 # include <stdlib.h>
@@ -43,6 +46,7 @@ struct					s_editor
 	char				cpy_buff[ARG_MAX + 1];
 	char				prompt[PATH_MAX];
 	int					quotes;
+	int					flag_sigint;
 	int					open_subsh;
 	int					tty_fd;
 	size_t				cur_pos;

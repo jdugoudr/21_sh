@@ -6,12 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:21:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:19:23 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/19 17:39:14 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
-#include "libft.h" // delete
+#include "libft.h"
 #include "shell21.h"
 #include <stdlib.h>
 #include <signal.h>
@@ -39,13 +39,24 @@ static void		handler_sigint(int signo)
 {
 	if (signo == SIGINT)
 	{
-		ft_dprintf(STDOUT_FILENO, "SIGINT CAUGHT\n");
-		ft_exit(NULL, 1, 1, EXIT_FAILURE);
+		g_editor->flag_sigint = 1;
+		ft_dprintf(STDOUT_FILENO, "\n");
+		g_shell->hist_ptr = NULL;
+		command_reset();
+		prompt_reset();
+		prompt_display();
 	}
+}
+
+static void		handler_sigstp(int signo)
+{
+	if (signo == SIGTSTP)
+		ft_printf("SIGTSTP\n");
 }
 
 void			init_signal_handlers(void)
 {
 	signal(SIGWINCH, handler_sigwinch);
 	signal(SIGINT, handler_sigint);
+	signal(SIGTSTP, handler_sigstp);
 }

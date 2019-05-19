@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 18:28:24 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/19 17:41:32 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <sys/ioctl.h>
 #include "keypress.h"
+#include <signal.h>
+
 /*
 ** Check if a command only exists of spaces and tabulations
 */
@@ -34,6 +36,16 @@ static int			is_empty_cmd(void)
 		i++;
 	}
 	return (1);
+}
+
+static void		handler_sigint_proc(int signo)
+{
+	if (signo == SIGINT)
+	{
+		g_editor->flag_sigint = 1;
+		ft_dprintf(STDOUT_FILENO, "\n");
+		command_reset();
+	}
 }
 
 /*
@@ -54,16 +66,18 @@ static void			end_of_input(char buf[], char line[])
 		move_cursor_right();
 	ft_dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
+	signal(SIGINT, handler_sigint_proc);
 	parser(g_editor->cmd);
+	init_signal_handlers();
 	set_terminfo();
 	history_append(g_editor->cmd);
 	command_reset();
 	prompt_reset();
 	g_shell->hist_ptr = NULL;
 	ft_memset(buf, '\0', READ_BUF_SZE);
-	if (!ends_with_newline())
+	if (!ends_with_newline() && !g_editor->flag_sigint)
 		ft_dprintf(g_editor->tty_fd, "\033[7m%%\033[m\n");
-
+	g_editor->flag_sigint = 0;
 }
 
 static void			unbalance_exp_handler(char *cmd_line)
@@ -76,11 +90,15 @@ static void			unbalance_exp_handler(char *cmd_line)
 static void			set_up_for_execution(char *cmd_line, char buf[])
 {
 	size_t		pos;
+
+	if (g_editor->flag_sigint)
+		ft_bzero(cmd_line, ARG_MAX);
 	pos = g_editor->cur_pos + ft_strlen(cmd_line);
 	ft_strcat(cmd_line, g_editor->cmd);
 	command_set(cmd_line, 0);
 	g_editor->cur_pos = pos;
 	end_of_input(buf, cmd_line);
+
 }
 
 void				detect_input(void)
