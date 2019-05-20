@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:14:14 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 19:35:29 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 20:08:12 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				builtin_unsetenv(char **cmd)
 
 	if (check_cmd_format(cmd, 1) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, "usage: unsetenv variable_name\n");
+		write(STDERR_FILENO, "usage: unsetenv variable_name\n", 30);
 		return (0);
 	}
 	if ((ind = get_env_ind(cmd[1])) < 0)

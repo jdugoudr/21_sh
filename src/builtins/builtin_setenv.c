@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_setenv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:14:16 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 18:41:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 20:06:35 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int		set_env_value(size_t ind, char *key, char *val)
 	free(g_shell->env[ind]);
 	if ((g_shell->env[ind] = ft_strjoin(key, "=", 0)) == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		write(STDERR_FILENO, INTERN_ERR, ft_strlen(INTERN_ERR));
 		return (1);
 	}
 	if ((g_shell->env[ind] = ft_strjoin(g_shell->env[ind], val, 1)) == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		write(STDERR_FILENO, INTERN_ERR, ft_strlen(INTERN_ERR));
 		return (1);
 	}
 	return (0);
@@ -56,7 +56,7 @@ static int	check_var(char **cmd, int r, char **key, char **var)
 	}
 	if (r)
 	{
-		ft_dprintf(STDERR_FILENO, "usage: setenv key value\n");
+		write(STDERR_FILENO, "usage: setenv key value\n", 24);
 		return (1);
 	}
 	return (0);
