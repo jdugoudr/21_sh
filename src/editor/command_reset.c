@@ -21,5 +21,5 @@ void			command_reset(void)
 	g_editor->col = g_editor->offset;
 	g_editor->cmd_sze = 0;
 	g_editor->cur_pos = 0;
-	g_editor->quotes = 0;
+	// g_editor->quotes = 0;
 }

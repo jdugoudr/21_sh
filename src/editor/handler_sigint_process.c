@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_display.c                                   :+:      :+:    :+:   */
+/*   handler_sigint_process.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/21 17:08:26 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 17:24:56 by mdaoud           ###   ########.fr       */
+/*   Created: 2019/05/20 16:29:47 by mdaoud            #+#    #+#             */
+/*   Updated: 2019/05/20 17:11:28 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
-#include "libft.h"
+#include <signal.h>
+#include <libft.h>
 
-void			prompt_display(void)
+void			handler_sigint_process(int signo)
 {
-	ft_dprintf(g_editor->tty_fd, "%s", g_editor->prompt);
+	if (signo == SIGINT)
+	{
+		g_editor->flag_sigint = 1;
+		ft_dprintf(STDOUT_FILENO, "\n");
+		command_reset();
+	}
 }

@@ -6,17 +6,14 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/19 16:39:34 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 16:30:44 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EDITOR_H
 # define EDITOR_H
 
-// # include <limits.h>
-// # include <linux/limits.h>
-# define ARG_MAX 10000
-# define PATH_MAX 10000
+# include <limits.h>
 # include <term.h>
 # include <termios.h>
 # include <stdlib.h>
@@ -83,6 +80,7 @@ void					continue_until_balanced(void);
 void					detect_input(void);
 void					free_editor(void);
 void					get_editor_dim(void);
+void					handler_sigint_process(int signo);
 int						ends_with_newline(void);
 int						expression_balanced(void);
 void					init_signal_handlers(void);

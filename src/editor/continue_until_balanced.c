@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:22:56 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/19 17:15:24 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:25:34 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void			continue_until_balanced(void)
 		prompt_set("subsh quote> ");
 	else if (q_flag == (DOUBLE_Q | PARANTH))
 		prompt_set("subsh dquote> ");
+	while (g_editor->cur_pos < g_editor->cmd_sze)
+		move_cursor_right();
 	ft_dprintf(g_editor->tty_fd, "\n");
 	command_reset();
 }

@@ -6,15 +6,13 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/13 19:12:58 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:23:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "sh_error.h"
 #include "shell21.h"
-//#include <sys/types.h>//linux
-//#include <sys/wait.h>//linux
 
 /*
 ** Here we execute word.

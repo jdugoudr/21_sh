@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/19 17:41:32 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:25:04 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,6 @@ static int			is_empty_cmd(void)
 	return (1);
 }
 
-static void		handler_sigint_proc(int signo)
-{
-	if (signo == SIGINT)
-	{
-		g_editor->flag_sigint = 1;
-		ft_dprintf(STDOUT_FILENO, "\n");
-		command_reset();
-	}
-}
-
 /*
 ** The function that will be executed once the user presses "Enter"
 */
@@ -66,7 +56,7 @@ static void			end_of_input(char buf[], char line[])
 		move_cursor_right();
 	ft_dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
-	signal(SIGINT, handler_sigint_proc);
+	signal(SIGINT, handler_sigint_process);
 	parser(g_editor->cmd);
 	init_signal_handlers();
 	set_terminfo();

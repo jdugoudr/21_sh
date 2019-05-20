@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:21:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/19 17:39:14 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:24:58 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ static void		handler_sigint(int signo)
 		command_reset();
 		prompt_reset();
 		prompt_display();
+		g_editor->quotes = 0;
 	}
 }
 
 static void		handler_sigstp(int signo)
 {
 	if (signo == SIGTSTP)
-		ft_printf("SIGTSTP\n");
+		;
 }
 
 void			init_signal_handlers(void)
