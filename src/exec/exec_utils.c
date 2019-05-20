@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 12:19:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/18 16:10:32 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 09:59:32 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_save_fd	*add_value(t_save_fd *fd_lst, int to_save, int saved)
 
 	if ((new_el = malloc(sizeof(t_save_fd))) == NULL)
 	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		del_saved_fd(&fd_lst);
 		return (NULL);
 	}

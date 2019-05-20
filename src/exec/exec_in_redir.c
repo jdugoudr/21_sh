@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:44:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/18 16:09:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 10:46:29 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 ** not already in this table.
 */
 
-static int	write_heredoc(int open_flag, char *str)
+static int	write_heredoc(int open_flag, char *str, t_save_fd **fd_lst)
 {
 	int	len;
 	int fd;
@@ -55,7 +55,8 @@ static int	write_heredoc(int open_flag, char *str)
 		return (-1);
 	}
 	close(fd);
-	get_fd(HERE_DOC, open_flag, &fd);
+	if (get_fd(HERE_DOC, open_flag, &fd, fd_lst))
+		return (-1);
 	return (fd);
 }
 
@@ -76,7 +77,7 @@ static int 	left(int type, int fd_from, t_save_fd **fd_lst)
 
 static int	do_dup(t_ast *el, int fd_from, int fd_to, t_save_fd **fd_lst)
 {
-	if (fd_from != fd_to && check_right_fd(*fd_lst, fd_to, el->type))
+	if (fd_from != fd_to && el->type & FD_REDIR && check_right_fd(*fd_lst, fd_to, el->type))
 	{
 		ft_dprintf(STDERR_FILENO, BAD_FD, el->right->value);
 		return (1);
@@ -98,7 +99,7 @@ static int	do_dup(t_ast *el, int fd_from, int fd_to, t_save_fd **fd_lst)
 	return (0);
 }
 
-int	exec_in_redir(t_ast *el, t_save_fd **save_fd, int open_flag, int fd_in)
+int	exec_in_redir(t_ast *el, t_save_fd **fd_lst, int open_flag, int fd_in)
 {
 	int	work_fd;
 
@@ -108,12 +109,12 @@ int	exec_in_redir(t_ast *el, t_save_fd **save_fd, int open_flag, int fd_in)
 		fd_in = ft_atoi(el->value);
 	if (el->type & DLESS_TOK)
 	{
-		if ((work_fd = write_heredoc(open_flag, el->right->value)) == -1)
+		if ((work_fd = write_heredoc(open_flag, el->right->value, fd_lst)) == -1)
 			return (1);
 	}
 	else if (el->type & (LESS_TOK | DLESS_TOK))
 	{
-		if (get_fd(el->right->value, open_flag, &work_fd))
+		if (get_fd(el->right->value, open_flag, &work_fd, fd_lst))
 			return (1);
 	}
 	else
@@ -123,5 +124,5 @@ int	exec_in_redir(t_ast *el, t_save_fd **save_fd, int open_flag, int fd_in)
 		else if (file_descriptor(el->right->value, &work_fd))
 			return (1);
 	}
-	return (do_dup(el, fd_in, work_fd, save_fd));
+	return (do_dup(el, fd_in, work_fd, fd_lst));
 }

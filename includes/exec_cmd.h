@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/18 16:07:57 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 10:00:37 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int						save_fd(t_save_fd **fd_lst, int fd);
 int				 		check_left_fd(t_save_fd **fd_lst, int fd, int tok_red);
 int 					check_right_fd(t_save_fd *fd_lst, int fd, int tok_red);
 
-int						get_fd(char *name_file, int open_flag, int *new_fd);
+int						get_fd(char *name_file, int open_flag, int *new_fd, t_save_fd **fd_lst);
 int						file_descriptor(char *value, int *new_fd);
 void print_fd(t_save_fd *el);////a supprimer !!!
 #endif

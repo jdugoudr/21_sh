@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/18 16:08:05 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 10:45:35 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static void	free_reset_fd(t_save_fd **fd_lst, t_ast *head)
 		}
 		else
 			close(lst->old_fd);
-	//	if (lst->file_open > -1)
-	//		close(lst->file_open);
 		lst = lst->next;
 	}
 	del_saved_fd(fd_lst);
@@ -99,16 +97,9 @@ static int 	loop_redirect(t_ast *el, t_ast *head, t_ast *cmd, t_built *builtin, 
 		return (loop_redirect(el->father, head, cmd, builtin, fd_lst));
 	}
 	else if (builtin)
-	{
 		write(1, "execution de built\n", 19);
-	print_fd(*fd_lst);
-	}
 	else
-	{
-	print_fd(*fd_lst);
 		r = check_bin(cmd, head);
-	}
-	print_fd(*fd_lst);
 	free_reset_fd(fd_lst, head);
 	return (r);
 }

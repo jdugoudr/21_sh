@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:39:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/18 16:07:51 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 10:42:23 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	file_descriptor(char *value, int *new_fd)
 	return (0);
 }	
 
-int	get_fd(char *name_file, int open_flag, int *new_fd)
+int	get_fd(char *name_file, int open_flag, int *new_fd, t_save_fd **fd_lst)
 {
 	int	fd;
 
@@ -70,6 +70,8 @@ int	get_fd(char *name_file, int open_flag, int *new_fd)
 		ft_dprintf(STDERR_FILENO, CANT_OPEN, name_file);
 		return (1);
 	}
+	if ((*fd_lst = add_value(*fd_lst, fd, -1)) == NULL)
+		return (1);
 	*new_fd = fd;
 	return (0);
 }
@@ -80,8 +82,8 @@ int 		check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
 	{
 		if (fd_lst->save_fd == fd)//si le fd est une sauvegarde
 			return (1);
-		if (fd_lst->old_fd == fd && fd_lst->save_fd != -1)//si le fd etait un fd ferme
-			return (0);
+		if (fd_lst->old_fd == fd && fd_lst->save_fd == -1)//si le fd etait un fd ferme
+			return (1);
 		fd_lst = fd_lst->next;
 	}
 	if (tok_red & OUT_REDIR)
@@ -117,7 +119,7 @@ int 		check_left_fd(t_save_fd **fd_lst, int fd, int tok_red)
 		if (write(fd, "", 0) == 0 && (save = save_fd(fd_lst, fd)) == -1)
 			return (1);
 	}
-	else if (read(fd, NULL, 0) < 0)
+	else if ((save = save_fd(fd_lst, fd)) == -1)
 		return (1);
 	*fd_lst = add_value(*fd_lst, fd, save);
 	return (0);
