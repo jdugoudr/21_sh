@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 18:05:52 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 19:25:08 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,12 @@ static void			end_of_input(char buf[], char line[])
 	}
 	while (g_editor->cur_pos < g_editor->cmd_sze)
 		move_cursor_right();
-	ft_dprintf(g_editor->tty_fd, "\n");
+	history_append(g_editor->cmd);ft_dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
 	signal(SIGINT, handler_sigint_process);
 	parser(g_editor->cmd);
 	init_signal_handlers();
 	set_terminfo();
-	history_append(g_editor->cmd);
 	command_reset();
 	prompt_reset();
 	g_shell->hist_ptr = NULL;
