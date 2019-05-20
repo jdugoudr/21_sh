@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:39:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 11:46:13 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 12:24:27 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,14 @@ int	get_fd(char *name_file, int open_flag, int *new_fd, t_save_fd **fd_lst)
 }
 
 /*
-** We check the fd where we will do to/from the redirection
+** We check the fd where we will do to/from the redirection.
 ** The fd need to be a open fd.
-** If the fd is a backup, it's not a right redirection
-** If the fd is open but was close at the begining (4>&2 will open fd 4), it's not right
-** If we can't read/write from/on it's fd. it's not a right redirection
+** If the fd is a backup, it's not a right redirection.
+** If the fd is open but was close at the begining (4>&2 will open fd 4), it's not right.
+** If we can't read/write from/on it. It's not a right redirection.
+**
+** If we the fd is saved and backup is not -1. That's mean the fd is right.
+** If the fd is not saved and we can read/write from/on it. It's a right fd.
 */
 
 int 		check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
@@ -101,6 +104,8 @@ int 		check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
 			return (1);
 		if (fd_lst->old_fd == fd && fd_lst->save_fd == -1)
 			return (1);
+		if (fd_lst->old_fd == fd && fd_lst->save_fd != -1)
+			return (0);
 		fd_lst = fd_lst->next;
 	}
 	if (tok_red & OUT_REDIR)
