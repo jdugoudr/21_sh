@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 16:30:44 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:49:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 */
 struct					s_editor
 {
-	char				cmd[ARG_MAX + 1];	//check arg_max
+	char				cmd[ARG_MAX + 1];
 	char				cpy_buff[ARG_MAX + 1];
 	char				prompt[PATH_MAX];
 	int					quotes;
@@ -66,9 +66,6 @@ typedef struct s_editor		t_editor;
 */
 t_editor				*g_editor;
 
-/*
-Editor
-*/
 void					add_char(char c);
 void					clear_string(char *str);
 void					command_append(char *str, int rewrite_flag);

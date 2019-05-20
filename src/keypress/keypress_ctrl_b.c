@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 19:41:43 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:32:23 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:13:30 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void			keypress_ctrl_b(size_t start, size_t end)
 {
 	char	tmp[ARG_MAX + 1];
 	size_t	i;
-
 
 	if (start == end)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 00:52:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 19:32:21 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:22:59 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void			change_directory(char *path, int print_dir)
 	if (chdir(path) == -1)
 	{
 		if ((access(path, F_OK) == -1))
-			ft_dprintf(STDERR_FILENO, "cd: no such file or directory: %s\n", path);
+			ft_dprintf(STDERR_FILENO, "cd: no such file or directory: %s\n",\
+				path);
 		else if ((access(path, R_OK) == -1))
 			ft_dprintf(STDERR_FILENO, "cd: permission denied: %s\n", path);
 		else

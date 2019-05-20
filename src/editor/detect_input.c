@@ -6,10 +6,9 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 17:25:04 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:05:52 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "editor.h"
 #include "parser.h"
@@ -88,7 +87,6 @@ static void			set_up_for_execution(char *cmd_line, char buf[])
 	command_set(cmd_line, 0);
 	g_editor->cur_pos = pos;
 	end_of_input(buf, cmd_line);
-
 }
 
 void				detect_input(void)

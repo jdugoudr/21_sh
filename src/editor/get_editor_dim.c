@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 17:10:21 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:31:51 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:07:32 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void		calc_dim(void)
 	g_editor->col = x % g_editor->win_width;
 }
 
-
 static void		get_col_row(void)
 {
 	size_t	i;
@@ -38,7 +37,8 @@ static void		get_col_row(void)
 	i = 0;
 	while (g_editor->cmd[i] && i < g_editor->cur_pos)
 	{
-		if (g_editor->cmd[i] == '\n' || g_editor->col == g_editor->win_width - 1)
+		if (g_editor->cmd[i] == '\n' ||\
+			g_editor->col == g_editor->win_width - 1)
 		{
 			g_editor->line++;
 			g_editor->col = 0;
@@ -64,7 +64,8 @@ void			get_editor_dim(void)
 	i = 0;
 	while (g_editor->cmd[i])
 	{
-		if (g_editor->cmd[i] == '\n' || g_editor->col == g_editor->win_width - 1)
+		if (g_editor->cmd[i] == '\n' ||\
+			g_editor->col == g_editor->win_width - 1)
 		{
 			g_editor->max_line++;
 			g_editor->line = 0;

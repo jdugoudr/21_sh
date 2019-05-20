@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:36:49 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:31:57 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:12:45 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void			write_cmd_in_visual(size_t start, size_t end)
 	}
 }
 
-void			write_in_visual(size_t start, size_t end)
+void				write_in_visual(size_t start, size_t end)
 {
 	size_t	i;
 

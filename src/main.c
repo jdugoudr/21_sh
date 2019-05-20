@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/19 16:40:19 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:27:28 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "shell21.h"
 #include <fcntl.h>
 
-static void		init_env(char **environ)
+static void			init_env(char **environ)
 {
 	char	**env;
 	int		count;
@@ -58,11 +58,10 @@ static t_shell		*init_shell(char **enviro)
 	}
 	else
 		init_env(enviro);
-
 	return (g_shell);
 }
 
-static void		init_editor(void)
+static void			init_editor(void)
 {
 	struct winsize	w;
 	int				ret;
@@ -87,9 +86,10 @@ static void		init_editor(void)
 	g_editor->flag_sigint = 0;
 }
 
-int				main(int argc, char **argv, char **enviro)
+int					main(int argc, char **argv, char **enviro)
 {
 	char	*str;
+
 	(void)argv;
 	(void)argc;
 	init_editor();
@@ -106,7 +106,7 @@ int				main(int argc, char **argv, char **enviro)
 		restore_default_conf();
 		return (0);
 	}
-	while(1)
+	while (1)
 	{
 		prompt_display();
 		detect_input();

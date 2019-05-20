@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 20:08:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:00:26 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:11:12 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void			restore_default_conf(void)
 		return ;
 	g_editor->term->c_lflag |= (ICANON | ECHO);
 	if (g_editor->oldterm != NULL)
-		tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->oldterm); // IN OR OUT?
+		tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->oldterm);
 	tputs(tgetstr("ei", NULL), 1, tputs_char);
 }

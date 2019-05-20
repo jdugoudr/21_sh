@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_whitespaces.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 11:34:20 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 11:45:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 18:24:48 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		ft_cpt_word(char *str)
 	return (cmp);
 }
 
-static void	ft_word_cp(char *str, char **str_, int w)
+static void		ft_word_cp(char *str, char **str_, int w)
 {
 	int		i;
 	int		j;
@@ -68,7 +68,7 @@ static void	ft_word_cp(char *str, char **str_, int w)
 	}
 }
 
-char	**split_whitespaces(char *str)
+char			**split_whitespaces(char *str)
 {
 	int		nb_word;
 	char	**str_;

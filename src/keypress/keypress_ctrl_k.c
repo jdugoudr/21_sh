@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 19:41:43 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/16 15:06:13 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:20:49 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void		copy_to_buffer(size_t start, size_t end)
 	char	tmp[ARG_MAX + 1];
 	size_t	i;
 
-
 	if (start == end)
 		return ;
 	ft_memset(g_editor->cpy_buff, '\0', ARG_MAX + 1);
@@ -44,7 +43,7 @@ static void		copy_to_buffer(size_t start, size_t end)
 	ft_strcpy(g_editor->cpy_buff, tmp);
 }
 
-static void		update_cur_pos(size_t start, size_t	end)
+static void		update_cur_pos(size_t start, size_t end)
 {
 	if (g_editor->cur_pos == start)
 		return ;

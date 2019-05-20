@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 17:04:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 16:31:39 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 17:44:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,6 @@ static void		close_paranthesis(void)
 		if (g_editor->open_subsh == 0)
 			g_editor->quotes &= ~PARANTH;
 	}
-}
-
-static int		check_for_newline_before_quotes(void)
-{
-	char	*enter_ptr;
-	char	*quot_ptr;
-
-	enter_ptr = ft_strchr(g_editor->cmd, '\n');
-	if (!enter_ptr)
-		return (0);
-	quot_ptr = g_editor->cmd;
-	while (quot_ptr != enter_ptr)
-	{
-		if (*quot_ptr == '\'' || *quot_ptr == '\"')
-			return (1);
-		quot_ptr++;
-	}
-	return (0);
 }
 
 int				expression_balanced(void)

@@ -6,12 +6,12 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/20 16:30:59 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/20 17:43:54 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	clang
-CFLAGS			=	-Wall -Wextra
+CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -rf
 NAME			=	21sh
 HEAD_DIR		=	includes

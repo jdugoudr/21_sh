@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 14:47:50 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:00:26 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:10:56 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void		set_terminfo(void)
 	g_editor->term->c_lflag |= ISIG;
 	g_editor->term->c_cc[VMIN] = 1;
 	g_editor->term->c_cc[VTIME] = 0;
-	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);	//add error check
+	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
 	tputs(tgetstr("im", NULL), 1, tputs_char);
 }

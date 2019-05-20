@@ -6,17 +6,15 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 17:53:28 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:31:19 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:08:31 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "editor.h"
 #include "shell21.h"
 #include "sh_error.h"
 #include <sys/ioctl.h>
 #include "libft.h"
-
 
 /*
 ** Checks if the device is a terminal.
@@ -37,7 +35,7 @@ static void		get_terminfo(void)
 		ft_exit("TERM environment variable is not set", 0, 1, EXIT_FAILURE);
 	ret = tgetent(buf, term_type);
 	if (ret == 0)
-		ft_exit("Can't find TERM entry in terminfo base",0,  1, EXIT_FAILURE);
+		ft_exit("Can't find TERM entry in terminfo base", 0, 1, EXIT_FAILURE);
 	if (ret == -1)
 		ft_exit("terminfo database could not be found", 0, 1, EXIT_FAILURE);
 	if ((g_editor->term = malloc(sizeof(t_termios))) == NULL)
@@ -52,11 +50,6 @@ static void		get_terminfo(void)
 
 void			init_term(void)
 {
-	// int		ret;
-
 	get_terminfo();
-	// if ((ret = open("/dev/tty", O_WRONLY)) < 0)
-	// 	ft_exit("Error opening the /dev/tty", 1, 1, EXIT_FAILURE);
-	// g_editor->tty_fd = ret;
 	set_terminfo();
 }
