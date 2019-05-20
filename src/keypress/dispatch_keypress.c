@@ -6,12 +6,14 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:06:31 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/13 18:24:12 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 20:12:45 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "keypress.h"
 #include "editor.h"
+#include "shell21.h"
+#include <unistd.h>
 
 static void		dispatch_arrow(unsigned long touch)
 {
@@ -63,6 +65,11 @@ int				dispatch_keypress(unsigned long touch)
 {
 	if (touch == RET_KEY)
 		return (1);
+	else if (touch == CTRL_D_KEY && g_editor->cmd_sze == 0)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		ft_exit(NULL, 1, 1, EXIT_SUCCESS);
+	}
 	else if (touch == UP_KEY || touch == DOWN_KEY ||\
 		touch == LEFT_KEY || touch == RIGHT_KEY)
 		dispatch_arrow(touch);
