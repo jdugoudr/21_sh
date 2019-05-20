@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:32:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 10:46:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 11:45:37 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,29 @@
 #include <fcntl.h>
 
 /*
-** Here we execute <&, >&, >>& redirection.
+** Here we execute >, >>, >&, >>& redirection.
 ** The open mode are given in params. 
 ** >&	(O_WRONLY | O_CREAT | O_TRUNC)
 ** >>&	(O_WRONLY | O_CREAT | O_APPEND)
-** <&	(O_RDONLY)
-** fd_in = STDOUT_FILENO : >, >>
-**		 = STDIN_FILENO  : <
+** >	(O_WRONLY | O_CREAT | O_TRUNC)
+** >>	(O_WRONLY | O_CREAT | O_APPEND)
+**
+** fd_in = STDOUT_FILENO
+** and is change if token have a non null value.
 **
 ** Before to apply a redirection we have to save the current fd to
 ** back to normal after execution.
+** fd opened file need to be save with a backup value -1.
+** If we ask to redirect a closen fd (4 > f) we need to save 4 with a -1 backup.
+**
 ** All fd are saved in int array. We check before to save it if the fd is
 ** not already in this table.
 */
 
 static int 	left(int type, int fd_from, t_save_fd **fd_lst)
 {
-	if (type & (GREAT_TOK | DGREAT_TOK))
-	{
-		if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
-			return (1);
-	}
-	else
-	{
-		if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
-			return (1);
-	}
+	if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
+		return (1);
 	return (0);
 }
 

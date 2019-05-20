@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 10:00:37 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 11:36:16 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct 			s_save_fd
 {
 	int					old_fd;
 	int					save_fd;
-//	int					file_open;
 	struct s_save_fd	*next;
 }						t_save_fd;
 
@@ -59,10 +58,10 @@ void					del_saved_fd(t_save_fd **fd_lst);
 int						is_saved(t_save_fd *lst, int fd);
 t_save_fd				*add_value(t_save_fd *fd_lst, int to_save, int saved);
 int						save_fd(t_save_fd **fd_lst, int fd);
+
 int				 		check_left_fd(t_save_fd **fd_lst, int fd, int tok_red);
 int 					check_right_fd(t_save_fd *fd_lst, int fd, int tok_red);
-
 int						get_fd(char *name_file, int open_flag, int *new_fd, t_save_fd **fd_lst);
 int						file_descriptor(char *value, int *new_fd);
-void print_fd(t_save_fd *el);////a supprimer !!!
+
 #endif

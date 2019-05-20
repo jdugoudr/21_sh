@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:44:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 10:46:29 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 11:45:53 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@
 #include <fcntl.h>
 
 /*
-** Here we execute <, <<, >, >> redirection.
+** Here we execute <, <<, <& redirection.
 ** The open mode are given in params. 
-** >	(O_WRONLY | O_CREAT | O_TRUNC)
-** >>	(O_WRONLY | O_CREAT | O_APPEND)
+** <&	(O_RDONLY)
 ** <	(O_RDONLY)
 ** <<	(O_RDONLY)
-** fd_in = STDOUT_FILENO : >, >>
-**		 = STDIN_FILENO  : <, <<
 **
-** In the case of << redirection. We first creat a tempory file /tmp/heredoc_21
-** We write there all of what was written by users, close then re-open the
-** tempory file for reading.
+** fd_in = STDIN_FILENO
+** and is change if token have a non null value.
 **
 ** Before to apply a redirection we have to save the current fd to
 ** back to normal after execution.
+** fd opened file need to be save with a backup value -1.
+** If we ask to redirect a closen fd (4 < f) we need to save 4 with a -1 backup.
+**
 ** All fd are saved in int array. We check before to save it if the fd is
 ** not already in this table.
 */
@@ -62,16 +61,8 @@ static int	write_heredoc(int open_flag, char *str, t_save_fd **fd_lst)
 
 static int 	left(int type, int fd_from, t_save_fd **fd_lst)
 {
-	if (type & (LESS_TOK | DLESS_TOK))
-	{
-		if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
-			return (1);
-	}
-	else
-	{
-		if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
-			return (1);
-	}
+	if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
+		return (1);
 	return (0);
 }
 

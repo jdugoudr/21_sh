@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_find.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/07 17:25:21 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 11:17:29 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	is_it_redirect(char **line, t_ast **tok)
 			return (-1);
 		}
 		(*line) += i;
-		if ((*line)[i] == '<')
+		if ((*line)[0] == '<')
 			*tok = less_find(line, *tok, value);
 		else
 			*tok = great_find(line, *tok, value);
