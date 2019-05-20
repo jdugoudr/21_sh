@@ -17,6 +17,27 @@
 ** set the prompt to display the current working directory.
 */
 
+// void			prompt_reset(void)
+// {
+// 	char		cwd[PATH_MAX];
+// 	char		*dir_name;
+// 	int			root_dir;
+
+// 	ft_bzero(g_editor->prompt, PATH_MAX);
+// 	if (getcwd(g_editor->prompt, PATH_MAX) == NULL)
+// 	{
+// 		prompt_set("$>> ");
+// 		return ;
+// 	}
+// 	getcwd(cwd, PATH_MAX);
+// 	root_dir = !ft_strequ("/", cwd);
+// 	dir_name = ft_strrchr(cwd, '/');
+// 	if (dir_name == NULL)
+// 		dir_name = cwd;
+// 	ft_strcpy(g_editor->prompt, dir_name + root_dir);
+// 	g_editor->offset = ft_strlen(g_editor->prompt) + 4;
+// }
+
 void			prompt_reset(void)
 {
 	char		cwd[PATH_MAX];
@@ -34,6 +55,9 @@ void			prompt_reset(void)
 	dir_name = ft_strrchr(cwd, '/');
 	if (dir_name == NULL)
 		dir_name = cwd;
-	ft_strcpy(g_editor->prompt, dir_name + root_dir);
-	g_editor->offset = ft_strlen(g_editor->prompt) + 4;
+	ft_strcpy(g_editor->prompt, "-> ");
+	ft_strcat(g_editor->prompt, dir_name + root_dir);
+	ft_strcat(g_editor->prompt, ": ");
+	g_editor->offset = ft_strlen(g_editor->prompt);
+//	ft_dprintf(g_editor->tty_fd, "%s➜  %s%s%s ", GREEN, RED, g_editor->prompt, RES_COL);
 }
