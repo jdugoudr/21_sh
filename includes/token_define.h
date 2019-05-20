@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_define.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:21:08 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 10:10:38 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define LEVEL_MIN	level_6
 # define LEVEL_REDI	level_4
 # define IS_REDIR	(GREAT_TOK | DGREAT_TOK | LESS_TOK | DLESS_TOK)
+# define OUT_REDIR	(GREAT_TOK | DGREAT_TOK | GREAT_FD_TOK | DGREAT_FD_TOK)
+# define IN_REDIR	(LESS_TOK | DLESS_TOK | LESS_FD_TOK | DLESS_FD_TOK)
+# define FD_REDIR	(GREAT_FD_TOK | DGREAT_FD_TOK | LESS_FD_TOK)
 # define L_IS_NAME	(WORD_TOK | IS_REDIR)
 
 # define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK | TYPE_END)
@@ -72,6 +75,7 @@ typedef struct		s_ast
 	struct s_ast	*prev;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	struct s_ast	*father;
 	struct s_ast	*head_sub;
 	struct s_ast	*ast_sub;
 }					t_ast;

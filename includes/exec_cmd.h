@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/13 17:44:57 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/20 18:05:15 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,52 @@
 # define HERE_DOC		"/tmp/heredoc_21"
 # define NB_BUILT		7
 
-typedef struct	s_built
+typedef struct			s_built
 {
-	char		*name;
-	int			(*func)(char **cmd);
-}				t_built;
+	char				*name;
+	int					(*func)(char **cmd);
+}						t_built;
 
-int	exec_semi_col(t_ast *el, t_ast *head);
-int	exec_or_if(t_ast *el, t_ast *head);
-int	exec_and_if(t_ast *el, t_ast *head);
-int	exec_pipe(t_ast *el, t_ast *head);
-int	exec_less(t_ast *el, t_ast *head);
-int	exec_less_fd(t_ast *el, t_ast *head);
-int	exec_dless(t_ast *el, t_ast *head);
-int	exec_great(t_ast *el, t_ast *head);
-int	exec_great_fd(t_ast *el, t_ast *head);
-int	exec_dgreat(t_ast *el, t_ast *head);
-int	exec_dgreat_fd(t_ast *el, t_ast *head);
-int	exec_sub_shell(t_ast *el, t_ast *head);
-int	exec_assign(t_ast *el, t_ast *head);
-int	exec_word(t_ast *el, t_ast *head);
-int	exec_dless_fd(t_ast *el, t_ast *head);
+typedef struct 			s_work_ast
+{
+	t_ast 				*head;	
+	t_ast 				*el;	
+	t_ast 				*cmd;	
+}						t_work_ast;
 
-int	check_bin(t_ast *el, t_ast *head);
+typedef struct 			s_save_fd
+{
+	int					old_fd;
+	int					save_fd;
+	struct s_save_fd	*next;
+}						t_save_fd;
 
-char	**lsttotab(t_arg *lst);
+int						exec_semi_col(t_ast *el, t_ast *head);
+int						exec_or_if(t_ast *el, t_ast *head);
+int						exec_and_if(t_ast *el, t_ast *head);
+int						exec_pipe(t_ast *el, t_ast *head);
+int						exec_redirect(t_ast *el, t_ast *head);
+int						exec_sub_shell(t_ast *el, t_ast *head);
+int						exec_assign(t_ast *el, t_ast *head);
+int						exec_word(t_ast *el, t_ast *head);
+int						exec_dless_fd(t_ast *el, t_ast *head);
+
+int						check_bin(t_ast *el, t_ast *head);
+int						find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst);
+
+char					**lsttotab(t_arg *lst);
+
+int						exec_in_redir(t_ast *el, t_save_fd **fd_lst, int open_flag, int fd_in);
+int						exec_out_redir(t_ast *el, t_save_fd **fd_lst, int open_flag, int fd_in);
+
+void					del_saved_fd(t_save_fd **fd_lst);
+int						is_saved(t_save_fd *lst, int fd);
+t_save_fd				*add_value(t_save_fd *fd_lst, int to_save, int saved);
+int						save_fd(t_save_fd **fd_lst, int fd);
+
+int				 		check_left_fd(t_save_fd **fd_lst, int fd, int tok_red);
+int 					check_right_fd(t_save_fd *fd_lst, int fd, int tok_red);
+int						get_fd(char *name_file, int open_flag, int *new_fd, t_save_fd **fd_lst);
+int						file_descriptor(char *value, int *new_fd);
+
 #endif

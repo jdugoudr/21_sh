@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/20 18:29:25 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/20 19:28:45 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,12 +73,11 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 ##################################################
 ##########			EXEC				##########
 ##################################################
-SRC				+=	run_ast.c exec_pipe.c exec_less.c \
-					exec_dless.c exec_great.c exec_dgreat.c exec_sub_shell.c exec_assign.c \
+SRC				+=	run_ast.c exec_pipe.c exec_in_redir.c exec_out_redir.c \
+					exec_sub_shell.c exec_assign.c \
 					exec_word.c exec_semi_col.c exec_and_if.c exec_or_if.c \
-					exec_dless_fd.c exec_less_fd.c exec_great_fd.c exec_dgreat_fd.c \
-					exec_bin.c lsttotab.c
-
+					exec_bin.c lsttotab.c exec_redirect.c exec_utils.c check_valid_fd.c
+				 	
 ##################################################
 ##########			KEYPRESS			##########
 ##################################################
