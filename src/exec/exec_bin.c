@@ -6,12 +6,13 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 20:27:55 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/14 16:19:19 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 17:45:27 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "sh_error.h"
+#include "editor.h"
 #include "ast.h"
 #include <sys/types.h>
 #include <sys/wait.h>//linux
@@ -27,7 +28,6 @@
 
 static int	exec_bin(char *path, char **arg, t_ast *head)
 {
-//	pid_t	child;
 	int		ret;
 (void)head;
 
@@ -37,20 +37,8 @@ static int	exec_bin(char *path, char **arg, t_ast *head)
 		ft_dprintf(STDERR_FILENO, NO_PERM, path);
 		return (1);
 	}
-//	child = fork();
-//	if (child == -1)
-//	{
-//		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-//		return (1);
-//	}
-//	else if (child == 0)
-//	{
-		execve(path, arg, g_shell->env);
-		ft_dprintf(STDERR_FILENO, "21sh: A problem appeared with execve.\n");
-//		free_exit(1, head);
-//	}
-//	else
-//		waitpid(child, &ret, 0);
+	execve(path, arg, g_shell->env);
+	ft_dprintf(STDERR_FILENO, "21sh: A problem appeared with execve.\n");
 	return (ret);
 }
 

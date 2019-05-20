@@ -6,15 +6,17 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 17:53:28 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/03 14:45:45 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:31:19 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
+#include "editor.h"
 #include "shell21.h"
 #include "sh_error.h"
 #include <sys/ioctl.h>
-// #include <fcntl.h>
+#include "libft.h"
+
 
 /*
 ** Checks if the device is a terminal.

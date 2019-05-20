@@ -6,7 +6,7 @@
 #    By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/18 14:59:19 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/05/20 17:21:00 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ LIB_HEAD		=	libft/includes
 
 HEADERS			=	ast.h \
 					check_next.h \
+					editor.h \
 					exec_cmd.h \
+					keypress.h \
 					lexer.h \
 					libft.h \
 					parser.h \
@@ -55,13 +57,13 @@ SRC				+=	create_ast.c create_token.c del_ast.c del_token.c
 ##################################################
 ##########			BUILTINS			##########
 ##################################################
-SRC				+=		builtin_cd.c builtin_echo.c builtin_env.c builtin_setenv.c builtin_unsetenv.c
+SRC				+=		builtin_cd.c builtin_echo.c builtin_env.c builtin_setenv.c builtin_unsetenv.c builtin_history.c builtin_exit.c
 
 ##################################################
 ##########			EDITOR				##########
 ##################################################
 SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_set.c \
-					detect_input.c prompt_display.c free_shell.c ft_exit.c init_signal_handlers.c \
+					detect_input.c prompt_display.c free_editor.c free_shell.c  init_signal_handlers.c \
 					init_term.c move_cursor_home.c move_cursor_left.c move_cursor_right.c remove_char.c \
 					restore_default_conf.c command_write.c prompt_set.c set_terminfo.c tputs_char.c \
 					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c \
@@ -108,8 +110,8 @@ SRC				+=	env_subst.c expansion_tok.c
 ##########			UTILS				##########
 ##################################################
 SRC				+=	add_env_var.c change_directory.c check_cmd_format.c display_history.c \
-					free_string_array.c get_count.c get_env_value.c get_var_ind.c history_append.c \
-					set_last_history_entry.c free_editor.c split_whitespaces.c
+					free_string_array.c get_count.c get_env_value.c get_env_ind.c history_append.c \
+					set_last_history_entry.c split_whitespaces.c ft_exit.c
 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

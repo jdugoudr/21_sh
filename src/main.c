@@ -6,16 +6,17 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/14 16:18:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 17:20:12 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <term.h>
 #include "libft.h"
 #include "sh_error.h"
-#include "shell21.h"
+#include "editor.h"
 #include <sys/ioctl.h>
 #include "parser.h"
+#include "shell21.h"
 #include <fcntl.h>
 
 static void		init_env(char **environ)

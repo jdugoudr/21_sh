@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
+#include "libft.h"
 
 void			command_append(char *str, int rewrite_flag)
 {

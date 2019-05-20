@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 11:36:16 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 18:05:15 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,20 @@
 # define WRITE_END		1
 # define CLOSE_OUTPUT	"/dev/null"
 # define HERE_DOC		"/tmp/heredoc_21"
-# define NB_BUILT		5
+# define NB_BUILT		7
 
 typedef struct			s_built
 {
 	char				*name;
-	int					(*func)(char **);
+	int					(*func)(char **cmd);
 }						t_built;
+
+typedef struct 			s_work_ast
+{
+	t_ast 				*head;	
+	t_ast 				*el;	
+	t_ast 				*cmd;	
+}						t_work_ast;
 
 typedef struct 			s_save_fd
 {

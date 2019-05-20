@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:36:49 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 16:40:24 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:31:57 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
+#include "libft.h"
 
 static void			write_cmd_in_visual(size_t start, size_t end)
 {

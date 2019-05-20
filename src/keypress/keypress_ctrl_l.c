@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:53:55 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/24 18:14:37 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:22:58 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "keypress.h"
+#include "editor.h"
 
 void			keypress_ctrl_l(void)
 {

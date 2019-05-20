@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
 
 static void		shift_string_left(void)
 {

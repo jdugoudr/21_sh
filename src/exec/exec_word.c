@@ -6,18 +6,16 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 10:45:35 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/20 18:19:59 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "sh_error.h"
 #include "ast.h"
-
 #include "fcntl.h"
-
-//#include <sys/types.h>//linux
-//#include <sys/wait.h>//linux
+#include "shell21.h"
+#include "editor.h"
 
 /*
 ** Here we execute simple command.
@@ -38,15 +36,19 @@
 static void	init_built(t_built *built_tab)
 {
 	built_tab[0].name = "echo";
-	built_tab[0].func = NULL;
+	built_tab[0].func = builtin_echo;
 	built_tab[1].name = "cd";
-	built_tab[1].func = NULL;
+	built_tab[1].func = builtin_cd;
 	built_tab[2].name = "setenv";
-	built_tab[2].func = NULL;
+	built_tab[2].func = builtin_setenv;
 	built_tab[3].name = "unsetenv";
-	built_tab[3].func = NULL;
+	built_tab[3].func = builtin_unsetenv;
 	built_tab[4].name = "env";
-	built_tab[4].func = NULL;
+	built_tab[4].func = builtin_env;
+	built_tab[5].name = "history";
+	built_tab[5].func = builtin_history;
+	built_tab[6].name = "exit";
+	built_tab[6].func = builtin_exit;
 }
 
 static void	free_reset_fd(t_save_fd **fd_lst, t_ast *head)
@@ -82,29 +84,30 @@ static void	free_reset_fd(t_save_fd **fd_lst, t_ast *head)
 	}
 }
 
-static int 	loop_redirect(t_ast *el, t_ast *head, t_ast *cmd, t_built *builtin, t_save_fd **fd_lst)
+static int 	loop_redirect(t_work_ast w_ast, t_built *builtin, t_save_fd **fd_lst)
 {
 	int	r;
 
 	r = 0;
-	if (el->father && el->father->level_prior == level_4)
+	if (w_ast.el->father && w_ast.el->father->level_prior == level_4)
 	{
-		if (find_and_exec_redirect(el->father, fd_lst))
+		if (find_and_exec_redirect(w_ast.el->father, fd_lst))
 		{
-			free_reset_fd(fd_lst, head);
+			free_reset_fd(fd_lst, w_ast.head);
 			return (1);
 		}
-		return (loop_redirect(el->father, head, cmd, builtin, fd_lst));
+		w_ast.el = w_ast.el->father;
+		return (loop_redirect(w_ast, builtin, fd_lst));
 	}
 	else if (builtin)
-		write(1, "execution de built\n", 19);
+		r = builtin->func(w_ast.cmd->arg_cmd);
 	else
-		r = check_bin(cmd, head);
-	free_reset_fd(fd_lst, head);
+		r = check_bin(w_ast.cmd, w_ast.head);
+	free_reset_fd(fd_lst, w_ast.head);
 	return (r);
 }
 
-static int 	fork_command(t_ast *el, t_ast *head, t_save_fd **save_fd)
+static int 	fork_command(t_work_ast w_ast, t_save_fd **save_fd)
 {
 	int 	child;
 	int 	ret;
@@ -117,10 +120,10 @@ static int 	fork_command(t_ast *el, t_ast *head, t_save_fd **save_fd)
 	}
 	else if (child == 0)
 	{
-		ret = loop_redirect(el, head, el, NULL, save_fd);
+		ret = loop_redirect(w_ast, NULL, save_fd);
 		free_shell();
 		free_editor();
-		del_ast(&head);
+		del_ast(&(w_ast.head));
 		exit(ret);
 	}
 	else
@@ -130,6 +133,7 @@ static int 	fork_command(t_ast *el, t_ast *head, t_save_fd **save_fd)
 
 int	exec_word(t_ast *el, t_ast *head)
 {
+	t_work_ast 	w_ast;
 	t_built		built_tab[NB_BUILT];
 	int			i;
 	t_save_fd	*save_fd;
@@ -137,10 +141,13 @@ int	exec_word(t_ast *el, t_ast *head)
 	save_fd = NULL;
 	init_built(built_tab);
 	i = 0;
+	w_ast.head = head;
+	w_ast.el = el;
+	w_ast.cmd = el;
 	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
 		i++;
 	if (i < NB_BUILT)
-		return (loop_redirect(el, head, el, built_tab + i, &save_fd));
+		return (loop_redirect(w_ast, built_tab + i, &save_fd));
 	else
-		return (fork_command(el, head, &save_fd));
+		return (fork_command(w_ast, &save_fd));
 }

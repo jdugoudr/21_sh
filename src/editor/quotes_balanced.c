@@ -6,11 +6,11 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 17:34:53 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 17:05:05 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:00:26 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
 
 /*
 ** Function to check whether the command has a propre quotes balance.

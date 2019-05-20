@@ -6,11 +6,11 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 17:53:27 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:46:01 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:00:26 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "editor.h"
 
 void		move_cursor_right(void)
 {

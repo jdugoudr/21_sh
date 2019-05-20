@@ -6,11 +6,12 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:06:31 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 16:40:24 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/13 18:24:12 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell21.h"
+#include "keypress.h"
+#include "editor.h"
 
 static void		dispatch_arrow(unsigned long touch)
 {
@@ -58,23 +59,10 @@ static void		dispatch_home_end(unsigned long touch)
 		keypress_end();
 }
 
-// delete
-static void fun()
-{
-
-	ends_with_newline();
-}
 int				dispatch_keypress(unsigned long touch)
 {
 	if (touch == RET_KEY)
-	{
-		// ft_dprintf(g_editor->tty_fd, "\nWidth: %zu\tHeight: %zu\n", g_editor->win_width, g_editor->win_height);
-		// ft_dprintf(g_editor->tty_fd, "Size: %zu\tPos: %zu\n", g_editor->cmd_sze, g_editor->cur_pos);
-		// ft_dprintf(g_editor->tty_fd, "line: %zu\tcol: %zu\tmax lines: %zu\n", g_editor->line, g_editor->col, g_editor->max_line);
 		return (1);
-	}
-	else if (touch == ESC_KEY)
-		fun();
 	else if (touch == UP_KEY || touch == DOWN_KEY ||\
 		touch == LEFT_KEY || touch == RIGHT_KEY)
 		dispatch_arrow(touch);
@@ -92,8 +80,5 @@ int				dispatch_keypress(unsigned long touch)
 		dispatch_home_end(touch);
 	else if (touch >= ' ' && touch <= '~')
 		add_char(touch);
-	// else
-	// 	ft_dprintf(g_editor->tty_fd, "%#X\n", touch);
-	
 	return (0);
 }

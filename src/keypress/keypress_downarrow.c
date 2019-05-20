@@ -6,11 +6,13 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 15:36:58 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/09 16:47:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/10 18:25:32 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "keypress.h"
 #include "shell21.h"
+#include "editor.h"
 
 void			keypress_downarrow(void)
 {

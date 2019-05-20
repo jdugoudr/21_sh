@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_history.c                                  :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/28 13:26:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 18:30:13 by mdaoud           ###   ########.fr       */
+/*   Created: 2019/05/10 19:02:11 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/05/13 19:36:27 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell21.h"
-#include "libft.h"
 
-void			display_history(void)
+int		builtin_exit(char **cmd)
 {
-	int			i;
-	t_history	*tmp;
-
-	i = 1;
-	tmp = g_shell->hist;
-	while (tmp != NULL)
-	{
-		ft_dprintf(STDOUT_FILENO, "%d: %s\n", i, tmp->name);
-		tmp = tmp->next;
-		i++;
-	}
+	(void)cmd;
+	ft_exit(NULL, 1, 1, EXIT_SUCCESS);
+	return (0);
 }
