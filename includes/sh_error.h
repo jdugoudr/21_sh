@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:25:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 10:27:05 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:02:06 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 /*
 ** Lexer error
 */
-# define UNEX_SYMB	"21sh: Error unexpected symbol %c\n"
+# define UNEX_SYMB	"21sh: Error: unexpected symbol %c\n"
 
 /*
 ** Exec error
