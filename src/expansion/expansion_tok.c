@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 12:49:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 16:02:17 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@
 ** If yes we split the the string and tokens in the list.
 */
 
-static int	init_convert(char ***tmp, char **str, int *count, t_ast **new)
+static int	init_convert(char ***tmp, char **str, t_ast **new)
 {
 	char	*new_str;
+	int 	count;
 
-	*count = 0;
+	count = 0;
 	if ((new_str = env_subst(ft_strdup(*str))) == NULL)
-		return (1);
+		return (-1);
 	if ((*tmp = split_whitespaces(new_str)) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		free(new_str);
 		ft_strdel(str);
-		return (1);
+		return (-1);
 	}
 	if ((*tmp)[0] == NULL)
 		*new = NULL;
@@ -41,12 +42,12 @@ static int	init_convert(char ***tmp, char **str, int *count, t_ast **new)
 	{
 		ft_tabstrdel(tmp, 0);
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		return (1);
+		return (-1);
 	}
 	else
-		*count = 1;
+		count = 1;
 	free(new_str);
-	return (0);
+	return (count);
 }
 
 static int	convert_var(char *str, int *count, t_ast **new)
@@ -56,7 +57,7 @@ static int	convert_var(char *str, int *count, t_ast **new)
 
 	i = 1;
 	tmp = NULL;
-	if (init_convert(&tmp, &str, count, new))
+	if ((*count = init_convert(&tmp, &str, new)) == -1)
 		return (1);
 	else if (*count)
 	{
