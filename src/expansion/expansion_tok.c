@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 12:07:19 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 12:49:00 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,20 @@ static int	convert_var(char *str, int *count, t_ast **new)
 static int	convert_tild(char **str)
 {
 	char	*tmp;
+	char 	*value;
 
-	tmp = get_env_value("HOME");
-	if (tmp == NULL)
-		(*str)[0] = '\0';
-	else
+	if ((value = get_env_value("HOME")) == NULL)//get env value fait un dup !!!
 	{
-		if ((tmp = ft_strdup(tmp)) == NULL)
-		{
-			ft_dprintf(STDERR_FILENO, INTERN_ERR);
-			return (1);
-		}
-		free(*str);
-		*str = tmp;
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
+	}
+	tmp = *str;
+	*str = ft_strjoin(value, *str + 1, 1);
+	free(tmp);
+	if (*str == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
 	}
 	return (0);
 }
@@ -141,10 +142,10 @@ int			expansion_tok(t_ast *head)
 			{
 				if (check_var(&el))
 					return (1);
-			}
+			 }
 			else 
 			{
-				if (ft_strcmp(el->next->value, "~") == 0)
+				if (el->next->value[0] == '~' && (el->next->value[1] == '/' || el->next->value[1] == '\0'))
 					if (convert_tild(&(el->next->value)))
 						return (1);
 				el = el->next;

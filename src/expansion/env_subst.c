@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 10:45:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:03:41 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ static char	*replace_each(int *i, char *str, char until)
 		j++;
 	c = str[j];
 	str[j] = '\0';
-	tmp = get_env_value(str + *i + 1);
-//	if ((tmp = getenv(str + *i + 1)) && !(tmp = ft_strdup(tmp)))//remplacer getenv
-//	{
-//		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-//		return (NULL);
-//	}
+	if ((tmp = get_env_value(str + *i + 1)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		free(str);
+		return (NULL);
+	}
 	str[j] = c;
 	if ((*i = replace_in(&str, tmp, *i, j - *i)) < 0)
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-//	free(tmp);
+	free(tmp);
 	return (str);
 }
 
