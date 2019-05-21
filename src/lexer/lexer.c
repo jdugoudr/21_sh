@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:35:46 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/02 13:42:42 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:04:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,25 @@
 ** we just consume it. Otherwise, we try to find out
 ** wich token type it is.
 */
+
+static t_ast	*still_find(char **line, t_ast *new_tok, bool *is_name)
+{
+	if (**line == ')')
+	{
+		del_token(&new_tok);
+		ft_dprintf(STDERR_FILENO, UNEX_SYMB, **line);
+		return (NULL);
+	}
+	else if (**line == '\0')
+	{
+		new_tok->type = TYPE_END;
+		new_tok->value = NULL;
+		new_tok->level_prior = level_7;
+		return (new_tok);
+	}
+	else
+		return (word_find(line, new_tok, is_name));
+}
 
 static t_ast	*find_token(char **line, t_ast *new_tok, bool *is_name)
 {
@@ -38,15 +57,8 @@ static t_ast	*find_token(char **line, t_ast *new_tok, bool *is_name)
 		return (great_find(line, new_tok, NULL));
 	else if (**line == '(')
 		return (sub_find(line, new_tok));
-	else if (**line == '\0')
-	{
-		new_tok->type = TYPE_END;
-		new_tok->value = NULL;
-		new_tok->level_prior = level_7;
-		return (new_tok);
-	}
 	else
-		return (word_find(line, new_tok, is_name));
+		return (still_find(line, new_tok, is_name));
 }
 
 t_ast			*next_token(char **line, bool *is_name)

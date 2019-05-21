@@ -6,12 +6,13 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/07 10:12:35 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/14 11:49:29 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:15:56 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 #include "token_define.h"
+#include "exec_cmd.h"
 #include "sh_error.h"
 #include "libft.h"
 
@@ -36,7 +37,7 @@ t_ast	*create_tok_el(char *str, t_ast *prev, t_ast *next)
 	el->left = NULL;
 	el->right = NULL;
 	el->father = NULL;
-	el->f_exec = NULL;
+	el->f_exec = exec_word;
 	el->f_tok_next = NULL;
 	return (el);
 }

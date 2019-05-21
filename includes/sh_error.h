@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:25:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/10 14:27:51 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:02:06 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 /*
 ** Lexer error
 */
-# define UNEX_SYMB	"21sh: Error unexpected symbol %c\n"
+# define UNEX_SYMB	"21sh: Error: unexpected symbol %c\n"
 
 /*
 ** Exec error
 */
 # define BAD_FD		"21sh: %s: Bad file desciptor\n"
-# define AMBI_REDIR	"21sh: %s: Ambiguous redirect\n"
+# define AMBI_REDIR	"21sh: Ambiguous redirect\n"
 # define CANT_OPEN	"21sh: %s: Failed to open\n"
 # define NO_CMD		"21sh: %s: Command not found\n"
 # define NO_PERM	"21sh: %s: Permission denied\n"

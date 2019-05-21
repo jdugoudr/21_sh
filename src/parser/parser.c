@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 19:29:03 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/21 17:48:16 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "sh_error.h"
 #include "ast.h"
 
+#include "../print_ast.c"
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
 ** The last token always have to be of type TYPE_END.
@@ -25,15 +26,13 @@
 
 static int	ambigous_redirect(t_ast *token)
 {
-	char *tmp;
-
 	while (token->next)
 	{
-		if (token->next->level_prior == level_4 && (tmp = ft_strchr(token->value, '$')))
+		if (token->next->level_prior == level_4)
 		{
-			if ((tmp = getenv(tmp)) == NULL || ft_strchr(tmp, ' ') || ft_strchr(tmp, '\t'))//remplacer getenv
+			if (token->type != WORD_TOK || (token->prev && token->prev->type == WORD_TOK))
 			{
-				ft_dprintf(STDERR_FILENO, AMBI_REDIR, token->value);
+				ft_dprintf(STDERR_FILENO, AMBI_REDIR);
 				return (1);
 			}
 		}
@@ -57,15 +56,14 @@ int				parser(char *line)
 	else if (token_head->next)
 	{
 		if (!(tmp = look_arg(token_head))
-				|| ambigous_redirect(token_head)
 				|| expansion_tok(token_head)
+				|| ambigous_redirect(token_head)
 				|| create_arg(token_head)
-//				|| !(token_head = look_redir(tmp))
 				|| create_ast(&ast_root, token_head))
 			ret = 1;
 		else
 		{
-			run_ast(ast_root, token_head);
+			ret = run_ast(ast_root, token_head);
 		}
 	}
 	del_ast(&token_head);
