@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_tok.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 19:10:19 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 12:07:19 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 #include "sh_error.h"
 #include "libft.h"
 
-//#include "../print_ast.c"/////////////////
-
 /*
 ** For each word token, we look if a varible is present.
 ** If yes we replace it and check if the new string contains whitespace.
-** If yes we split the the string and add tokens in the list.
+** If yes we split the the string and tokens in the list.
 */
 
 static int	init_convert(char ***tmp, char **str, int *count, t_ast **new)
@@ -84,7 +82,7 @@ static int	convert_tild(char **str)
 {
 	char	*tmp;
 
-	tmp = getenv("HOME");///////////////////
+	tmp = get_env_value("HOME");
 	if (tmp == NULL)
 		(*str)[0] = '\0';
 	else
@@ -109,20 +107,21 @@ static int	check_var(t_ast **el)
 	tmp_del = (*el)->next;
 	if ((convert_var((*el)->next->value, &count, &new)))
 		return (1);
-	if (!new)
+	if (!new)//si la variable est vide ou n'existe pas ou saute le token concerne
 	{
 		if ((*el)->next->next)
 			(*el)->next->next->prev = *el;
 		(*el)->next = (*el)->next->next;
 	}
-	else
+	else//si il y a quelque chose
 	{
 		new->prev = (*el);
 		(*el)->next = new;
-		while (count-- > 1)
+		while (count-- > 1)//si la variable contenai plusieur mots on les a splité en plusieur tok on se place au dernier
 			new = new->next;
 		new->next = tmp_del->next;
-		tmp_del->next->prev = new;
+		if (tmp_del->next)
+			tmp_del->next->prev = new;
 		(*el) = new;
 	}
 	del_token(&(tmp_del));
@@ -136,8 +135,7 @@ int			expansion_tok(t_ast *head)
 	el = head;
 	while (el->next)
 	{
-		if (el->next->type & WORD_TOK
-				&& (!(el->next->next) || el->next->next->type != DLESS_TOK))
+			if (el->next->type & WORD_TOK)
 		{
 			if (ft_strchr(el->next->value, '$'))
 			{

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_subst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 11:39:51 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 10:45:03 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell21.h"
 #include "sh_error.h"
 #include "libft.h"
 
@@ -58,7 +59,7 @@ static char	*replace_each(int *i, char *str, char until)
 		j++;
 	c = str[j];
 	str[j] = '\0';
-	tmp = getenv(str + *i + 1);
+	tmp = get_env_value(str + *i + 1);
 //	if ((tmp = getenv(str + *i + 1)) && !(tmp = ft_strdup(tmp)))//remplacer getenv
 //	{
 //		ft_dprintf(STDERR_FILENO, INTERN_ERR);
