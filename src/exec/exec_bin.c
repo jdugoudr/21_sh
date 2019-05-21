@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 20:27:55 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 15:34:03 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 18:14:13 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,24 @@ int			check_bin(t_ast *el, t_ast *head)
 	char	**path_tab;
 
 	ret = 0;
+	path_tab = NULL;
 	if (access(el->value, F_OK) == 0)
 		return (exec_bin(el->value, el->arg_cmd, head));
-	if ((path = getenv("PATH")) != NULL)//getenv non autoriser, a remplace par le builtin
+	if ((path = get_env_value("PATH")) != NULL)
 	{
 		ret = 1;
 		if ((path_tab = ft_strsplit(path, ':')) != NULL)
-		{
 			ret = check_path(el, path_tab, head);
-			ft_tabstrdel(&path_tab, 0);
-		}
 		else
 			ft_dprintf(STDERR_FILENO, INTERN_ERR);
 	}
+	else
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
+	}
+	free(path);
+	if (path_tab)
+		ft_tabstrdel(&path_tab, 0);
 	return (ret);
 }
