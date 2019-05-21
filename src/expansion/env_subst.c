@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 16:17:19 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/21 16:44:56 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ static char	*spec_char(int *i, char *str, char c)
 {
 	int 	r;
 	char	*tmp;
-	int 	prev_ret = 2;
+//	int 	prev_ret = 2;
 
 	r = 0;
 	if (c == '$')
 		r = getpid();
-	else if (c == '?')
-		r = prev_ret;
+//	else if (c == '?')
+//		r = prev_ret;
 	if ((tmp = ft_itoa(r)) == NULL || (*i = replace_in(&str, tmp, *i, 2)) < 0)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
@@ -112,7 +112,7 @@ char		*env_subst(char *str)
 			i++;
 		if (str[i])
 		{
-			if (str[i + 1] == '?' || str[i + 1] == '$')
+			if (/*str[i + 1] == '?' ||*/ str[i + 1] == '$')
 				str = spec_char(&i, str, str[i + 1]);
 			else
 				str = replace_each(&i, str, '$');
