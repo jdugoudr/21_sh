@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/20 19:28:45 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/22 14:37:30 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ SRC				+=	dispatch_keypress.c keypress_backspace.c keypress_ctrl_b.c \
 					start_search_mode.c keypress_ctrl_u.c keypress_delete.c \
 					keypress_downarrow.c keypress_end.c keypress_home.c  start_visual_mode.c \
 					keypress_shift_down.c keypress_shift_left.c keypress_shift_right.c \
-					keypress_shift_up.c keypress_uparrow.c
+					keypress_shift_up.c keypress_uparrow.c start_heredoc_mode.c
 
 ##################################################
 ##########			LEXER				##########

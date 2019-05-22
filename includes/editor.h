@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 17:49:18 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/22 14:37:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int						quotes_balanced(void);
 void					remove_char(void);
 void					restore_default_conf(void);
 void					set_terminfo(void);
+char					*start_heredoc_mode(char *end_here);
 void					start_search_mode(void);
 void					start_visual_mode(void);
 void					init_term(void);
