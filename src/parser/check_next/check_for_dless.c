@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:37:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/22 15:34:56 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/23 19:42:41 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@
 // 		buff[rd - 1] = '\0';
 // 		if (ft_strcmp(buff, end_here) == 0)
 // 			break ;
-// 		else 
+// 		else
 // 		{
 // 			if (add_line(line, buff, rd))
 // 				return (1);
@@ -100,7 +100,7 @@ static int	heredoc_read(char **line, char *end_here)
 	// }
 	tmp = start_heredoc_mode(end_here);
 	*line = tmp;
-	return (0);
+	return (*line == NULL);
 }
 
 int			check_for_dless(t_ast *next, char **line)
@@ -112,8 +112,12 @@ int			check_for_dless(t_ast *next, char **line)
 		return (1);
 	if ((new = ft_strnew(ARG_MAX + 1)) == NULL)
 		return (1);
-	if (heredoc_read(&new, next->value))
+	// if (heredoc_read(&new, next->value))
+	// 	return (1);
+	heredoc_read(&new, next->value);
+	if (new == NULL)
 		return (1);
+	ft_printf("%s\n", new);
 	if ((new = env_subst(new)) == NULL)
 		return (1);
 	free(next->value);

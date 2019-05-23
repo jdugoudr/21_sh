@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:39:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 12:24:27 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:53:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
+#define OPEN_MAX 100	// delete
 static int 	is_number(char *str)
 {
 	int i;
@@ -59,7 +59,7 @@ int	file_descriptor(char *value, int *new_fd)
 	}
 	*new_fd = fd;
 	return (0);
-}	
+}
 
 /*
 ** We open a file and add the value in the list with backup -1 to close
@@ -121,7 +121,7 @@ int 		check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
 /*
 ** We check given fd we want to redirect.
 ** If this fd already use as a fd backup => we replace the backup
-** If we can't write or read on it, that's mean the fd is close. 
+** If we can't write or read on it, that's mean the fd is close.
 ** 		We save it with value -1 to know we will need to close it at the end of redirect.
 ** We add the fd and his backup in the fd list.
 */

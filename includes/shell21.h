@@ -6,18 +6,19 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 15:29:58 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/23 16:51:13 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL21_H
 # define SHELL21_H
 
-# include <limits.h>
+// # include <limits.h>
 # include <term.h>
 # include <termios.h>
 # include <stdlib.h>
-
+# define ARG_MAX 10000
+// # define PATH_MAX 10000
 /*
 ** Implementation of the command history using a doubly-linked list.
 */

@@ -6,12 +6,12 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/22 14:37:30 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/23 17:01:42 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	clang
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra
 RM				=	rm -rf
 NAME			=	21sh
 HEAD_DIR		=	includes
@@ -68,7 +68,7 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 					restore_default_conf.c command_write.c prompt_set.c set_terminfo.c tputs_char.c \
 					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c \
 					write_in_visual.c ends_with_newline.c continue_until_balanced.c expression_balanced.c \
-					handler_sigint_process.c
+					handler_sigint_process.c dispatch_heredoc_key.c
 
 ##################################################
 ##########			EXEC				##########
@@ -77,7 +77,7 @@ SRC				+=	run_ast.c exec_pipe.c exec_in_redir.c exec_out_redir.c \
 					exec_sub_shell.c exec_assign.c \
 					exec_word.c exec_semi_col.c exec_and_if.c exec_or_if.c \
 					exec_bin.c lsttotab.c exec_redirect.c exec_utils.c check_valid_fd.c
-				 	
+
 ##################################################
 ##########			KEYPRESS			##########
 ##################################################

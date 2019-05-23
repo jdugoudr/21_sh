@@ -6,18 +6,19 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/22 14:37:18 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/23 17:01:28 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EDITOR_H
 # define EDITOR_H
 
-# include <limits.h>
+// # include <limits.h>
 # include <term.h>
 # include <termios.h>
 # include <stdlib.h>
-
+# define ARG_MAX 10000
+# define PATH_MAX 10000
 # define READ_BUF_SZE		8
 # define BALANCED			0
 # define SINGLE_Q			1
@@ -75,6 +76,7 @@ void					command_set(char *str, int rewrite_flag);
 void					command_write(void);
 void					continue_until_balanced(void);
 void					detect_input(void);
+int						dispatch_heredoc_key(unsigned long touch);
 void					free_editor(void);
 void					get_editor_dim(void);
 void					handler_sigint_process(int signo);
