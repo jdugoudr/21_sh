@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:00:36 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/23 19:35:47 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/23 20:11:22 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,15 @@ static void		dispatch_home_end(unsigned long touch)
 	else if (touch == END_KEY)
 		keypress_end();
 }
-#include "libft.h"	//delete
+
 int				dispatch_heredoc_key(unsigned long touch)
 {
 	if (touch == RET_KEY)
-	{
-		// ft_printf("RET\n");
-		// while(1);
 		return (1);
-	}
 	else if (touch == CTRL_C_KEY)
-	{
-		g_editor->flag_sigint = 1;
 		return (-1);
-	}
 	else if (touch == CTRL_D_KEY && g_editor->cmd_sze == 0)
-		return (0);
+		return (-2);
 	else if (touch == LEFT_KEY || touch == RIGHT_KEY)
 		dispatch_arrow(touch);
 	else if (touch == SHIFT_UP_KEY || touch == SHIFT_DOWN_KEY ||\

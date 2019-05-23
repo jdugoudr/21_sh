@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:37:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/23 19:42:41 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/23 19:50:16 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@
 
 static int	heredoc_read(char **line, char *end_here)
 {
-	char	*tmp;
-
 	// while (1)
 	// {
 	// 	if ((tmp = start_heredoc_mode(end_here)) == NULL)
@@ -98,9 +96,10 @@ static int	heredoc_read(char **line, char *end_here)
 	// 	if (add_line(line, tmp, ft_strlen(tmp)))
 	// 		return (1);
 	// }
-	tmp = start_heredoc_mode(end_here);
-	*line = tmp;
-	return (*line == NULL);
+	*line = start_heredoc_mode(end_here);
+	if (*line == NULL)
+		return (1);
+	return (0);
 }
 
 int			check_for_dless(t_ast *next, char **line)
@@ -112,12 +111,8 @@ int			check_for_dless(t_ast *next, char **line)
 		return (1);
 	if ((new = ft_strnew(ARG_MAX + 1)) == NULL)
 		return (1);
-	// if (heredoc_read(&new, next->value))
-	// 	return (1);
-	heredoc_read(&new, next->value);
-	if (new == NULL)
+	if (heredoc_read(&new, next->value))
 		return (1);
-	ft_printf("%s\n", new);
 	if ((new = env_subst(new)) == NULL)
 		return (1);
 	free(next->value);
