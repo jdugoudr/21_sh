@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:39:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/23 21:22:32 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/24 18:04:08 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-//#define OPEN_MAX 100	// delete
+// #define OPEN_MAX 100	// delete
 static int 	is_number(char *str)
 {
 	int i;
