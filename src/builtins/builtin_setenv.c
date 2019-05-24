@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_setenv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:14:16 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 20:06:35 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/22 11:58:54 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ static int		set_env_value(size_t ind, char *key, char *val)
 
 static int	check_var(char **cmd, int r, char **key, char **var)
 {
+	if (cmd && cmd[1] && (*var = ft_strchr(cmd[1], '=')))
+		(*var)[0] = '\0';
 	if (check_cmd_format(cmd, 1) == 1)
 	{
-		if ((*var = ft_strchr(cmd[1], '=')) == NULL)
+		if (*var == NULL)
 			r = 1;
 		else
 		{
-			(*var)[0] = '\0';
 			*key = cmd[1];
 			*var = *var + 1;
 		}
