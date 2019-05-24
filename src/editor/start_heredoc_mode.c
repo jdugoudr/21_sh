@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_heredoc_mode.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:13:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/23 20:24:36 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/24 09:25:42 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,35 @@ static void		init_heredoc_mode(char **line, char buf[], int *done)
 static char		*heredoc_intern_error(char **line)
 {
 	ft_dprintf(STDERR_FILENO, INTERN_ERR);
-	if (line)
-		free(line);
+	if (*line)
+		free(*line);
 	return (NULL);
 }
 
 static void		process_keypress(int ret, int *done, char **line, char *end)
 {
+	char	*tmp;
+
 	if (ret == 1)
 	{
 		if (ft_strequ(end, g_editor->cmd))
 			*done = 1;
-		else if (*line == NULL)
-		{
-			if ((*line = ft_strdup(g_editor->cmd)) == NULL)
-				heredoc_intern_error(line);
-		}
 		else
-			if ((*line = ft_strjoin(*line, g_editor->cmd, 1)) == NULL)
+		{
+			if (*line == NULL)
+				tmp = ft_strdup(g_editor->cmd);
+			else
+				tmp = ft_strjoin(*line, g_editor->cmd, 1);
+			if (tmp == NULL || (tmp = ft_strjoin(tmp, "\n", 1)) == NULL)
 				heredoc_intern_error(line);
-		*line = ft_strjoin(*line, "\n", 1);
+			else
+				*line = tmp;
+		}
 	}
 	else if (ret == -1 || ret == -2)
 	{
-		free(*line);
+		ft_strdel(line);
 		*done = 1;
-	}
-	if (ret == -2)
-	{
-		ft_dprintf(g_editor->tty_fd, "Warning: here-document delimited by");
-		ft_dprintf(g_editor->tty_fd, "end-of-file (wanted `%s\').", end);
 	}
 }
 

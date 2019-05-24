@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/09 14:28:40 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/23 21:32:53 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		check_token(t_ast **token_head, t_ast *tok, char **line)
 		r = 1;
 	else if (*token_head)
 		r = (*token_head)->f_tok_next(tok, line);
-	if (r > 0)
+	if (r > 0 && ((*token_head)->type & DLESS_TOK) == 0)
 		ft_dprintf(STDERR_FILENO, SYNTAX_ERR);
 	if (r)
 	{
