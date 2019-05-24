@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_subst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/23 19:39:58 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/24 09:54:09 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,10 @@ char		*env_subst(char *str)
 		{
 			if (/*str[i + 1] == '?' ||*/ str[i + 1] == '$')
 				str = spec_char(&i, str, str[i + 1]);
-			else
+			else if (ft_isalnum(str[i + 1]))
 				str = replace_each(&i, str, '$');
+			else
+				i++;
 		}
 	}
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 16:02:17 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/24 09:54:02 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,9 @@ int			expansion_tok(t_ast *head)
 	el = head;
 	while (el->next)
 	{
-			if (el->next->type & WORD_TOK)
+		if (el->next->next && el->next->next->type & DLESS_TOK)
+			el = el->next;
+		else if (el->next->type & WORD_TOK)
 		{
 			if (ft_strchr(el->next->value, '$'))
 			{

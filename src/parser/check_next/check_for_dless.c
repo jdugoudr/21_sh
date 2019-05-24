@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:37:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/24 09:30:50 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/24 09:34:15 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 /*
 ** We read on std_in until next->value are found.
 ** The new line is stock in next->value
+** We also provide env_subst here to not split the string
+** in different tokken if some $ appear.
 */
 
 int			check_for_dless(t_ast *next, char **line)
