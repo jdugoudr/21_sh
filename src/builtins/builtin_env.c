@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 19:24:57 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 19:38:41 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 20:14:33 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtin_env(char **cmd)
 	i = 0;
 	while (g_shell->env[i])
 	{
-		write(STDOUT_FILENO, g_shell->env[i] , ft_strlen(g_shell->env[i]));
+		write(STDOUT_FILENO, g_shell->env[i], ft_strlen(g_shell->env[i]));
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}

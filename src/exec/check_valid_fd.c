@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:39:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/27 17:04:28 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 20:22:40 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static int 	is_number(char *str)
+static int	is_number(char *str)
 {
 	int i;
 
@@ -38,7 +38,7 @@ static int 	is_number(char *str)
 ** Check if the fd given is truly a fd
 */
 
-int	file_descriptor(char *value, int *new_fd)
+int			file_descriptor(char *value, int *new_fd)
 {
 	int	fd;
 
@@ -66,17 +66,17 @@ int	file_descriptor(char *value, int *new_fd)
 ** it at the and of redirection
 */
 
-int	get_fd(char *name_file, int open_flag, int *new_fd, t_save_fd **fd_lst)
+int			get_fd(char *nm_fl, int open_flag, int *new_fd, t_save_fd **fd_lst)
 {
 	int	fd;
 
 	if (open_flag & O_CREAT)
-		fd = open(name_file, open_flag, 0644);
+		fd = open(nm_fl, open_flag, 0644);
 	else
-		fd = open(name_file, open_flag);
+		fd = open(nm_fl, open_flag);
 	if (fd == -1)
 	{
-		ft_dprintf(STDERR_FILENO, CANT_OPEN, name_file);
+		ft_dprintf(STDERR_FILENO, CANT_OPEN, nm_fl);
 		return (1);
 	}
 	if ((*fd_lst = add_value(*fd_lst, fd, -1)) == NULL)
@@ -89,14 +89,15 @@ int	get_fd(char *name_file, int open_flag, int *new_fd, t_save_fd **fd_lst)
 ** We check the fd where we will do to/from the redirection.
 ** The fd need to be a open fd.
 ** If the fd is a backup, it's not a right redirection.
-** If the fd is open but was close at the begining (4>&2 will open fd 4), it's not right.
+** If the fd is open but was close at the begining (4>&2 will open fd 4),
+** it's not right.
 ** If we can't read/write from/on it. It's not a right redirection.
 **
 ** If we the fd is saved and backup is not -1. That's mean the fd is right.
 ** If the fd is not saved and we can read/write from/on it. It's a right fd.
 */
 
-int 		check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
+int			check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
 {
 	while (fd_lst)
 	{
@@ -122,14 +123,15 @@ int 		check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
 ** We check given fd we want to redirect.
 ** If this fd already use as a fd backup => we replace the backup
 ** If we can't write or read on it, that's mean the fd is close.
-** 		We save it with value -1 to know we will need to close it at the end of redirect.
+** We save it with value -1 to know we will need to close it at
+** the end of redirect.
 ** We add the fd and his backup in the fd list.
 */
 
-int 		check_left_fd(t_save_fd **fd_lst, int fd, int tok_red)
+int			check_left_fd(t_save_fd **fd_lst, int fd, int tok_red)
 {
 	t_save_fd	*el;
-	int 		save;
+	int			save;
 
 	save = -1;
 	el = *fd_lst;
