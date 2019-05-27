@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/23 21:21:34 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:54:05 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ void					command_write(void);
 void					continue_until_balanced(void);
 void					detect_input(void);
 int						dispatch_heredoc_key(unsigned long touch);
+int						ends_with_newline(void);
+int						expression_balanced(void);
 void					free_editor(void);
 void					get_editor_dim(void);
 void					handler_sigint_process(int signo);
-int						ends_with_newline(void);
-int						expression_balanced(void);
+void					init_term(void);
+int						is_empty_cmd(char buf[]);
 void					init_signal_handlers(void);
 void					move_cursor_home(void);
 void					move_cursor_left(void);
@@ -96,7 +98,6 @@ void					set_terminfo(void);
 char					*start_heredoc_mode(char *end_here);
 void					start_search_mode(void);
 void					start_visual_mode(void);
-void					init_term(void);
 int						tputs_char(int c);
 void					write_in_visual(size_t start, size_t end);
 

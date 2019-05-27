@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 16:50:23 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 16:58:17 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,6 @@
 #include <signal.h>
 
 /*
-** Check if a command only exists of spaces and tabulations
-*/
-
-static int			is_empty_cmd(char buf[])
-{
-	size_t	i;
-
-	i = 0;
-	while (g_editor->cmd[i] != '\0')
-	{
-		if (g_editor->cmd[i] != ' ' && g_editor->cmd[i] != ';')
-			return (0);
-		i++;
-	}
-	ft_dprintf(g_editor->tty_fd, "\n");
-	command_reset();
-	ft_memset(buf, '\0', READ_BUF_SZE);
-	return (1);
-}
-
-/*
 ** The function that will be executed once the user presses "Enter"
 */
 
@@ -49,8 +28,8 @@ static void			end_of_input(char buf[], char line[])
 	ft_memset(line, '\0', ARG_MAX);
 	if (is_empty_cmd(buf))
 		return ;
-	while (g_editor->cur_pos < g_editor->cmd_sze)
-		move_cursor_right();
+	// while (g_editor->cur_pos < g_editor->cmd_sze)
+	// 	move_cursor_right();
 	history_append(g_editor->cmd);
 	ft_dprintf(g_editor->tty_fd, "\n");
 	restore_default_conf();
@@ -84,6 +63,9 @@ static void			set_up_for_execution(char *cmd_line, char buf[])
 	ft_strcat(cmd_line, g_editor->cmd);
 	command_set(cmd_line, 0);
 	g_editor->cur_pos = pos;
+	while (g_editor->cur_pos < g_editor->cmd_sze)
+		move_cursor_right();
+	remove_subshell_newline();
 	end_of_input(buf, cmd_line);
 }
 

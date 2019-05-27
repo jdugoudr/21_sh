@@ -6,12 +6,12 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/23 17:01:42 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/27 16:54:50 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	clang
-CFLAGS			=	-Wall -Wextra
+CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -rf
 NAME			=	21sh
 HEAD_DIR		=	includes
@@ -68,7 +68,7 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 					restore_default_conf.c command_write.c prompt_set.c set_terminfo.c tputs_char.c \
 					clear_string.c prompt_reset.c quotes_balanced.c get_editor_dim.c \
 					write_in_visual.c ends_with_newline.c continue_until_balanced.c expression_balanced.c \
-					handler_sigint_process.c dispatch_heredoc_key.c
+					handler_sigint_process.c dispatch_heredoc_key.c is_empty_cmd.c
 
 ##################################################
 ##########			EXEC				##########
