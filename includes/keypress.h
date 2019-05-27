@@ -6,13 +6,14 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 17:55:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/23 17:04:10 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 16:41:28 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYPRESS_H
 # define KEYPRESS_H
 # include <stdlib.h>
+
 # define RET_KEY			0xA
 # define ESC_KEY			0x1B
 # define CTRL_A_KEY			0x1
