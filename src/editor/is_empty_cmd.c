@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 16:52:40 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 16:55:16 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 17:29:14 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Check if a command only exists of spaces and semicolons
 */
 
-int			is_empty_cmd(char buf[])
+int			is_empty_cmd(void)
 {
 	size_t	i;
 
@@ -30,6 +30,6 @@ int			is_empty_cmd(char buf[])
 	}
 	ft_dprintf(g_editor->tty_fd, "\n");
 	command_reset();
-	ft_memset(buf, '\0', READ_BUF_SZE);
+	// ft_memset(buf, '\0', READ_BUF_SZE);
 	return (1);
 }

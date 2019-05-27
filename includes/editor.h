@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 17:05:33 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 17:28:11 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void					free_editor(void);
 void					get_editor_dim(void);
 void					handler_sigint_process(int signo);
 void					init_term(void);
-int						is_empty_cmd(char buf[]);
+int						is_empty_cmd(void);
 void					init_signal_handlers(void);
 void					move_cursor_home(void);
 void					move_cursor_left(void);
@@ -91,6 +91,7 @@ void					prompt_reset(void);
 void					prompt_set(char *str);
 int						quotes_balanced(void);
 void					remove_char(void);
+void					remove_subshell_newline(void);
 void					restore_default_conf(void);
 void					set_terminfo(void);
 char					*start_heredoc_mode(char *end_here);
