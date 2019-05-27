@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:14:16 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 19:14:02 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 19:36:27 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ int			builtin_setenv(char **cmd)
 	char	*val;
 	char	*key;
 
-	if (cmd[1] == NULL)
-	{
-		builtin_env(cmd);
-		return(0);
-	}
-	if (cmd[2])
-		ft_printf("\"%s\"\n", cmd[2]);
 	if (check_cmd_format(cmd, 2) == -1)
 	{
 		write(STDERR_FILENO, "usage: setenv key value\n", 24);
