@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/23 21:32:53 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/27 18:57:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,16 @@ int		check_token(t_ast **token_head, t_ast *tok, char **line)
 
 	r = 0;
 	if (*token_head == NULL && (tok->type & ENA_FIRST) == 0)
-		r = 1;
-	else if (*token_head)
-		r = (*token_head)->f_tok_next(tok, line);
-	if (r > 0 && ((*token_head)->type & DLESS_TOK) == 0)
+	{
 		ft_dprintf(STDERR_FILENO, SYNTAX_ERR);
+		r = 1;
+	}
+	else if (*token_head)
+	{
+		r = (*token_head)->f_tok_next(tok, line);
+		if (r > 0 && ((*token_head)->type & DLESS_TOK) == 0)
+			ft_dprintf(STDERR_FILENO, SYNTAX_ERR);
+	}
 	if (r)
 	{
 		del_token(&tok);
@@ -107,6 +112,6 @@ t_ast	*look_arg(t_ast *start)
 		el = el->next;
 	}
 	if ((start = sort_arg(el, start)))
-			el->next = look_arg(el->next);
+		el->next = look_arg(el->next);
 	return (start);
 }

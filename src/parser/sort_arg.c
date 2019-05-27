@@ -42,6 +42,8 @@ static int		go_to_first(t_ast **el, t_ast *end)
 	int	count_skip;
 
 	i = 0;
+	if (*el == NULL || (*el)->prev == NULL)
+		return (0);
 	count_skip = skip((*el)->prev, end);
 	while (i++ <= count_skip)
 		*el = (*el)->prev;
