@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_char.c                                      :+:      :+:    :+:   */
+/*   remove_subshell_newline.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 18:09:59 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 17:46:05 by mdaoud           ###   ########.fr       */
+/*   Created: 2019/05/27 17:27:48 by mdaoud            #+#    #+#             */
+/*   Updated: 2019/05/27 18:46:10 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "editor.h"
+#include "libft.h"
 
-static void		shift_string_left(void)
+void			remove_subshell_newline(void)
 {
-	int		i;
+	size_t	i;
+	size_t	pos;
+	int		paranth_flag;
 
-	if (g_editor->cur_pos == 0)
-		return ;
-	i = g_editor->cur_pos - 1;
-	i = (i < 0 ? 0 : i);
-	while (i <= (int)g_editor->cmd_sze)
+	i = 0;
+	paranth_flag = 0;
+	pos = g_editor->cur_pos;
+	while (g_editor->cmd[i])
 	{
-		g_editor->cmd[i] = g_editor->cmd[i + 1];
+		if (g_editor->cmd[i] == '(')
+			paranth_flag = 1;
+		if (g_editor->cmd[i] == ')' && paranth_flag)
+			paranth_flag = 0;
+		if (g_editor->cmd[i] == '\n' && paranth_flag)
+			g_editor->cmd[i] = ' ';
 		i++;
 	}
+	g_editor->cur_pos = pos;
 }
-
-void			remove_char(void)
-{
-	if (g_editor->cmd_sze != 0)
-	{
-		g_editor->cmd_sze--;
-		shift_string_left();
-		command_write();
-		move_cursor_left();
-	}
-}
-
-
-// 1235678900
