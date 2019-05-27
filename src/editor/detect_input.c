@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 16:58:17 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 17:06:59 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void			set_up_for_execution(char *cmd_line, char buf[])
 	g_editor->cur_pos = pos;
 	while (g_editor->cur_pos < g_editor->cmd_sze)
 		move_cursor_right();
-	remove_subshell_newline();
+	// remove_subshell_newline();
 	end_of_input(buf, cmd_line);
 }
 

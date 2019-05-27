@@ -6,19 +6,17 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 16:54:05 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/27 17:05:33 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EDITOR_H
 # define EDITOR_H
 
- # include <limits.h>
+# include <limits.h>
 # include <term.h>
 # include <termios.h>
 # include <stdlib.h>
-//# define ARG_MAX 10000
-//# define PATH_MAX 10000
 # define READ_BUF_SZE		8
 # define BALANCED			0
 # define SINGLE_Q			1

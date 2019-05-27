@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:21:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/23 18:46:41 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/24 17:54:58 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void		handler_sigint(int signo)
 	if (signo == SIGINT)
 	{
 		g_editor->flag_sigint = 1;
+		while (g_editor->cur_pos < g_editor->cmd_sze)
+			move_cursor_right();
 		ft_dprintf(STDOUT_FILENO, "\n");
 		g_shell->hist_ptr = NULL;
 		command_reset();
