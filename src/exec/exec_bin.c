@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 20:27:55 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 18:14:13 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/27 17:23:00 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,25 +87,24 @@ int			check_bin(t_ast *el, t_ast *head)
 	char	*path;
 	char	**path_tab;
 
-	ret = 0;
-	path_tab = NULL;
-	if (access(el->value, F_OK) == 0)
-		return (exec_bin(el->value, el->arg_cmd, head));
-	if ((path = get_env_value("PATH")) != NULL)
+	ret = 1;
+	if (ft_strchr(el->value, '/'))
+	{
+		if (access(el->value, F_OK) == 0)
+			return (exec_bin(el->value, el->arg_cmd, head));
+		ft_dprintf(STDERR_FILENO, NO_CMD, el->value);
+	}
+	else if ((path = get_env_value("PATH")) != NULL)
 	{
 		ret = 1;
 		if ((path_tab = ft_strsplit(path, ':')) != NULL)
 			ret = check_path(el, path_tab, head);
 		else
 			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		free(path);
+		ft_tabstrdel(&path_tab, 0);
 	}
 	else
-	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		return (1);
-	}
-	free(path);
-	if (path_tab)
-		ft_tabstrdel(&path_tab, 0);
 	return (ret);
 }
