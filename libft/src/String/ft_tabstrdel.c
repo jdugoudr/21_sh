@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 16:56:48 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/02/25 19:59:16 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/27 17:22:47 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	freebynull(char **str)
 
 void		ft_tabstrdel(char ***str, size_t size)
 {
-	if (str)
+	if (str && *str)
 	{
 		if (size)
 			freebysize(*str, size);
