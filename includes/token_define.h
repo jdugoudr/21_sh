@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 10:10:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/27 18:22:53 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define FD_REDIR	(GREAT_FD_TOK | DGREAT_FD_TOK | LESS_FD_TOK)
 # define L_IS_NAME	(WORD_TOK | IS_REDIR)
 
-# define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK | TYPE_END)
+# define ENA_FIRST	(NAME_TOK | WORD_TOK | SUB_SHELL | QUOT_TOK | TYPE_END | SEMI_COL)
 
 /*
 ** level_1 ';'
