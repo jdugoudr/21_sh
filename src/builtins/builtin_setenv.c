@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_setenv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:14:16 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/22 11:58:54 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/27 19:14:02 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,10 @@ static int		set_env_value(size_t ind, char *key, char *val)
 	return (0);
 }
 
-static int	check_var(char **cmd, int r, char **key, char **var)
-{
-	if (cmd && cmd[1] && (*var = ft_strchr(cmd[1], '=')))
-		(*var)[0] = '\0';
-	if (check_cmd_format(cmd, 1) == 1)
-	{
-		if (*var == NULL)
-			r = 1;
-		else
-		{
-			*key = cmd[1];
-			*var = *var + 1;
-		}
-	}
-	else if (check_cmd_format(cmd, 2) == -1)
-		r = 1;
-	else
-	{
-		*key = cmd[1];
-		*var = cmd[2];
-	}
-	if (r)
-	{
-		write(STDERR_FILENO, "usage: setenv key value\n", 24);
-		return (1);
-	}
-	return (0);
-}
-
 int			builtin_setenv(char **cmd)
 {
 	int		var_ind;
-	char	*var;
+	char	*val;
 	char	*key;
 
 	if (cmd[1] == NULL)
@@ -74,12 +45,19 @@ int			builtin_setenv(char **cmd)
 		builtin_env(cmd);
 		return(0);
 	}
-	if (check_var(cmd, 0, &key, &var))
+	if (cmd[2])
+		ft_printf("\"%s\"\n", cmd[2]);
+	if (check_cmd_format(cmd, 2) == -1)
+	{
+		write(STDERR_FILENO, "usage: setenv key value\n", 24);
 		return (1);
+	}
+	key = cmd[1];
+	val = cmd[2];
 	if ((var_ind = get_env_ind(key)) == -1)
 		return (1);
 	else if (var_ind == -2)
-		return (add_env_var(key, var));
+		return (add_env_var(key, val));
 	else
-		return (set_env_value(var_ind, key, var));
+		return (set_env_value(var_ind, key, val));
 }
