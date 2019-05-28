@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:15:31 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 16:56:28 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	convert_tild(char **str)
 	char	*tmp;
 	char	*value;
 
-	if ((value = get_env_value("HOME")) == NULL)//get env value fait un dup !!!
+	if ((value = get_env_value("HOME")) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		return (1);
@@ -100,11 +100,10 @@ static int	convert_tild(char **str)
 	return (0);
 }
 
-static int	check_var(t_ast **el)
+static int	check_var(t_ast **el, int count)
 {
 	t_ast	*new;
 	t_ast	*tmp_del;
-	int		count;
 
 	tmp_del = (*el)->next;
 	if ((convert_var((*el)->next->value, &count, &new)))
@@ -130,20 +129,16 @@ static int	check_var(t_ast **el)
 	return (0);
 }
 
-int			expansion_tok(t_ast *head)
+int			expansion_tok(t_ast *el)
 {
-	t_ast	*el;
-
-	el = head;
 	while (el->next)
 	{
-		if (el->next->next && el->next->next->type & DLESS_TOK)
-			el = el->next;
-		else if (el->next->type & WORD_TOK)
+		if (el->next->type & WORD_TOK && (!el->next->next
+			|| (el->next->next && (el->next->next->type & DLESS_TOK) == 0)))
 		{
 			if (ft_strchr(el->next->value, '$'))
 			{
-				if (check_var(&el))
+				if (check_var(&el, 0))
 					return (1);
 			}
 			else

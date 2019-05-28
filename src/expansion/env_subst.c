@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:02:21 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 17:02:14 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static int	replace_in(char **str, char *tmp, int i, int j)
 	return (i + len_add);
 }
 
-static char	*replace_each(int *i, char *str, char until)
+static char	*replace_each(int *i, char *str)
 {
 	int		j;
 	char	c;
 	char	*tmp;
 
 	j = *i + 1;
-	while (str[j] && str[j] != until && str[j] != ' '
-			&& str[j] != '\t' && str[j] != '\n')
+	while (str[j] && str[j] != '$' && str[j] != '~'
+			&& str[j] != ' ' && str[j] != '\t' && str[j] != '\n')
 		j++;
 	c = str[j];
 	str[j] = '\0';
@@ -111,7 +111,7 @@ char		*env_subst(char *str)
 			if (str[i + 1] == '$')
 				str = spec_char(&i, str, str[i + 1]);
 			else if (ft_isalnum(str[i + 1]))
-				str = replace_each(&i, str, '$');
+				str = replace_each(&i, str);
 			else
 				i++;
 		}

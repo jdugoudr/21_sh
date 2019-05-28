@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tabstrdel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 16:56:48 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/27 17:22:47 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 17:11:03 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	freebynull(char **str)
 			str[i] = NULL;
 			i++;
 		}
-		free(str);
 	}
 }
 
@@ -50,6 +49,7 @@ void		ft_tabstrdel(char ***str, size_t size)
 			freebysize(*str, size);
 		else
 			freebynull(*str);
+		free(*str);
 		*str = NULL;
 	}
 }

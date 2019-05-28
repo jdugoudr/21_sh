@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:36:40 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 17:12:02 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ int				create_arg(t_ast *start)
 				return (1);
 			lst_arg[0] = NULL;
 			if (add_arg(end, lst_arg, 0))
-				return (1);// verifier si pas de leaks !!!
+			{
+				ft_tabstrdel(&lst_arg, 0);
+				return (1);
+			}
 		}
 		el = end->next;
 	}
