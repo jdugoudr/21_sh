@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 08:38:13 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 09:09:45 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int		loop_tok(t_ast **token_head, char **line)
 			is_name = 0;
 		else
 			is_name = 1;
-//		ft_printf("la value est %s\n", (*token_head)->value);
 	}
 	if (!token)
 		return (1);

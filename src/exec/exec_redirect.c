@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 13:03:36 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 08:25:20 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 09:10:06 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst)
 	else if (el->type & LESS_TOK)
 		r = exec_in_redir(el, fd_lst, O_RDONLY, STDIN_FILENO);
 	else if (el->type & DLESS_TOK)
-	{
 		r = exec_in_redir(el, fd_lst, O_RDONLY, STDIN_FILENO);
-	}
 	else if (el->type & LESS_FD_TOK)
 		r = exec_in_redir(el, fd_lst, 0, STDIN_FILENO);
 	else
