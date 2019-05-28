@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:14:16 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 19:36:27 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 15:46:51 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int		set_env_value(size_t ind, char *key, char *val)
 	return (0);
 }
 
-int			builtin_setenv(char **cmd)
+int				builtin_setenv(char **cmd)
 {
 	int		var_ind;
 	char	*val;

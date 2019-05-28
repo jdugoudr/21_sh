@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 19:12:43 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 19:39:51 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 15:46:17 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				builtin_cd(char **cmd)
 	if (check_cmd_format(cmd, 0) == -1 && check_cmd_format(cmd, 1) == -1)
 	{
 		write(STDERR_FILENO, "usage: cd directory\n", 20);
-		return(1);
+		return (1);
 	}
 	if (cmd[1] == NULL || ft_strequ("--", cmd[1]))
 		path = get_env_value("HOME");

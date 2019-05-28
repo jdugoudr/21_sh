@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:14:14 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 20:08:12 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 15:47:03 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int			remove_env_var(int ind)
 ** Does nothing if the string given does not exist.
 */
 
-int				builtin_unsetenv(char **cmd)
+int					builtin_unsetenv(char **cmd)
 {
 	int		ind;
 

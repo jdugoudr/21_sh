@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 16:52:40 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 17:29:14 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 15:50:01 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int			is_empty_cmd(void)
 	}
 	ft_dprintf(g_editor->tty_fd, "\n");
 	command_reset();
-	// ft_memset(buf, '\0', READ_BUF_SZE);
 	return (1);
 }
