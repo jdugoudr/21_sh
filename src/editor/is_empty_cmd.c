@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 16:52:40 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 20:17:01 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 16:17:30 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int			is_empty_cmd(void)
 	}
 	ft_dprintf(g_editor->tty_fd, "\n");
 	command_reset();
-	// ft_memset(buf, '\0', READ_BUF_SZE);
 	return (1);
 }
