@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 13:03:36 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 11:36:30 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 08:25:20 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst)
 
 	r = 0;
 	if (el->type & (GREAT_TOK))
+	{
 		r = exec_out_redir(el, fd_lst, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+	}
 	else if (el->type & DGREAT_TOK)
 		r = exec_out_redir(el, fd_lst, O_WRONLY | O_CREAT | O_APPEND, STDOUT_FILENO);
 	else if (el->type & (GREAT_FD_TOK | DGREAT_FD_TOK))
@@ -36,7 +38,9 @@ int find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst)
 	else if (el->type & LESS_TOK)
 		r = exec_in_redir(el, fd_lst, O_RDONLY, STDIN_FILENO);
 	else if (el->type & DLESS_TOK)
+	{
 		r = exec_in_redir(el, fd_lst, O_RDONLY, STDIN_FILENO);
+	}
 	else if (el->type & LESS_FD_TOK)
 		r = exec_in_redir(el, fd_lst, 0, STDIN_FILENO);
 	else

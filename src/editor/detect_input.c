@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   detect_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 18:43:15 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 08:44:55 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void			end_of_input(void)
 	restore_default_conf();
 	signal(SIGINT, handler_sigint_process);
 	remove_subshell_newline();
-	parser(g_editor->cmd);
+//	parser(g_editor->cmd);
+	parser(ft_strdup(g_editor->cmd));////////////
 	init_signal_handlers();
 	set_terminfo();
 	command_reset();
