@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_arg.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/28 10:38:58 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/05/28 10:39:09 by jdugoudr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "token_define.h"
 #include "libft.h"
@@ -10,7 +21,7 @@
 ** ls > file -l   ==> ls -l > file
 */
 
-static int	count_arg(t_ast *el, t_ast *end)
+static int		count_arg(t_ast *el, t_ast *end)
 {
 	int	count;
 
@@ -78,7 +89,7 @@ static t_ast	*loop_sort(t_ast *start, t_ast *end)
 	return (loop_sort(el, end));
 }
 
-t_ast	*sort_arg(t_ast *start, t_ast *end)
+t_ast			*sort_arg(t_ast *start, t_ast *end)
 {
 	t_ast	*el;
 

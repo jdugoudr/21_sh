@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 09:00:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:37:44 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "sh_error.h"
 #include "ast.h"
 
-#include "../print_ast.c"
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
 ** The last token always have to be of type TYPE_END.
@@ -30,7 +29,8 @@ static int	ambigous_redirect(t_ast *token)
 	{
 		if (token->next->level_prior == level_4)
 		{
-			if (token->type != WORD_TOK || (token->prev && token->prev->type == WORD_TOK))
+			if (token->type != WORD_TOK
+				|| (token->prev && token->prev->type == WORD_TOK))
 			{
 				ft_dprintf(STDERR_FILENO, AMBI_REDIR);
 				return (1);
@@ -54,7 +54,7 @@ static int	init_parser(char *line, t_ast **head, t_ast **root, int *r)
 	return (0);
 }
 
-int				parser(char *line)
+int			parser(char *line)
 {
 	t_ast	*token_head;
 	t_ast	*tmp;

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lsttotab.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/10 16:48:54 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/05/28 09:57:15 by jdugoudr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "token_define.h"
@@ -30,7 +41,8 @@ static int	filltab(char **tabs, t_arg *lst)
 	tabs[i] = NULL;
 	return (0);
 }
-char	**lsttotab(t_arg *lst)
+
+char		**lsttotab(t_arg *lst)
 {
 	int		len;
 	char	**tabs;

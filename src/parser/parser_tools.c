@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 09:09:45 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:38:12 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		check_token(t_ast **token_head, t_ast *tok, char **line)
 ** We take and check the next token.
 ** We have to check if the new token next already point on new token
 ** because redirect can create two token. Redirect token and WORD_TOKEN if
-** this kind of command are given  :  cmd >&2 
+** this kind of command are given  :  cmd >&2
 */
 
 int		loop_tok(t_ast **token_head, char **line)

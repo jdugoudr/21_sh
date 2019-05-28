@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/24 09:54:02 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:15:31 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 static int	init_convert(char ***tmp, char **str, t_ast **new)
 {
 	char	*new_str;
-	int 	count;
+	int		count;
 
 	count = 0;
 	if ((new_str = env_subst(ft_strdup(*str))) == NULL)
@@ -82,7 +82,7 @@ static int	convert_var(char *str, int *count, t_ast **new)
 static int	convert_tild(char **str)
 {
 	char	*tmp;
-	char 	*value;
+	char	*value;
 
 	if ((value = get_env_value("HOME")) == NULL)//get env value fait un dup !!!
 	{
@@ -109,17 +109,17 @@ static int	check_var(t_ast **el)
 	tmp_del = (*el)->next;
 	if ((convert_var((*el)->next->value, &count, &new)))
 		return (1);
-	if (!new)//si la variable est vide ou n'existe pas ou saute le token concerne
+	if (!new)
 	{
 		if ((*el)->next->next)
 			(*el)->next->next->prev = *el;
 		(*el)->next = (*el)->next->next;
 	}
-	else//si il y a quelque chose
+	else
 	{
 		new->prev = (*el);
 		(*el)->next = new;
-		while (count-- > 1)//si la variable contenai plusieur mots on les a splité en plusieur tok on se place au dernier
+		while (count-- > 1)
 			new = new->next;
 		new->next = tmp_del->next;
 		if (tmp_del->next)
@@ -145,10 +145,11 @@ int			expansion_tok(t_ast *head)
 			{
 				if (check_var(&el))
 					return (1);
-			 }
-			else 
+			}
+			else
 			{
-				if (el->next->value[0] == '~' && (el->next->value[1] == '/' || el->next->value[1] == '\0'))
+				if (el->next->value[0] == '~' && (el->next->value[1] == '/'
+					|| el->next->value[1] == '\0'))
 					if (convert_tild(&(el->next->value)))
 						return (1);
 				el = el->next;

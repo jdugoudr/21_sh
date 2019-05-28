@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell21.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 17:03:43 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 11:02:33 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char					*get_env_value(char *key);
 int						get_env_ind(char *env_var);
 void					history_append(char *name);
 void					set_last_history_entry(void);
-
 
 /*
 ** Builtins

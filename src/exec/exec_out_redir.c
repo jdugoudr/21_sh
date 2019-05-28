@@ -6,20 +6,21 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:32:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 12:18:14 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:45:56 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "ast.h"
 #include "sh_error.h"
+#include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
 /*
 ** Here we execute >, >>, >&, >>& redirection.
-** The open mode are given in params. 
+** The open mode are given in params.
 ** >&	(O_WRONLY | O_CREAT | O_TRUNC)
 ** >>&	(O_WRONLY | O_CREAT | O_APPEND)
 ** >	(O_WRONLY | O_CREAT | O_TRUNC)
@@ -37,7 +38,7 @@
 ** not already in this table.
 */
 
-static int 	left(int type, int fd_from, t_save_fd **fd_lst)
+static int	left(int type, int fd_from, t_save_fd **fd_lst)
 {
 	if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
 		return (1);
@@ -46,7 +47,8 @@ static int 	left(int type, int fd_from, t_save_fd **fd_lst)
 
 static int	do_dup(t_ast *el, int fd_from, int fd_to, t_save_fd **fd_lst)
 {
-	if (fd_from != fd_to && el->type & FD_REDIR && check_right_fd(*fd_lst, fd_to, el->type))
+	if (fd_from != fd_to && el->type & FD_REDIR
+		&& check_right_fd(*fd_lst, fd_to, el->type))
 	{
 		ft_dprintf(STDERR_FILENO, BAD_FD, el->right->value);
 		return (1);
@@ -68,7 +70,7 @@ static int	do_dup(t_ast *el, int fd_from, int fd_to, t_save_fd **fd_lst)
 	return (0);
 }
 
-int			exec_out_redir(t_ast *el, t_save_fd **fd_lst, int open_flag, int fd_in)
+int			exec_out_redir(t_ast *el, t_save_fd **fd_lst, int o_flag, int fd_in)
 {
 	int work_fd;
 
@@ -79,7 +81,7 @@ int			exec_out_redir(t_ast *el, t_save_fd **fd_lst, int open_flag, int fd_in)
 			return (1);
 	if (el->type & (GREAT_TOK | DGREAT_TOK))
 	{
-		if (get_fd(el->right->value, open_flag, &work_fd, fd_lst))
+		if (get_fd(el->right->value, o_flag, &work_fd, fd_lst))
 			return (1);
 	}
 	else

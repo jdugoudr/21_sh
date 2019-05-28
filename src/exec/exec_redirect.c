@@ -6,13 +6,14 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 13:03:36 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 09:10:06 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:48:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_cmd.h"
 #include "ast.h"
 #include "sh_error.h"
+#include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -22,17 +23,17 @@ int	exec_redirect(t_ast *el, t_ast *head)
 	return (run_ast(el->left, head));
 }
 
-int find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst)
+int	find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst)
 {
 	int r;
 
 	r = 0;
 	if (el->type & (GREAT_TOK))
-	{
-		r = exec_out_redir(el, fd_lst, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
-	}
+		r = exec_out_redir(el, fd_lst, O_WRONLY | O_CREAT
+			| O_TRUNC, STDOUT_FILENO);
 	else if (el->type & DGREAT_TOK)
-		r = exec_out_redir(el, fd_lst, O_WRONLY | O_CREAT | O_APPEND, STDOUT_FILENO);
+		r = exec_out_redir(el, fd_lst, O_WRONLY | O_CREAT
+			| O_APPEND, STDOUT_FILENO);
 	else if (el->type & (GREAT_FD_TOK | DGREAT_FD_TOK))
 		r = exec_out_redir(el, fd_lst, 0, STDOUT_FILENO);
 	else if (el->type & LESS_TOK)

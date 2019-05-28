@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 20:27:55 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/27 17:23:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:48:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "sh_error.h"
 #include "editor.h"
 #include "ast.h"
+#include "libft.h"
 #include <sys/types.h>
-#include <sys/wait.h>//linux
 
 /*
 ** We check on the env variable PATH if the binary file of the command exist.
@@ -26,12 +26,8 @@
 ** 		  If you do the program will stop with a double free issue.
 */
 
-static int	exec_bin(char *path, char **arg, t_ast *head)
+static int	exec_bin(char *path, char **arg)
 {
-	int		ret;
-(void)head;
-
-	ret = 0;
 	if (access(path, X_OK))
 	{
 		ft_dprintf(STDERR_FILENO, NO_PERM, path);
@@ -39,7 +35,7 @@ static int	exec_bin(char *path, char **arg, t_ast *head)
 	}
 	execve(path, arg, g_shell->env);
 	ft_dprintf(STDERR_FILENO, "21sh: A problem appeared with execve.\n");
-	return (ret);
+	return (1);
 }
 
 static char	*complete_path(char *path, char *name)
@@ -54,7 +50,7 @@ static char	*complete_path(char *path, char *name)
 	return (com_path);
 }
 
-static int	check_path(t_ast *el, char **path_tab, t_ast *head)
+static int	check_path(t_ast *el, char **path_tab)
 {
 	char	*com_path;
 	int		ret;
@@ -70,7 +66,7 @@ static int	check_path(t_ast *el, char **path_tab, t_ast *head)
 		}
 		if (access(com_path, F_OK) == 0)
 		{
-			ret = exec_bin(com_path, el->arg_cmd, head);
+			ret = exec_bin(com_path, el->arg_cmd);
 			free(com_path);
 			return (ret);
 		}
@@ -81,7 +77,7 @@ static int	check_path(t_ast *el, char **path_tab, t_ast *head)
 	return (1);
 }
 
-int			check_bin(t_ast *el, t_ast *head)
+int			check_bin(t_ast *el)
 {
 	int		ret;
 	char	*path;
@@ -91,14 +87,14 @@ int			check_bin(t_ast *el, t_ast *head)
 	if (ft_strchr(el->value, '/'))
 	{
 		if (access(el->value, F_OK) == 0)
-			return (exec_bin(el->value, el->arg_cmd, head));
+			return (exec_bin(el->value, el->arg_cmd));
 		ft_dprintf(STDERR_FILENO, NO_CMD, el->value);
 	}
 	else if ((path = get_env_value("PATH")) != NULL)
 	{
 		ret = 1;
 		if ((path_tab = ft_strsplit(path, ':')) != NULL)
-			ret = check_path(el, path_tab, head);
+			ret = check_path(el, path_tab);
 		else
 			ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		free(path);

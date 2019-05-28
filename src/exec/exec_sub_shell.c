@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_sub_shell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:07:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/10 18:21:36 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 10:46:38 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include "sh_error.h"
 #include "editor.h"
 #include "shell21.h"
+#include "libft.h"
 #include <sys/types.h>
-#include <sys/wait.h>//needed on linux
 
 /*
 ** Here we execute a subshell.

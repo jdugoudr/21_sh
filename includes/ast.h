@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:17:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 15:59:15 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:41:39 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define RUN_AFTER	(AND_IF | OR_IF)
 # define NOT_DO_R	(LESS_TOK | DLESS_TOK | GREAT_TOK | DGREAT_TOK)
 
-typedef struct 	s_ast_reader
+typedef struct	s_ast_reader
 {
 	t_ast		*node;
 	int			out;
@@ -27,17 +27,17 @@ typedef struct 	s_ast_reader
 	char		**arg;
 }				t_ast_reader;
 
-int		run_ast(t_ast *root, t_ast *head);
+int				run_ast(t_ast *root, t_ast *head);
 
-int		expansion_tok(t_ast *head);
-char	*env_subst(char *str);
+int				expansion_tok(t_ast *head);
+char			*env_subst(char *str);
 
-char	**split_whitespaces(char *str);
-int		create_ast(t_ast **root, t_ast *list_head);
-t_ast	*create_token();
-t_ast	*create_tok_el(char *str, t_ast *prev, t_ast *next);
-void	del_token(t_ast **el);
-void	del_arglst(t_arg **lst);
-void	del_ast(t_ast **ast_head);
+char			**split_whitespaces(char *str);
+int				create_ast(t_ast **root, t_ast *list_head);
+t_ast			*create_token();
+t_ast			*create_tok_el(char *str, t_ast *prev, t_ast *next);
+void			del_token(t_ast **el);
+void			del_arglst(t_arg **lst);
+void			del_ast(t_ast **ast_head);
 
 #endif

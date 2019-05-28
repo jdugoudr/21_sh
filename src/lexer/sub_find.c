@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_find.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 10:05:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/02 13:11:43 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:34:06 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int		sub_parser(char *line, t_ast **token_head, t_ast **ast_root)
 				|| create_arg(*token_head)
 				|| !(*token_head = look_redir(tmp))
 				|| create_ast(ast_root, *token_head))
-			ret = 1;
+		ret = 1;
 	if (ret)
 		del_ast(token_head);
 	return (ret);
@@ -63,7 +63,7 @@ static t_ast	*fill_tok(t_ast *tok, char **line, int i)
 	return (tok);
 }
 
-t_ast	*sub_find(char **line, t_ast *tok)
+t_ast			*sub_find(char **line, t_ast *tok)
 {
 	int	i;
 

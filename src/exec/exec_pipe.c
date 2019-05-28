@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:59:40 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/13 15:24:10 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/28 10:45:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "ast.h"
 #include "sh_error.h"
 #include "editor.h"
+#include "libft.h"
 #include <sys/types.h>
-#include <sys/wait.h>//linux
 
 /*
 ** Here we redirect el->left output in el->right input.
@@ -53,7 +53,6 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 		r = run_ast(el->left, head);
 		close(pdes[WRITE_END]);
 		free_exit(r, head);
-
 	}
 	dup2(pdes[READ_END], STDIN_FILENO);
 	close(pdes[WRITE_END]);
@@ -62,7 +61,7 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 	return (r);
 }
 
-int	exec_pipe(t_ast *el, t_ast *head)
+int			exec_pipe(t_ast *el, t_ast *head)
 {
 	int		pdes[2];
 	pid_t	child;

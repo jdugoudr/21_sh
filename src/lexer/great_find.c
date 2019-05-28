@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:34:07 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 11:17:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:32:26 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_ast	*dgreat_find(char **line, t_ast *tok, char *value)
 	return (tok);
 }
 
-t_ast	*great_find(char **line, t_ast *tok, char *value)
+t_ast			*great_find(char **line, t_ast *tok, char *value)
 {
 	if ((*line)[1] == '>')
 		tok = dgreat_find(line, tok, value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_for_redir_fd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 11:44:30 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/04/08 17:31:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/28 10:35:53 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	is_valid(char **value, char **line)
 	return (0);
 }
 
-int	check_for_redir_fd(t_ast *next, char **line)
+int			check_for_redir_fd(t_ast *next, char **line)
 {
 	if ((next->type & AFTER_REDIR_FD) == 0)
 		return (1);
