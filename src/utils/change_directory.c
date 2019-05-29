@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_directory.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 00:52:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 18:22:59 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/29 20:54:24 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		set_pwd(char *val)
 	char		*var;
 	char		curr_dir[PATH_MAX];
 
-	if ((ind = get_env_ind("PWD")) == -1)
+	if ((ind = get_env_ind("PWD")) < 0)
 	{
 		getcwd(curr_dir, PATH_MAX);
 		add_env_var("PWD", curr_dir);
