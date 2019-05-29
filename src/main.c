@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 19:28:39 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/29 16:08:39 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int					main(int argc, char **argv, char **enviro)
 	{
 		while (get_next_line(STDIN_FILENO, &str) != 0)
 		{
-			parser(str);
+			parser(ft_strdup(str));
 			free(str);
 		}
 		restore_default_conf();
