@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/28 15:45:06 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/31 17:00:31 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void			unbalance_exp_handler(char *cmd_line)
 	continue_until_balanced();
 }
 
-static void			set_up_for_execution(char *cmd_line, char buf[])
+static void			set_up_for_execution(char *cmd_line)
 {
 	size_t		pos;
 
@@ -63,31 +63,26 @@ static void			set_up_for_execution(char *cmd_line, char buf[])
 	while (g_editor->cur_pos < g_editor->cmd_sze)
 		move_cursor_right();
 	ft_memset(cmd_line, '\0', ARG_MAX);
-	ft_memset(buf, '\0', READ_BUF_SZE);
 	end_of_input();
 }
 
 void				detect_input(void)
 {
-	char		buf[READ_BUF_SZE];
 	static char	cmd_line[ARG_MAX] = {'\0'};
-	int			ret;
+	long		ret;
 
-	ft_memset(buf, '\0', READ_BUF_SZE);
-	while ((ret = read(STDIN_FILENO, buf, READ_BUF_SZE - 1)) != 0)
+	while ((ret = reader()) != 0)
 	{
-		if (ret == -1)
+		if (ret < 0)
 			ft_exit("read", 1, 1, EXIT_FAILURE);
-		ret = dispatch_keypress(*(unsigned long *)buf);
+		ret = dispatch_keypress(ret);
 		if (ret > 0)
 		{
 			if (!expression_balanced())
 				unbalance_exp_handler(cmd_line);
 			else
-				set_up_for_execution(cmd_line, buf);
+				set_up_for_execution(cmd_line);
 			break ;
 		}
-		ft_memset(buf, '\0', READ_BUF_SZE);
-		continue ;
 	}
 }
