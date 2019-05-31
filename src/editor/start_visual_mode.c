@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:23:40 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/24 18:00:22 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/31 17:02:00 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,26 +104,24 @@ static int		dispatch_control(unsigned long touch, size_t *s, size_t *e)
 
 void			start_visual_mode(void)
 {
-	char			buf[READ_BUF_SZE];
 	size_t			start;
 	size_t			end;
+	unsigned long	buf;
 
 	end = g_editor->cur_pos;
 	start = g_editor->cur_pos;
 	g_editor->term->c_lflag &= ~ISIG;
 	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
-	ft_memset(buf, '\0', READ_BUF_SZE);
-	while (read(STDIN_FILENO, buf, 7))
+	while ((buf = reader()))
 	{
-		if (*(unsigned long *)buf == LEFT_KEY)
+		if (buf == LEFT_KEY)
 			left_key(&start, &end);
-		else if (*(unsigned long *)buf == RIGHT_KEY)
+		else if (buf == RIGHT_KEY)
 			right_key(&start, &end);
 		else
 		{
-			if (dispatch_control(*(unsigned long *)buf, &start, &end))
+			if (dispatch_control(buf, &start, &end))
 				return (exit_visual_mode());
 		}
-		ft_memset(buf, '\0', READ_BUF_SZE);
 	}
 }

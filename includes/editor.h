@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/27 17:28:11 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/31 16:52:55 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <term.h>
 # include <termios.h>
 # include <stdlib.h>
-# define READ_BUF_SZE		8
 # define BALANCED			0
 # define SINGLE_Q			1
 # define DOUBLE_Q			2
@@ -90,6 +89,7 @@ void					prompt_display(void);
 void					prompt_reset(void);
 void					prompt_set(char *str);
 int						quotes_balanced(void);
+long					reader(void);
 void					remove_char(void);
 void					remove_subshell_newline(void);
 void					restore_default_conf(void);

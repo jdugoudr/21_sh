@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_heredoc_mode.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:13:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/28 16:17:40 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/31 16:59:22 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 #include <signal.h>
 #include "sh_error.h"
 
-static void		init_heredoc_mode(char **line, char buf[], int *done)
+static void		init_heredoc_mode(char **line, int *done)
 {
 	*line = NULL;
 	set_terminfo();
 	g_editor->term->c_lflag &= ~ISIG;
 	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
-	ft_bzero(buf, READ_BUF_SZE + 1);
 	command_reset();
 	prompt_set("heredoc> ");
 	*done = 0;
@@ -56,10 +55,11 @@ static void		process_keypress(int ret, int *done, char **line, char *end)
 				*line = tmp;
 		}
 	}
-	else if (ret == -1 || ret == -2)
+	else if (ret < 0)
 	{
-		ft_strdel(line);
 		*done = 1;
+		if (ret == -1)
+			ft_strdel(line);
 	}
 }
 
@@ -73,23 +73,21 @@ static char		*exit_heredoc_mode(char *line)
 char			*start_heredoc_mode(char *end_here)
 {
 	char	*line;
-	char	buf[READ_BUF_SZE + 1];
-	int		ret;
+	long	ret;
 	int		done;
 
-	init_heredoc_mode(&line, buf, &done);
+	init_heredoc_mode(&line, &done);
 	while (!done)
 	{
 		prompt_display();
-		while ((ret = read(STDIN_FILENO, buf, READ_BUF_SZE)) != 0)
+		while ((ret = reader()))
 		{
 			if (ret < 0)
 				return (heredoc_intern_error(&line));
-			ret = dispatch_heredoc_key(*(unsigned long *)buf);
+			ret = dispatch_heredoc_key(ret);
 			process_keypress(ret, &done, &line, end_here);
 			if (ret == 1 || ret == -1 || ret == -2)
 				break ;
-			ft_bzero(buf, READ_BUF_SZE + 1);
 		}
 		command_reset();
 		ft_dprintf(g_editor->tty_fd, "\n");

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:11:32 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 18:11:42 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/31 16:44:14 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,31 +73,30 @@ static void		exit_search_mode(char *prmpt, char *search_str)
 	return ;
 }
 
-static void		init_search(char buf[], char prmpt[], char srch[], char tmp[])
+static void		init_search(char prmpt[], char srch[], char tmp[])
 {
 	ft_strcpy(prmpt, g_editor->prompt);
 	command_erase();
 	command_reset();
 	prompt_set("(search: `");
-	ft_memset(buf, '\0', READ_BUF_SZE);
-	ft_memset(srch, '\0', READ_BUF_SZE);
+	ft_memset(srch, '\0', ARG_MAX);
 	ft_memset(tmp, '\0', ARG_MAX);
 	command_write();
 }
 
 void			start_search_mode(void)
 {
-	char	prmpt_backup[PATH_MAX];
-	char	tmp[ARG_MAX];
-	char	search_str[ARG_MAX];
-	int		fresh_search;
-	char	buf[READ_BUF_SZE];
+	char			prmpt_backup[PATH_MAX];
+	char			tmp[ARG_MAX];
+	char			search_str[ARG_MAX];
+	int				fresh_search;
+	unsigned long	buf;
 
-	init_search(buf, prmpt_backup, search_str, tmp);
+	init_search(prmpt_backup, search_str, tmp);
 	fresh_search = 1;
-	while (read(STDIN_FILENO, buf, 7))
+	while ((buf = reader()))
 	{
-		fresh_search = process_keypress(*(unsigned int *)buf);
+		fresh_search = process_keypress(buf);
 		clear_string(tmp);
 		if (fresh_search == 2)
 			return (exit_search_mode(prmpt_backup, search_str));
@@ -107,6 +106,5 @@ void			start_search_mode(void)
 			command_append(g_shell->hist_ptr->name, 1);
 		ft_strcpy(tmp, g_editor->cmd);
 		command_set(search_str, 0);
-		ft_memset(buf, '\0', READ_BUF_SZE);
 	}
 }
