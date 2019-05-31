@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buff_flush.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 11:52:11 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/10 17:06:21 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/05/31 13:26:42 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	buff_flush(t_pf_arg *arg)
 {
-	if ((write(arg->fd, arg->buff, arg->it)) < 0)
-		return ;
+	write(arg->fd, arg->buff, arg->it);
 	arg->it = 0;
 }
