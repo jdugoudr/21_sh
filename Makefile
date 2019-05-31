@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
+#    By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/27 17:28:20 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/05/31 13:19:25 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,7 @@ SRC				+=	check_for_and_or.c check_for_assign.c check_for_dgreat.c \
 					check_for_dless.c check_for_great.c check_for_less.c check_for_name.c \
 					check_for_pipe.c check_for_semi.c check_for_sub.c check_for_word.c check_for_redir_fd.c \
 					create_arg.c parser.c sort_redirect.c sort_arg.c parser_tools.c
-#check_for_quot.c
+	
 ##################################################
 ##########			EXPANSION			##########
 ##################################################

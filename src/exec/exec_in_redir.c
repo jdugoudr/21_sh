@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:44:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:45:31 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/05/31 13:09:53 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,24 @@ static int	do_dup(t_ast *el, int fd_from, int fd_to, t_save_fd **fd_lst)
 	return (0);
 }
 
+static int	less_fd(char *str, int *work_fd, int fd_in)
+{
+	if (str[0] == '-')
+		*work_fd = fd_in;
+	else
+	{
+		if (file_descriptor(str, work_fd))
+			return (-1);
+		if (*work_fd == fd_in)
+			return (1);
+	}
+	return (0);
+}
+
 int			exec_in_redir(t_ast *el, t_save_fd **fd_lst, int o_flag, int fd_in)
 {
 	int	work_fd;
+	int	r;
 
 	if (el->right == NULL || el->right->value == NULL)
 		return (1);
@@ -110,12 +125,11 @@ int			exec_in_redir(t_ast *el, t_save_fd **fd_lst, int o_flag, int fd_in)
 		if (get_fd(el->right->value, o_flag, &work_fd, fd_lst))
 			return (1);
 	}
-	else
+	else if ((r = less_fd(el->right->value, &work_fd, fd_in)))
 	{
-		if ((el->right->value)[0] == '-')
-			work_fd = fd_in;
-		else if (file_descriptor(el->right->value, &work_fd))
-			return (1);
+		if (r > 0)
+			return (0);
+		return (1);
 	}
 	return (do_dup(el, fd_in, work_fd, fd_lst));
 }
