@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 00:52:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/29 20:54:24 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/06 10:51:08 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ static void		set_oldpwd(char *val)
 	g_shell->env[ind] = var;
 }
 
-static void		set_pwd(char *val)
+static void		set_pwd()
 {
 	int			ind;
 	char		*var;
 	char		curr_dir[PATH_MAX];
 
+	getcwd(curr_dir, PATH_MAX);
 	if ((ind = get_env_ind("PWD")) < 0)
 	{
-		getcwd(curr_dir, PATH_MAX);
 		add_env_var("PWD", curr_dir);
 		return ;
 	}
 	free(g_shell->env[ind]);
-	var = ft_strjoin("PWD=", val, 0);
+	var = ft_strjoin("PWD=", curr_dir, 0);
 	g_shell->env[ind] = var;
 }
 
@@ -70,5 +70,5 @@ void			change_directory(char *path, int print_dir)
 		return ;
 	}
 	set_oldpwd(old_dir);
-	set_pwd(path);
+	set_pwd();
 }

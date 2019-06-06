@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/05 16:53:06 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/06 10:37:02 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_ast	*look_redir(t_ast *start)
 	return (start);
 }
 
-t_ast	*look_arg(t_ast *start, t_ast *head)
+t_ast	*look_arg(t_ast *start)
 {
 	t_ast	*el;
 
@@ -114,6 +114,6 @@ t_ast	*look_arg(t_ast *start, t_ast *head)
 		el = el->next;
 	}
 	if ((start = sort_arg(el, start)))
-		el->next = look_arg(el->next, head);
+		el->next = look_arg(el->next);
 	return (start);
 }
