@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 00:52:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/06 10:51:08 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/06 14:39:56 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		set_oldpwd(char *val)
 	g_shell->env[ind] = var;
 }
 
-static void		set_pwd()
+static void		set_pwd(void)
 {
 	int			ind;
 	char		*var;

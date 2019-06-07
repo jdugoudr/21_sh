@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 10:38:58 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/05 16:20:44 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/06 14:37:59 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,5 @@ t_ast			*sort_arg(t_ast *start, t_ast *end)
 	el = start;
 	while (el != end && el->prev != end && el->prev->type == WORD_TOK)
 		el = el->prev;
-	t_ast *tmp = loop_sort(el, end);
-	return (tmp);
+	return (loop_sort(el, end));
 }

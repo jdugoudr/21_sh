@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 15:32:33 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/31 18:43:26 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/07 10:33:48 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,24 +108,3 @@ long			reader(void)
 	}
 	return (0);
 }
-
-// long		reader(void)
-// {
-// 	int		ret;
-// 	char	buf[3];
-
-// 	while ((ret = read(STDIN_FILENO, buf, 2)))
-// 	{
-// 		if (ret < 0)
-// 			return (-1);
-// 		if (ret == 0)
-// 			return (0);
-// 		if (buf[0] == ESC_KEY && buf[1] == '\0')
-// 			return (ESC_KEY);
-// 		else if (buf[0] == ESC_KEY && buf[1] == '[')
-// 			return (dispatch_esc_seq());
-// 		else
-// 			return (buf[0]);
-// 	}
-// 	return (0);
-// }
