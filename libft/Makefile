@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 12:38:55 by mdaoud            #+#    #+#              #
-#    Updated: 2019/05/10 17:07:16 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/06/10 18:50:22 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ FT_PRINTF_FILES =	buff_flush.c \
 					set_flag.c \
 					set_length.c
 
-GNL_DIR			=	GNL
+GNL_DIR			=	gnl
 GNL_FILES		=	get_next_line.c
 
-IO_DIR		 	= 	IO
+IO_DIR		 	= 	io
 IO_FILES		=	ft_putchar_fd.c \
 					ft_putchar.c \
 					ft_putendl.c \
@@ -54,7 +54,7 @@ IO_FILES		=	ft_putchar_fd.c \
 					ft_putstrln.c \
 					ft_putstrln.c
 
-MEMORY_DIR		=	Memory
+MEMORY_DIR		=	memory
 MEMORY_FILES	=	ft_bzero.c \
 					ft_memalloc.c \
 					ft_memccpy.c \
@@ -65,7 +65,7 @@ MEMORY_FILES	=	ft_bzero.c \
 					ft_memmove.c \
 					ft_memset.c
 
-STRING_DIR		=	String
+STRING_DIR		=	string
 STRING_FILES	=	ft_atoi.c \
 					ft_atol.c \
 					ft_ftoa.c \
@@ -106,6 +106,7 @@ STRING_FILES	=	ft_atoi.c \
 					ft_strrchr.c \
 					ft_strreplace.c \
 					ft_strrev.c \
+					ft_strsplit_ws.c \
 					ft_strsplit.c \
 					ft_strstr.c \
 					ft_strsub.c \
@@ -116,7 +117,7 @@ STRING_FILES	=	ft_atoi.c \
 					ft_toupper.c \
 					ft_ultoa.c
 
-MATH_DIR		=	Math
+MATH_DIR		=	math
 MATH_FILES		=	ft_abs.c \
 					ft_pow.c \
 					ft_max.c \

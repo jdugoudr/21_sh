@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 03:30:49 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 18:21:34 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 19:01:10 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			add_env_var(char *key, char *val)
 	size_t	count;
 	char	**new_env;
 
-	count = get_count(g_shell->env);
+	count = get_env_var_count(g_shell->env);
 	if ((new_env = malloc(sizeof(char *) * (count + 2))) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);

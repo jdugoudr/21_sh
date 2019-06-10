@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:58:29 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/04/07 16:59:16 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 18:51:13 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char					*ft_strrchr(char *s, int c);
 char					*ft_strreplace(char *str, char from, char to);
 char					*ft_strrev(char *str);
 char					**ft_strsplit(char *s, char c);
+char					**ft_strsplit_ws(char *str);
 char					*ft_strstr(char *haystack, char *needle);
 char					*ft_strsub(char *s, unsigned int start, size_t len);
 char					*ft_strtok(char *str, char *delim);

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/31 16:52:55 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 18:42:29 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void					add_char(char c);
 void					clear_string(char *str);
 void					command_append(char *str, int rewrite_flag);
 void					command_erase(void);
-void					command_reset();
+void					command_reset(void);
 void					command_set(char *str, int rewrite_flag);
 void					command_write(void);
 void					continue_until_balanced(void);

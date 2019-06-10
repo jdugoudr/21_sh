@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unsetenv.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:14:14 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/28 16:16:59 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:01:09 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	remove_env_var(int ind)
 	int		count;
 	size_t	i;
 
-	count = get_count(g_shell->env);
+	count = get_env_var_count(g_shell->env);
 	if ((new_env = malloc(sizeof(char *) * (count))) == NULL)
 		return (1);
 	i = 0;

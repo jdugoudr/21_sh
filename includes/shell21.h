@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell21.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/28 16:15:23 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/10 19:01:09 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void					display_history(void);
 void					free_shell(void);
 void					free_string_array(char **array);
 void					ft_exit(char *msg, int rstr, int free_fl, int ex_val);
-size_t					get_count(char **t);
+size_t					get_env_var_count(char **t);
 char					*get_env_value(char *key);
 int						get_env_ind(char *env_var);
 void					history_append(char *name);

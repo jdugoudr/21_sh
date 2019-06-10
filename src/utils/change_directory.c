@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_directory.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 00:52:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/06 14:39:56 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:59:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			change_directory(char *path, int print_dir)
 	if (chdir(path) == -1)
 	{
 		if ((access(path, F_OK) == -1))
-			ft_dprintf(STDERR_FILENO, "cd: no such file or directory: %s\n",\
+			ft_dprintf(STDERR_FILENO, "cd: no such file or directory: %s\n",
 				path);
 		else if ((access(path, R_OK) == -1))
 			ft_dprintf(STDERR_FILENO, "cd: permission denied: %s\n", path);

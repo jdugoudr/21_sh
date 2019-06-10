@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstappend.c                                     :+:      :+:    :+:   */
+/*   get_env_var_count.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/16 11:47:34 by mdaoud            #+#    #+#             */
-/*   Updated: 2018/11/22 16:16:57 by mdaoud           ###   ########.fr       */
+/*   Created: 2019/06/10 19:03:02 by mdaoud            #+#    #+#             */
+/*   Updated: 2019/06/10 19:03:03 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "shell21.h"
 
-void		ft_lstappend(t_list **alst, t_list *node)
+size_t			get_env_var_count(char **t)
 {
-	t_list	*temp;
+	size_t		count;
 
-	temp = *alst;
-	if (!*alst)
-	{
-		*alst = node;
-		return ;
-	}
-	while (temp->next)
-		temp = temp->next;
-	temp->next = node;
+	count = 0;
+	while (t[count] != NULL)
+		count++;
+	return (count);
 }

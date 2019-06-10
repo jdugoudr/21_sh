@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:23:40 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/31 17:02:00 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 18:58:22 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ static int		dispatch_control(unsigned long touch, size_t *s, size_t *e)
 		g_editor->flag_sigint = 1;
 		return (1);
 	}
-	if (touch == ESC_KEY || touch == CTRL_B_KEY || touch == CTRL_K_KEY ||\
-		touch == CTRL_P_KEY)
+	if (touch == ESC_KEY || touch == CTRL_B_KEY || touch == CTRL_K_KEY
+		|| touch == CTRL_P_KEY)
 		return (1);
 	return (0);
 }

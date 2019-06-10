@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_tok.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 16:56:28 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:51:54 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	init_convert(char ***tmp, char **str, t_ast **new)
 	count = 0;
 	if ((new_str = env_subst(ft_strdup(*str))) == NULL)
 		return (-1);
-	if ((*tmp = split_whitespaces(new_str)) == NULL)
+	if ((*tmp = ft_strsplit_ws(new_str)) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		free(new_str);

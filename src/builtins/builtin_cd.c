@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 19:12:43 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/31 15:53:43 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:57:15 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char		*get_sy_link(char *str)
 	if (lstat(str, &st) < 0)
 	{
 		if ((access(str, F_OK) == -1))
-			ft_dprintf(STDERR_FILENO, "cd: no such file or directory: %s\n",\
+			ft_dprintf(STDERR_FILENO, "cd: no such file or directory: %s\n",
 				str);
 		else
 			ft_dprintf(STDERR_FILENO, INTERN_ERR);

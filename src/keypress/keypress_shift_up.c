@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 23:49:36 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/20 18:19:46 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 18:47:42 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void			keypress_shift_up(void)
 	size_t		i;
 
 	i = 0;
-	if (g_editor->line == 0 ||
-		(g_editor->line == 1 && g_editor->col <= g_editor->offset))
+	if (g_editor->line == 0
+		|| (g_editor->line == 1 && g_editor->col <= g_editor->offset))
 	{
 		if (!ft_strchr(g_editor->cmd, '\n'))
 		{

@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_whitespaces.c                                :+:      :+:    :+:   */
+/*   ft_strsplit_ws.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 11:34:20 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 18:24:48 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 18:53:54 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
-#include <stdlib.h>
+#include "libft.h"
 
 static int		ft_cpt_word(char *str)
 {
@@ -53,8 +52,8 @@ static void		ft_word_cp(char *str, char **str_, int w)
 		i++;
 	if (str[i] != '\0')
 	{
-		while (str[j + i] != ' ' && str[j + i] != '\t' &&
-				str[j + i] != '\n' && str[j + i] != '\0')
+		while (str[j + i] != ' ' && str[j + i] != '\t'
+			&& str[j + i] != '\n' && str[j + i] != '\0')
 			j++;
 		if (!(str_[w] = (char *)malloc(sizeof(char *) * j)))
 			return ;
@@ -68,7 +67,7 @@ static void		ft_word_cp(char *str, char **str_, int w)
 	}
 }
 
-char			**split_whitespaces(char *str)
+char			**ft_strsplit_ws(char *str)
 {
 	int		nb_word;
 	char	**str_;

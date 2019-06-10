@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:06:31 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/31 18:10:53 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 18:59:00 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ int				dispatch_keypress(unsigned long touch)
 		write(STDOUT_FILENO, "exit\n", 5);
 		ft_exit(NULL, 1, 1, EXIT_SUCCESS);
 	}
-	else if (touch == UP_KEY || touch == DOWN_KEY ||\
-		touch == LEFT_KEY || touch == RIGHT_KEY)
+	else if (touch == UP_KEY || touch == DOWN_KEY
+		|| touch == LEFT_KEY || touch == RIGHT_KEY)
 		dispatch_arrow(touch);
-	else if (touch == SHIFT_UP_KEY || touch == SHIFT_DOWN_KEY ||\
-		touch == SHIFT_LEFT_KEY || touch == SHIFT_RIGHT_KEY)
+	else if (touch == SHIFT_UP_KEY || touch == SHIFT_DOWN_KEY
+		|| touch == SHIFT_LEFT_KEY || touch == SHIFT_RIGHT_KEY)
 		dispatch_shift(touch);
-	else if (touch == CTRL_U_KEY || touch == CTRL_L_KEY ||\
-		touch == CTRL_R_KEY || touch == CTRL_W_KEY || touch == CTRL_P_KEY)
+	else if (touch == CTRL_U_KEY || touch == CTRL_L_KEY
+		|| touch == CTRL_R_KEY || touch == CTRL_W_KEY || touch == CTRL_P_KEY)
 		dispatch_ctrl(touch);
 	else if (touch == BCKSPCE_KEY)
 		keypress_backspace();

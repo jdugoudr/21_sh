@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 17:55:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/31 16:56:44 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 18:42:39 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void					keypress_downarrow(void);
 void					keypress_end(void);
 void					keypress_home(void);
 void					keypress_shift_down(void);
-void					keypress_shift_left();
+void					keypress_shift_left(void);
 void					keypress_shift_right(void);
 void					keypress_shift_up(void);
 void					keypress_uparrow(void);

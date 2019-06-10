@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatch_heredoc_key.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 17:00:36 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/28 16:17:17 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:57:38 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int				dispatch_heredoc_key(unsigned long touch)
 		return (-2);
 	else if (touch == LEFT_KEY || touch == RIGHT_KEY)
 		dispatch_arrow(touch);
-	else if (touch == SHIFT_UP_KEY || touch == SHIFT_DOWN_KEY ||\
-		touch == SHIFT_LEFT_KEY || touch == SHIFT_RIGHT_KEY)
+	else if (touch == SHIFT_UP_KEY || touch == SHIFT_DOWN_KEY
+		|| touch == SHIFT_LEFT_KEY || touch == SHIFT_RIGHT_KEY)
 		dispatch_shift(touch);
 	else if (touch == CTRL_U_KEY || touch == CTRL_L_KEY)
 		dispatch_ctrl(touch);

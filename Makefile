@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/05/31 15:55:52 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/06/10 19:01:09 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ HEADERS			=	ast.h \
 					exec_cmd.h \
 					keypress.h \
 					lexer.h \
-					libft.h \
+					libft/includes/libft.h \
 					parser.h \
 					sh_error.h \
 					shell21.h \
@@ -111,16 +111,16 @@ SRC				+=	env_subst.c expansion_tok.c
 ##########			UTILS				##########
 ##################################################
 SRC				+=	add_env_var.c change_directory.c check_cmd_format.c display_history.c \
-					free_string_array.c get_count.c get_env_value.c get_env_ind.c history_append.c \
-					set_last_history_entry.c split_whitespaces.c ft_exit.c
+					free_string_array.c get_env_var_count.c get_env_value.c get_env_ind.c history_append.c \
+					set_last_history_entry.c ft_exit.c
 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 all: $(NAME)
-$(NAME): libft $(OBJ_DIR) $(OBJS)
-	@$(CC) -o $@ $(OBJS) $(LIB_FT) -I $(HEAD_DIR) -I $(LIB_HEAD) -ltermcap
+$(NAME): $(LIB_FT) $(OBJ_DIR) $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LIB_FT) -I $(HEAD_DIR) -I $(LIB_HEAD) -ltermcap
 
-libft:
+$(LIB_FT):
 	@make -C $(LIB_DIR)
 	@echo "\n\033[34m\033[1mLibft correctly done.\033[0m\n"
 
