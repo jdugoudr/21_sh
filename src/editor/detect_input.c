@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/09 15:07:07 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 19:36:23 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@
 #include <sys/ioctl.h>
 #include "keypress.h"
 #include <signal.h>
+
+/*
+** This function will print a '%' in reverse video mode if
+**	the output of a command is not terminated by a '\n'.
+*/
+
+static void			end_with_newline(void)
+{
+	ft_dprintf(g_editor->tty_fd, "\033[7m%%\033[m");
+	ft_dprintf(g_editor->tty_fd, "%*c", g_editor->win_width - 1, ' ');
+	tputs(tgetstr("dl", NULL), 1, tputs_char);
+	tputs(tgetstr("cr", NULL), 1, tputs_char);
+}
 
 /*
 ** The function that will be executed once the user presses "Enter"
@@ -38,8 +51,7 @@ static void			end_of_input(void)
 	command_reset();
 	prompt_reset();
 	g_shell->hist_ptr = NULL;
-	if (!ends_with_newline() && !g_editor->flag_sigint)
-		ft_dprintf(g_editor->tty_fd, "\033[7m%%\033[m\n");
+	end_with_newline();
 	g_editor->flag_sigint = 0;
 }
 

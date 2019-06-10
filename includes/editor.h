@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 18:42:29 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/10 19:34:40 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void					command_write(void);
 void					continue_until_balanced(void);
 void					detect_input(void);
 int						dispatch_heredoc_key(unsigned long touch);
-int						ends_with_newline(void);
 int						expression_balanced(void);
 void					free_editor(void);
 void					get_editor_dim(void);
