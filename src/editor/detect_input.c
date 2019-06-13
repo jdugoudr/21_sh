@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:30:12 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 19:36:23 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/13 04:11:44 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/ioctl.h>
 #include "keypress.h"
 #include <signal.h>
+#include "sh_error.h"
 
 /*
 ** This function will print a '%' in reverse video mode if
@@ -83,10 +84,17 @@ void				detect_input(void)
 	static char	cmd_line[ARG_MAX] = {'\0'};
 	long		ret;
 
-	while ((ret = reader()) != 0)
+	while (1)
 	{
+		if ((ret = reader()) == 0)
+			continue ;
 		if (ret < 0)
-			ft_exit("read", 1, 1, EXIT_FAILURE);
+		{
+			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+			ft_dprintf(g_editor->tty_fd, "\n");
+			command_reset();
+			break ;
+		}
 		ret = dispatch_keypress(ret);
 		if (ret > 0)
 		{
