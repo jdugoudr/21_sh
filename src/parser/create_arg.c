@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 17:12:02 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/15 15:26:23 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,7 @@
 ** Create a array of string and del all word token which are argument
 */
 
-static t_ast	*skip_el(t_ast *start)
-{
-	while (start && start->type != WORD_TOK)
-		start = start->next;
-	return (start);
-}
-
-static int		count_arg(t_ast *start, t_ast **end)
+static int		count_arg(t_ast *start)
 {
 	t_ast	*el;
 	int		count;
@@ -36,34 +29,21 @@ static int		count_arg(t_ast *start, t_ast **end)
 	if (!start || start->type != WORD_TOK)
 		return (0);
 	el = start;
-	while (el->next && el->next->type == WORD_TOK)
+	while (el->prev && el->prev->type == WORD_TOK)
 	{
 		count++;
-		el = el->next;
+		el = el->prev;
 	}
-	*end = el;
 	return (count);
 }
 
-static t_ast	*del_arg(t_ast *el)
-{
-	t_ast	*tmp;
 
-	tmp = el->prev;
-	el->prev->next = el->next;
-	el->next->prev = el->prev;
-	del_token(&el);
-	return (tmp);
-}
-
-static int		add_arg(t_ast *el, char **lst_arg, int count)
+static int		add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 {
 	char	*el_arg;
-	t_ast	*el_next;
 
-	if (!el || el->type != WORD_TOK)
+	if (!el || count == nb_arg)
 		return (0);
-	el_next = el->prev;
 	if ((el_arg = ft_strdup(el->value)) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
@@ -71,39 +51,29 @@ static int		add_arg(t_ast *el, char **lst_arg, int count)
 	}
 	lst_arg[count] = el_arg;
 	lst_arg[count + 1] = NULL;
-	if (count)
-		del_arg(el);
-	else if (count == 0)
-		el->arg_cmd = lst_arg;
 	count++;
-	return (add_arg(el_next, lst_arg, count));
+	return (add_arg(el->prev, lst_arg, count, nb_arg));
 }
 
 int				create_arg(t_ast *start)
 {
 	char	**lst_arg;
-	t_ast	*end;
 	t_ast	*el;
 	int		count;
 
 	el = start;
-	while (el)
+	count = count_arg(el);
+	if (count)
 	{
-		if ((el = skip_el(el)) == NULL)
-			break ;
-		count = count_arg(el, &end);
-		if (count)
+		if ((lst_arg = malloc((count + 1) * sizeof(char *))) == NULL)
+			return (1);
+		lst_arg[0] = NULL;
+		if (add_arg(el, lst_arg, 0, count))
 		{
-			if ((lst_arg = malloc((count + 1) * sizeof(char *))) == NULL)
-				return (1);
-			lst_arg[0] = NULL;
-			if (add_arg(end, lst_arg, 0))
-			{
-				ft_tabstrdel(&lst_arg, 0);
-				return (1);
-			}
+			ft_tabstrdel(&lst_arg, 0);
+			return (1);
 		}
-		el = end->next;
+		el->arg_cmd = lst_arg;
 	}
 	return (0);
 }

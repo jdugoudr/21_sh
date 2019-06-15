@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:16:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/27 20:08:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/15 14:55:01 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ static t_ast	*looking_token(t_ast *start, t_ast *end, int lvl_pty)
 		el = el->next;
 	if (el == end)
 		return (NULL);
+	if (lvl_pty == LEVEL_MIN)
+	{
+		while (el->next && el->next->level_prior == lvl_pty)
+			el = el->next;
+	}
 	return (el);
 }
 

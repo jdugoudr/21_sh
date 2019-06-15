@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/06 10:37:02 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/15 14:37:35 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,23 @@ int		loop_tok(t_ast **token_head, char **line)
 	return (0);
 }
 
-t_ast	*look_redir(t_ast *start)
-{
-	t_ast	*el;
+// t_ast	*look_redir(t_ast *start)
+// {
+// 	t_ast	*el;
 
-	el = start;
-	if (start == NULL)
-		return (NULL);
-	while (el->next)
-	{
-		if (el->next->level_prior > level_4)
-			break ;
-		el = el->next;
-	}
-	start = sort_redirect(start, el->next);
-	el->next = look_redir(el->next);
-	return (start);
-}
+// 	el = start;
+// 	if (start == NULL)
+// 		return (NULL);
+// 	while (el->next)
+// 	{
+// 		if (el->next->level_prior > level_4)
+// 			break ;
+// 		el = el->next;
+// 	}
+// 	start = sort_redirect(start, el->next);
+// 	el->next = look_redir(el->next);
+// 	return (start);
+// }
 
 t_ast	*look_arg(t_ast *start)
 {

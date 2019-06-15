@@ -6,10 +6,11 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/31 12:45:24 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/15 15:22:29 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "exec_cmd.h"
 #include "sh_error.h"
 #include "fcntl.h"
@@ -134,6 +135,8 @@ int			exec_word(t_ast *el, t_ast *head)
 	w_ast.head = head;
 	w_ast.el = el;
 	w_ast.cmd = el;
+	if (create_arg(el))
+		return 1;
 	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
 		i++;
 	if (i < NB_BUILT)

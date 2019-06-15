@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:37:26 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 20:15:42 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/15 14:53:44 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 ** level_6 WORD
 */
 
-enum {level_7, level_6 = 1, level_5, level_4, level_3, level_2, level_1};
+enum {level_7, level_6, level_5, level_4, level_3, level_2, level_1};
 
 typedef struct		s_arg
 {
