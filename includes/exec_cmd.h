@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:00:44 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:22:18 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ typedef struct			s_fd
 	struct s_fd			*next;
 }						t_fd;
 
-int						exec_semi_col(t_ast *el, t_ast *head);
-int						exec_or_if(t_ast *el, t_ast *head);
-int						exec_and_if(t_ast *el, t_ast *head);
-int						exec_pipe(t_ast *el, t_ast *head);
-int						exec_redirect(t_ast *el, t_ast *head);
-int						exec_sub_shell(t_ast *el, t_ast *head);
-int						exec_assign(t_ast *el, t_ast *head);
-int						exec_word(t_ast *el, t_ast *head);
-int						exec_dless_fd(t_ast *el, t_ast *head);
+int						exec_semi_col(t_ast *el, t_ast *head, int ret);
+int						exec_or_if(t_ast *el, t_ast *head, int ret);
+int						exec_and_if(t_ast *el, t_ast *head, int ret);
+int						exec_pipe(t_ast *el, t_ast *head, int ret);
+int						exec_redirect(t_ast *el, t_ast *head, int ret);
+int						exec_sub_shell(t_ast *el, t_ast *head, int ret);
+int						exec_assign(t_ast *el, t_ast *head, int ret);
+int						exec_word(t_ast *el, t_ast *head, int ret);
+int						exec_dless_fd(t_ast *el, t_ast *head, int ret);
 
 int						check_bin(t_ast *el);
 int						find_and_exec_redirect(t_ast *el, t_fd **fd_lst);

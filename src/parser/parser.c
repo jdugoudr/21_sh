@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 15:55:14 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:33:04 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@
 ** to see if the new token is enable by grammar.
 */
 
-static int	init_parser(char *line, t_ast **head, t_ast **root, int *r)
+static int	init_parser(char *line, t_ast **head, t_ast **root)
 {
 	*head = NULL;
 	*root = NULL;
-	*r = 0;
 	if (line == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
@@ -38,14 +37,14 @@ static int	init_parser(char *line, t_ast **head, t_ast **root, int *r)
 
 int			parser(char *line)
 {
-	t_ast	*token_head;
-	t_ast	*tmp;
-	t_ast	*ast_root;
-	int		ret;
-	char	*save_line;
+	t_ast		*token_head;
+	t_ast		*tmp;
+	t_ast		*ast_root;
+	static int	ret = 0;
+	char		*save_line;
 
 	save_line = line;
-	if (init_parser(line, &token_head, &ast_root, &ret)
+	if (init_parser(line, &token_head, &ast_root)
 		|| loop_tok(&token_head, &line))
 		ret = 1;
 	else if (token_head->next)
@@ -53,7 +52,7 @@ int			parser(char *line)
 		if (!(tmp = look_arg(token_head)) || create_ast(&ast_root, token_head))
 			ret = 1;
 		else
-			ret = run_ast(ast_root, token_head);
+			ret = run_ast(ast_root, token_head, ret);
 	}
 	free(save_line);
 	del_ast(&token_head);

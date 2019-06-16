@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 17:02:14 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:34:58 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*replace_each(int *i, char *str)
 	return (str);
 }
 
-static char	*spec_char(int *i, char *str, char c)
+static char	*spec_char(int *i, char *str, char c, int ret)
 {
 	int		r;
 	char	*tmp;
@@ -80,6 +80,8 @@ static char	*spec_char(int *i, char *str, char c)
 	r = 0;
 	if (c == '$')
 		r = getpid();
+	else if (c == '?')
+		r = ret;
 	tmp = ft_itoa(r);
 	if (tmp == NULL || (*i = replace_in(&str, tmp, *i, 2)) < 0)
 	{
@@ -92,7 +94,7 @@ static char	*spec_char(int *i, char *str, char c)
 	return (str);
 }
 
-char		*env_subst(char *str)
+char		*env_subst(char *str, int ret)
 {
 	int		i;
 
@@ -108,8 +110,8 @@ char		*env_subst(char *str)
 			i++;
 		if (str[i])
 		{
-			if (str[i + 1] == '$')
-				str = spec_char(&i, str, str[i + 1]);
+			if (str[i + 1] == '$' || str[i + 1] == '?')
+				str = spec_char(&i, str, str[i + 1], ret);
 			else if (ft_isalnum(str[i + 1]))
 				str = replace_each(&i, str);
 			else

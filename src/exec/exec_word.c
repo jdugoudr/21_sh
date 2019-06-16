@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:45:25 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:30:14 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 ** and if this variable doesn't exist.
 */
 
-int			exec_word(t_ast *el, t_ast *head)
+int			exec_word(t_ast *el, t_ast *head, int ret)
 {
 	t_blt		built_tab[NB_BUILT];
 	int			i;
@@ -162,7 +162,7 @@ int			exec_word(t_ast *el, t_ast *head)
 	save_fd = NULL;
 	init_blt(built_tab);
 	i = 0;
-	if (expansion_tok(end, &el) || ambigous_redirect(end) || create_arg(el))
+	if (expansion_tok(end, &el, ret) || ambigous_redirect(end) || create_arg(el))
 		return (1);
 	w_ast.el = el;
 	w_ast.cmd = el;

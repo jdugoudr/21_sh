@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 16:47:05 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 16:47:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 20:00:08 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ambigous_redirect(t_ast *token)
 	{
 		if (token->next->level_prior == level_4)
 		{
-			if (token->type != WORD_TOK
-				|| (token->prev && token->prev->type == WORD_TOK))
+			if (token->level_prior != LEVEL_MIN
+				|| (token->prev && token->prev->level_prior == LEVEL_MIN))
 			{
 				ft_dprintf(STDERR_FILENO, AMBI_REDIR);
 				return (1);

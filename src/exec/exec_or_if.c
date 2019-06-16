@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_or_if.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 16:01:18 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/08 20:23:33 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:24:40 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 ** Otherwise (execution failed), we run el->right.
 */
 
-int	exec_or_if(t_ast *el, t_ast *head)
+int	exec_or_if(t_ast *el, t_ast *head, int ret)
 {
 	int	r;
 
-	r = run_ast(el->left, head);
+	r = run_ast(el->left, head, ret);
 	if (r)
-		return (run_ast(el->right, head));
+		return (run_ast(el->right, head, r));
 	return (r);
 }

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 09:37:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 08:45:37 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:48:09 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int			check_for_dless(t_ast *next, char **line)
 	}
 	if ((new = start_heredoc_mode(next->value)) == NULL)
 		return (1);
-	if ((new = env_subst(new)) == NULL)
-		return (1);
+	// if ((new = env_subst(new, 0)) == NULL)/// 0 a changer par ret
+		// return (1);
 	free(next->value);
 	next->value = new;
 	return (0);

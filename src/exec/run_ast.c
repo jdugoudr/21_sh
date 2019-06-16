@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 09:37:15 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 16:21:42 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:19:26 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "exec_cmd.h"
 #include "sh_error.h"
 
-int	run_ast(t_ast *el, t_ast *head)
+int	run_ast(t_ast *el, t_ast *head, int ret)
 {
 	if (!el)
 		return (0);
@@ -24,5 +24,5 @@ int	run_ast(t_ast *el, t_ast *head)
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		return (1);
 	}
-	return (el->f_exec(el, head));
+	return (el->f_exec(el, head, ret));
 }

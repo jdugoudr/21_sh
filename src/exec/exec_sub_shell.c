@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:07:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:46:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:29:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 ** We just have to call the function run_ast with sub_tree of token structur
 */
 
-int	exec_sub_shell(t_ast *el, t_ast *head)
+int	exec_sub_shell(t_ast *el, t_ast *head, int ret)
 {
 	pid_t	child;
-	int		ret;
+	int		r;
 
-	ret = 0;
+	r = 0;
 	child = fork();
 	if (child == -1)
 	{
@@ -37,15 +37,15 @@ int	exec_sub_shell(t_ast *el, t_ast *head)
 	}
 	else if (child == 0)
 	{
-		ret = run_ast(el->ast_sub, head);
+		r = run_ast(el->ast_sub, head, ret);
 		free_shell();
 		free_editor();
 		del_ast(&head);
-		if (ret)
+		if (r)
 			exit(EXIT_FAILURE);
 		exit(EXIT_SUCCESS);
 	}
 	else
-		waitpid(child, &ret, 0);
-	return (ret);
+		waitpid(child, &r, 0);
+	return (r);
 }

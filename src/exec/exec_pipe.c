@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:59:40 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:45:05 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:29:22 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	free_exit(int r, t_ast *head)
 	exit(r);
 }
 
-static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
+static int	do_pipe(t_ast *el, int *pdes, t_ast *head, int ret)
 {
 	int		r;
 	pid_t	child;
@@ -50,18 +50,18 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head)
 	{
 		dup2(pdes[WRITE_END], STDOUT_FILENO);
 		close(pdes[READ_END]);
-		r = run_ast(el->left, head);
+		r = run_ast(el->left, head, ret);
 		close(pdes[WRITE_END]);
 		free_exit(r, head);
 	}
 	dup2(pdes[READ_END], STDIN_FILENO);
 	close(pdes[WRITE_END]);
-	r = run_ast(el->right, head);
+	r = run_ast(el->right, head, ret);
 	close(pdes[READ_END]);
 	return (r);
 }
 
-int			exec_pipe(t_ast *el, t_ast *head)
+int			exec_pipe(t_ast *el, t_ast *head, int ret)
 {
 	int		pdes[2];
 	pid_t	child;
@@ -81,7 +81,7 @@ int			exec_pipe(t_ast *el, t_ast *head)
 			ft_dprintf(STDERR_FILENO, INTERN_ERR);
 			return (1);
 		}
-		r = do_pipe(el, pdes, head);
+		r = do_pipe(el, pdes, head, ret);
 		free_exit(r, head);
 	}
 	else

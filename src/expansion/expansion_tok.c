@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:33:21 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 20:05:17 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@
 ** Split on white space and create a new token with the first
 ** new string.
 */
-
-static int	init_convert(char ***tmp, char **str, t_ast **new, t_ast *el)
+// cette fonction doit etre mise au propre... le fichier complet serai pas mal en vrai...
+static int	init_convert(char ***tmp, char **str, t_ast **new, t_ast *el, int ret)
 {
 	char	*new_str;
 	int		count;
 
 	count = 0;
-	if ((new_str = env_subst(ft_strdup(*str))) == NULL)
+	if ((new_str = env_subst(ft_strdup(*str), ret)) == NULL)
 		return (-1);
-	if (el->type == QUOT_TOK)
+	if (el->type == QUOT_TOK || (el->next && el->next->type == DLESS_TOK))
 	{
 		free(el->value);
 		el->value = new_str;
@@ -71,14 +71,14 @@ static int	init_convert(char ***tmp, char **str, t_ast **new, t_ast *el)
  ** more than one word in the variable => $VAR="ls -l"
 */
 
-static int	convert_var(char *str, int *count, t_ast **new, t_ast *el)
+static int	convert_var(char *str, int *count, t_ast **new, t_ast *el, int ret)
 {
 	char	**tmp;
 	int		i;
 
 	i = 1;
 	tmp = NULL;
-	if ((*count = init_convert(&tmp, &str, new, el)) == -1)
+	if ((*count = init_convert(&tmp, &str, new, el, ret)) == -1)
 		return (1);
 	else if (*count)
 	{
@@ -134,15 +134,15 @@ static void	new_token(t_ast **el, int count, t_ast *tmp_del, t_ast *new)
 	}
 }
 
-static int	check_var(t_ast **el, int count, t_ast **end)
+static int	check_var(t_ast **el, int count, t_ast **end, int ret)
 {
 	t_ast	*new;
 	t_ast	*tmp_del;
 
 	tmp_del = (*el)->next;
-	if ((convert_var((*el)->next->value, &count, &new, (*el)->next)))
+	if ((convert_var((*el)->next->value, &count, &new, (*el)->next, ret)))
 		return (1);
-	if (tmp_del->type == WORD_TOK)
+	if (tmp_del->type == WORD_TOK && (!tmp_del->next || tmp_del->next->type != DLESS_TOK))
 	{
 		new_token(el, count, tmp_del, new);
 		if (tmp_del == *end)
@@ -152,16 +152,15 @@ static int	check_var(t_ast **el, int count, t_ast **end)
 	return (0);
 }
 
-int			expansion_tok(t_ast *el, t_ast **end)
+int			expansion_tok(t_ast *el, t_ast **end, int ret)
 {
 	while (el->next && el->next != (*end)->next)
 	{
-		if (el->next->level_prior == LEVEL_MIN && (!el->next->next
-			|| (el->next->next && (el->next->next->type & DLESS_TOK) == 0)))
+		if (el->next->level_prior == LEVEL_MIN)
 		{
 			if (ft_strchr(el->next->value, '$'))
 			{
-				if (check_var(&el, 0, end))
+				if (check_var(&el, 0, end, ret))
 					return (1);
 			}
 			else

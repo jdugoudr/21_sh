@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 13:03:36 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 17:57:58 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:25:43 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-int	exec_redirect(t_ast *el, t_ast *head)
+int	exec_redirect(t_ast *el, t_ast *head, int ret)
 {
-	return (run_ast(el->left, head));
+	return (run_ast(el->left, head, ret));
 }
 
 int	find_and_exec_redirect(t_ast *el, t_fd **fd_lst)

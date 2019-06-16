@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:58:18 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 15:34:29 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 19:23:41 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 ** Otherwise (execution failed), we return.
 */
 
-int	exec_and_if(t_ast *el, t_ast *head)
+int	exec_and_if(t_ast *el, t_ast *head, int ret)
 {
 	int	r;
 
 	r = 0;
-	if ((r = run_ast(el->left, head)) == 0)
-		return (run_ast(el->right, head));
+	if ((r = run_ast(el->left, head, ret)) == 0)
+		return (run_ast(el->right, head, r));
 	return (r);
 }
