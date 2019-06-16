@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 12:28:44 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 15:20:22 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	convert_tild(char **str)
 	return (0);
 }
 
-static int	check_var(t_ast **el, int count)
+static int	check_var(t_ast **el, int count, t_ast **end)
 {
 	t_ast	*new;
 	t_ast	*tmp_del;
@@ -123,22 +123,33 @@ static int	check_var(t_ast **el, int count)
 		new->next = tmp_del->next;
 		if (tmp_del->next)
 			tmp_del->next->prev = new;
+		new->father = tmp_del->father;
+		if (tmp_del->father)
+		{
+			if (tmp_del->father->right == tmp_del)
+				tmp_del->father->right = new;
+			else
+				tmp_del->father->left = new;
+		}
 		(*el) = new;
 	}
+	if (tmp_del == *end)
+		*end = *el;
 	del_token(&(tmp_del));
 	return (0);
 }
 
 int			expansion_tok(t_ast *el, t_ast **end)
 {
-	while (el->next && el->next != (*end)->next)
+	while (el->next
+		&& el->next != (*end)->next)
 	{
 		if (el->next->type & WORD_TOK && (!el->next->next
 			|| (el->next->next && (el->next->next->type & DLESS_TOK) == 0)))
 		{
 			if (ft_strchr(el->next->value, '$'))
 			{
-				if (check_var(&el, 0))
+				if (check_var(&el, 0, end))
 					return (1);
 			}
 			else
@@ -153,6 +164,5 @@ int			expansion_tok(t_ast *el, t_ast **end)
 		else
 			el = el->next;
 	}
-	*end = el;
 	return (0);
 }

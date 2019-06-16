@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 12:58:05 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 15:30:00 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@
 **
 ** We have to dup saved fd in the executive fd and then close the save fd.
 */
+
+static int	ambigous_redirect(t_ast *token)
+{
+	while (token->next)
+	{
+		if (token->next->level_prior == level_4)
+		{
+			if (token->type != WORD_TOK
+				|| (token->prev && token->prev->type == WORD_TOK))
+			{
+				ft_dprintf(STDERR_FILENO, AMBI_REDIR);
+				return (1);
+			}
+		}
+		token = token->next;
+	}
+	return (0);
+}
 
 static void	init_built(t_built *built_tab)
 {
@@ -79,30 +97,30 @@ static void	free_reset_fd(t_save_fd **fd_lst, t_ast *head)
 		reset_term(head, 1);
 }
 
-static int	loop_redirect(t_ast *el, t_ast *head, t_built *blt, t_save_fd **fd_lst)
+static int	loop_redirect(t_w_ast w_ast, t_ast *head, t_built *blt, t_save_fd **fd_lst)
 {
 	int	r;
 
 	r = 0;
-	if (el->father && el->father->level_prior == level_4)
+	if (w_ast.el->father && w_ast.el->father->level_prior == level_4)
 	{
-		if (find_and_exec_redirect(el->father, fd_lst))
+		if (find_and_exec_redirect(w_ast.el->father, fd_lst))
 		{
 			free_reset_fd(fd_lst, head);
 			return (1);
 		}
-		el = el->father;
-		return (loop_redirect(el, head, blt, fd_lst));
+		w_ast.el = w_ast.el->father;
+		return (loop_redirect(w_ast, head, blt, fd_lst));
 	}
 	else if (blt)
-		r = blt->func(el->arg_cmd);
+		r = blt->func(w_ast.cmd->arg_cmd);
 	else
-		r = check_bin(el);
+		r = check_bin(w_ast.cmd);
 	free_reset_fd(fd_lst, head);
 	return (r);
 }
 
-static int	fork_command(t_ast *el, t_ast *head, t_save_fd **save_fd)
+static int	fork_command(t_w_ast w_ast, t_ast *head, t_save_fd **save_fd)
 {
 	int	child;
 	int	ret;
@@ -115,7 +133,7 @@ static int	fork_command(t_ast *el, t_ast *head, t_save_fd **save_fd)
 	}
 	else if (child == 0)
 	{
-		ret = loop_redirect(el, head, NULL, save_fd);
+		ret = loop_redirect(w_ast, head, NULL, save_fd);
 		reset_term(head, ret);
 	}
 	else
@@ -127,6 +145,7 @@ int			exec_word(t_ast *el, t_ast *head)
 {
 	t_built		built_tab[NB_BUILT];
 	int			i;
+	t_w_ast		w_ast;
 	t_save_fd	*save_fd;
 	t_ast		*end;
 
@@ -136,14 +155,16 @@ int			exec_word(t_ast *el, t_ast *head)
 	save_fd = NULL;
 	init_built(built_tab);
 	i = 0;
-	if (expansion_tok(end, &el) || create_arg(el))
+	if (expansion_tok(end, &el) || ambigous_redirect(end) || create_arg(el))
 		return 1;
+	w_ast.el = el;
+	w_ast.cmd = el;
 	if (!el || el->type != WORD_TOK)
 		return (0);
 	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
 		i++;
 	if (i < NB_BUILT)
-		return (loop_redirect(el, head, built_tab + i, &save_fd));
+		return (loop_redirect(w_ast, head, built_tab + i, &save_fd));
 	else
-		return (fork_command(el, head, &save_fd));
+		return (fork_command(w_ast, head, &save_fd));
 }

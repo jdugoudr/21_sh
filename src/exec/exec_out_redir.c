@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:32:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/31 13:09:25 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 15:19:58 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int			exec_out_redir(t_ast *el, t_save_fd **fd_lst, int o_flag, int fd_in)
 {
 	int work_fd;
 	int	r;
-
 	if (el->right == NULL || el->right->value == NULL)
 		return (1);
 	if (el->value)
