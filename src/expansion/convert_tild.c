@@ -1,56 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lsttotab.c                                         :+:      :+:    :+:   */
+/*   convert_tild.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/10 16:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 09:57:15 by jdugoudr         ###   ########.fr       */
+/*   Created: 2019/06/16 16:31:31 by jdugoudr          #+#    #+#             */
+/*   Updated: 2019/06/16 16:32:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_cmd.h"
 #include "token_define.h"
+#include "ast.h"
+#include "sh_error.h"
 #include "libft.h"
 
-static int	lenlst(t_arg *lst)
+int	convert_tild(char **str)
 {
-	int	i;
+	char	*tmp;
+	char	*value;
 
-	i = 0;
-	while (lst)
+	if ((value = get_env_value("HOME")) == NULL)
 	{
-		i++;
-		lst = lst->next;
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
 	}
-	return (i);
-}
-
-static int	filltab(char **tabs, t_arg *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
+	tmp = *str;
+	*str = ft_strjoin(value, *str + 1, 1);
+	free(tmp);
+	if (*str == NULL)
 	{
-		tabs[i] = lst->arg;
-		i++;
-		lst = lst->next;
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
 	}
-	tabs[i] = NULL;
 	return (0);
-}
-
-char		**lsttotab(t_arg *lst)
-{
-	int		len;
-	char	**tabs;
-
-	len = lenlst(lst);
-	tabs = malloc((len + 1) * sizeof(char *));
-	if (tabs == NULL)
-		return (NULL);
-	filltab(tabs, lst);
-	return (tabs);
 }

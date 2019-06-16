@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 14:13:38 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:00:44 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@
 
 # define READ_END		0
 # define WRITE_END		1
-# define CLOSE_OUTPUT	"/dev/null"
 # define HERE_DOC		"/tmp/heredoc_21"
 # define NB_BUILT		7
 
-typedef struct			s_built
+typedef struct			s_blt
 {
 	char				*name;
 	int					(*func)(char **cmd);
-}						t_built;
+}						t_blt;
 
 typedef struct			s_w_ast
 {
@@ -35,12 +34,12 @@ typedef struct			s_w_ast
 	t_ast				*cmd;
 }						t_w_ast;
 
-typedef struct			s_save_fd
+typedef struct			s_fd
 {
 	int					old_fd;
 	int					save_fd;
-	struct s_save_fd	*next;
-}						t_save_fd;
+	struct s_fd			*next;
+}						t_fd;
 
 int						exec_semi_col(t_ast *el, t_ast *head);
 int						exec_or_if(t_ast *el, t_ast *head);
@@ -53,24 +52,24 @@ int						exec_word(t_ast *el, t_ast *head);
 int						exec_dless_fd(t_ast *el, t_ast *head);
 
 int						check_bin(t_ast *el);
-int						find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst);
+int						find_and_exec_redirect(t_ast *el, t_fd **fd_lst);
 
-char					**lsttotab(t_arg *lst);
+int						ambigous_redirect(t_ast *token);
 
-int						exec_in_redir(t_ast *el, t_save_fd **fd_lst,
+int						exec_in_redir(t_ast *el, t_fd **fd_lst,
 							int open_flag, int fd_in);
-int						exec_out_redir(t_ast *el, t_save_fd **fd_lst,
+int						exec_out_redir(t_ast *el, t_fd **fd_lst,
 							int open_flag, int fd_in);
 void					reset_term(t_ast *head, int ret);
-void					del_saved_fd(t_save_fd **fd_lst);
-int						is_saved(t_save_fd *lst, int fd);
-t_save_fd				*add_value(t_save_fd *fd_lst, int to_save, int saved);
-int						save_fd(t_save_fd **fd_lst, int fd);
+void					del_saved_fd(t_fd **fd_lst);
+int						is_saved(t_fd *lst, int fd);
+t_fd					*add_value(t_fd *fd_lst, int to_save, int saved);
+int						save_fd(t_fd **fd_lst, int fd);
 
-int						check_left_fd(t_save_fd **fd_lst, int fd, int tok_red);
-int						check_right_fd(t_save_fd *fd_lst, int fd, int tok_red);
+int						check_left_fd(t_fd **fd_lst, int fd, int tok_red);
+int						check_right_fd(t_fd *fd_lst, int fd, int tok_red);
 int						get_fd(char *name_file, int open_flag, int *new_fd,
-							t_save_fd **fd_lst);
+							t_fd **fd_lst);
 int						file_descriptor(char *value, int *new_fd);
 
 #endif

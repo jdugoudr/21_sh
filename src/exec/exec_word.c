@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 15:30:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:06:01 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,15 @@
 ** If the command is a not a builtin, we fork before applying redirection.
 **
 ** After the execution of the command we need unset redirection.
-** Every cahnged file descriptor are stock in a int array.
+** Every changed file descriptor are stock in a list.
 **
-** save_fd[i][0] : executive fd
-** save_fd[i][1] : saved of the old executive fd
+** save_fd->old_fd  : executive fd
+** save_fd->save_fd : saved of the old executive fd
 **
 ** We have to dup saved fd in the executive fd and then close the save fd.
 */
 
-static int	ambigous_redirect(t_ast *token)
-{
-	while (token->next)
-	{
-		if (token->next->level_prior == level_4)
-		{
-			if (token->type != WORD_TOK
-				|| (token->prev && token->prev->type == WORD_TOK))
-			{
-				ft_dprintf(STDERR_FILENO, AMBI_REDIR);
-				return (1);
-			}
-		}
-		token = token->next;
-	}
-	return (0);
-}
-
-static void	init_built(t_built *built_tab)
+static void	init_blt(t_blt *built_tab)
 {
 	built_tab[0].name = "echo";
 	built_tab[0].func = builtin_echo;
@@ -69,10 +51,10 @@ static void	init_built(t_built *built_tab)
 	built_tab[6].func = builtin_exit;
 }
 
-static void	free_reset_fd(t_save_fd **fd_lst, t_ast *head)
+static void	free_reset_fd(t_fd **fd_lst, t_ast *head)
 {
-	int			r;
-	t_save_fd	*lst;
+	int		r;
+	t_fd	*lst;
 
 	r = 0;
 	lst = *fd_lst;
@@ -97,7 +79,14 @@ static void	free_reset_fd(t_save_fd **fd_lst, t_ast *head)
 		reset_term(head, 1);
 }
 
-static int	loop_redirect(t_w_ast w_ast, t_ast *head, t_built *blt, t_save_fd **fd_lst)
+/*
+** We apply redirection and reset them after the command execution.
+** Fd redirect are saved in list with the old fd id and the save fd id.
+** The save fd id could be -1. That's mean the old fd was close. So we have
+** to close it again before to leave.
+*/
+
+static int	loop_redirect(t_w_ast w_ast, t_ast *head, t_blt *blt, t_fd **fd_lst)
 {
 	int	r;
 
@@ -120,7 +109,13 @@ static int	loop_redirect(t_w_ast w_ast, t_ast *head, t_built *blt, t_save_fd **f
 	return (r);
 }
 
-static int	fork_command(t_w_ast w_ast, t_ast *head, t_save_fd **save_fd)
+/*
+** If it's a not a built in we fork before
+** to do redirection and before to check if
+** the command exist.
+*/
+
+static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 {
 	int	child;
 	int	ret;
@@ -141,22 +136,29 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_save_fd **save_fd)
 	return (ret);
 }
 
+/*
+** We first back to the end of the command line.
+** This is easier to apply variable subsitution that way.
+** Then we look for ambigous redirection, create the argument list
+** and execute the command.
+*/
+
 int			exec_word(t_ast *el, t_ast *head)
 {
-	t_built		built_tab[NB_BUILT];
+	t_blt		built_tab[NB_BUILT];
 	int			i;
 	t_w_ast		w_ast;
-	t_save_fd	*save_fd;
+	t_fd		*save_fd;
 	t_ast		*end;
 
 	end = el;
 	while (end && end->level_prior < level_3 && end->level_prior >= LEVEL_MIN)
 		end = end->prev;
 	save_fd = NULL;
-	init_built(built_tab);
+	init_blt(built_tab);
 	i = 0;
 	if (expansion_tok(end, &el) || ambigous_redirect(end) || create_arg(el))
-		return 1;
+		return (1);
 	w_ast.el = el;
 	w_ast.cmd = el;
 	if (!el || el->type != WORD_TOK)

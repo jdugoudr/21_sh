@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/15 15:26:23 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:08:04 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int		count_arg(t_ast *start)
 	}
 	return (count);
 }
-
 
 static int		add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 {

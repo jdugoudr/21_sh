@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 13:03:36 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:48:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 17:57:58 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exec_redirect(t_ast *el, t_ast *head)
 	return (run_ast(el->left, head));
 }
 
-int	find_and_exec_redirect(t_ast *el, t_save_fd **fd_lst)
+int	find_and_exec_redirect(t_ast *el, t_fd **fd_lst)
 {
 	int r;
 

@@ -6,7 +6,7 @@
 #    By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/06/16 15:32:03 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/06/16 17:40:17 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ HEADERS			=	ast.h \
 					exec_cmd.h \
 					keypress.h \
 					lexer.h \
-					libft/includes/libft.h \
 					parser.h \
 					sh_error.h \
 					shell21.h \
@@ -57,7 +56,7 @@ SRC				+=	create_ast.c create_token.c del_ast.c del_token.c
 ##################################################
 ##########			BUILTINS			##########
 ##################################################
-SRC				+=		builtin_cd.c builtin_echo.c builtin_env.c builtin_setenv.c builtin_unsetenv.c builtin_history.c builtin_exit.c
+SRC				+=	builtin_cd.c builtin_echo.c builtin_env.c builtin_setenv.c builtin_unsetenv.c builtin_history.c builtin_exit.c
 
 ##################################################
 ##########			EDITOR				##########
@@ -76,7 +75,8 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 SRC				+=	run_ast.c exec_pipe.c exec_in_redir.c exec_out_redir.c \
 					exec_sub_shell.c exec_assign.c \
 					exec_word.c exec_semi_col.c exec_and_if.c exec_or_if.c \
-					exec_bin.c lsttotab.c exec_redirect.c exec_utils.c check_valid_fd.c
+					exec_bin.c exec_redirect.c exec_utils.c \
+					check_valid_fd.c ambigous_redirect.c
 
 ##################################################
 ##########			KEYPRESS			##########
@@ -100,12 +100,12 @@ SRC				+=	and_find.c or_find.c word_find.c consume.c quot_find.c \
 SRC				+=	check_for_and_or.c check_for_assign.c check_for_dgreat.c \
 					check_for_dless.c check_for_great.c check_for_less.c check_for_name.c \
 					check_for_pipe.c check_for_semi.c check_for_sub.c check_for_word.c check_for_redir_fd.c \
-					create_arg.c parser.c sort_redirect.c sort_arg.c parser_tools.c
+					create_arg.c parser.c sort_arg.c parser_tools.c
 	
 ##################################################
 ##########			EXPANSION			##########
 ##################################################
-SRC				+=	env_subst.c expansion_tok.c
+SRC				+=	env_subst.c expansion_tok.c convert_tild.c
 
 ##################################################
 ##########			UTILS				##########
@@ -117,8 +117,10 @@ SRC				+=	add_env_var.c change_directory.c check_cmd_format.c display_history.c 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 all: $(NAME)
+
 $(NAME): $(LIB_FT) $(OBJ_DIR) $(OBJS)
 	$(CC) -o $@ $(OBJS) $(LIB_FT) -I $(HEAD_DIR) -I $(LIB_HEAD) -ltermcap
+	@echo "\n\033[34m\033[1m$(NAME) correctly done.\033[0m\n"
 
 $(LIB_FT):
 	@make -C $(LIB_DIR)
@@ -141,4 +143,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all libft clean fclean re
+.PHONY: all clean fclean re

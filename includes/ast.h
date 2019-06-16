@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 11:17:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 12:28:57 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 16:33:01 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int				run_ast(t_ast *root, t_ast *head);
 
 int				expansion_tok(t_ast *el, t_ast **end);
 char			*env_subst(char *str);
+int				convert_tild(char **str);
 
 int				create_ast(t_ast **root, t_ast *list_head);
 t_ast			*create_token(void);

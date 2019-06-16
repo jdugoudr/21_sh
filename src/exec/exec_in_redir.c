@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:44:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/31 13:09:53 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 17:57:06 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 ** not already in this table.
 */
 
-static int	write_heredoc(int open_flag, char *str, t_save_fd **fd_lst)
+static int	write_heredoc(int open_flag, char *str, t_fd **fd_lst)
 {
 	int	len;
 	int fd;
@@ -60,14 +60,14 @@ static int	write_heredoc(int open_flag, char *str, t_save_fd **fd_lst)
 	return (fd);
 }
 
-static int	left(int type, int fd_from, t_save_fd **fd_lst)
+static int	left(int type, int fd_from, t_fd **fd_lst)
 {
 	if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
 		return (1);
 	return (0);
 }
 
-static int	do_dup(t_ast *el, int fd_from, int fd_to, t_save_fd **fd_lst)
+static int	do_dup(t_ast *el, int fd_from, int fd_to, t_fd **fd_lst)
 {
 	if (fd_from != fd_to && el->type & FD_REDIR
 		&& check_right_fd(*fd_lst, fd_to, el->type))
@@ -106,7 +106,7 @@ static int	less_fd(char *str, int *work_fd, int fd_in)
 	return (0);
 }
 
-int			exec_in_redir(t_ast *el, t_save_fd **fd_lst, int o_flag, int fd_in)
+int			exec_in_redir(t_ast *el, t_fd **fd_lst, int o_flag, int fd_in)
 {
 	int	work_fd;
 	int	r;

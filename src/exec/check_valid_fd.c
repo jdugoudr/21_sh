@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:39:08 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/27 20:22:40 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:02:21 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			file_descriptor(char *value, int *new_fd)
 ** it at the and of redirection
 */
 
-int			get_fd(char *nm_fl, int open_flag, int *new_fd, t_save_fd **fd_lst)
+int			get_fd(char *nm_fl, int open_flag, int *new_fd, t_fd **fd_lst)
 {
 	int	fd;
 
@@ -97,7 +97,7 @@ int			get_fd(char *nm_fl, int open_flag, int *new_fd, t_save_fd **fd_lst)
 ** If the fd is not saved and we can read/write from/on it. It's a right fd.
 */
 
-int			check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
+int			check_right_fd(t_fd *fd_lst, int fd, int tok_red)
 {
 	while (fd_lst)
 	{
@@ -128,10 +128,10 @@ int			check_right_fd(t_save_fd *fd_lst, int fd, int tok_red)
 ** We add the fd and his backup in the fd list.
 */
 
-int			check_left_fd(t_save_fd **fd_lst, int fd, int tok_red)
+int			check_left_fd(t_fd **fd_lst, int fd, int tok_red)
 {
-	t_save_fd	*el;
-	int			save;
+	t_fd	*el;
+	int		save;
 
 	save = -1;
 	el = *fd_lst;

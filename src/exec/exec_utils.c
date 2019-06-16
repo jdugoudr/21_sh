@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 12:19:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 09:50:14 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:04:45 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include "ast.h"
 #include "libft.h"
 
-void		del_saved_fd(t_save_fd **fd_lst)
+void	del_saved_fd(t_fd **fd_lst)
 {
-	t_save_fd	*next_el;
-	t_save_fd	*el;
+	t_fd	*next_el;
+	t_fd	*el;
 
 	el = *fd_lst;
 	while (el)
@@ -32,7 +32,7 @@ void		del_saved_fd(t_save_fd **fd_lst)
 	*fd_lst = NULL;
 }
 
-void		reset_term(t_ast *head, int ret)
+void	reset_term(t_ast *head, int ret)
 {
 	free_shell();
 	free_editor();
@@ -40,7 +40,7 @@ void		reset_term(t_ast *head, int ret)
 	exit(ret);
 }
 
-int			is_saved(t_save_fd *fd_lst, int fd)
+int		is_saved(t_fd *fd_lst, int fd)
 {
 	int	i;
 
@@ -54,11 +54,11 @@ int			is_saved(t_save_fd *fd_lst, int fd)
 	return (0);
 }
 
-t_save_fd	*add_value(t_save_fd *fd_lst, int to_save, int saved)
+t_fd	*add_value(t_fd *fd_lst, int to_save, int saved)
 {
-	t_save_fd	*new_el;
+	t_fd	*new_el;
 
-	if ((new_el = malloc(sizeof(t_save_fd))) == NULL)
+	if ((new_el = malloc(sizeof(t_fd))) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		del_saved_fd(&fd_lst);
@@ -78,7 +78,7 @@ t_save_fd	*add_value(t_save_fd *fd_lst, int to_save, int saved)
 ** find a "non-used" fd.
 */
 
-int			save_fd(t_save_fd **fd_lst, int fd)
+int		save_fd(t_fd **fd_lst, int fd)
 {
 	int save;
 	int r;

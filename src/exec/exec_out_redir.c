@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 12:32:52 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 15:19:58 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:03:52 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@
 ** not already in this table.
 */
 
-static int	left(int type, int fd_from, t_save_fd **fd_lst)
+static int	left(int type, int fd_from, t_fd **fd_lst)
 {
 	if (check_left_fd(fd_lst, fd_from, type) || *fd_lst == NULL)
 		return (1);
 	return (0);
 }
 
-static int	do_dup(t_ast *el, int fd_from, int fd_to, t_save_fd **fd_lst)
+static int	do_dup(t_ast *el, int fd_from, int fd_to, t_fd **fd_lst)
 {
 	if (fd_from != fd_to && el->type & FD_REDIR
 		&& check_right_fd(*fd_lst, fd_to, el->type))
@@ -84,10 +84,11 @@ static int	great_fd(char *str, int *work_fd, int fd_in)
 	return (0);
 }
 
-int			exec_out_redir(t_ast *el, t_save_fd **fd_lst, int o_flag, int fd_in)
+int			exec_out_redir(t_ast *el, t_fd **fd_lst, int o_flag, int fd_in)
 {
 	int work_fd;
 	int	r;
+
 	if (el->right == NULL || el->right->value == NULL)
 		return (1);
 	if (el->value)
