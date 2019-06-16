@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:06:01 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:45:25 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,11 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 ** This is easier to apply variable subsitution that way.
 ** Then we look for ambigous redirection, create the argument list
 ** and execute the command.
+**
+** We need to check if el is always a LEVEL_MIN token (command) after
+** expansion_tok.
+** Because at this moment, the token could be removed if it was a variable and
+** and if this variable doesn't exist.
 */
 
 int			exec_word(t_ast *el, t_ast *head)
@@ -161,7 +166,7 @@ int			exec_word(t_ast *el, t_ast *head)
 		return (1);
 	w_ast.el = el;
 	w_ast.cmd = el;
-	if (!el || el->type != WORD_TOK)
+	if (!el || el->level_prior != LEVEL_MIN)
 		return (0);
 	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
 		i++;

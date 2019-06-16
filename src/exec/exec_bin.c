@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/11 20:27:55 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 14:03:27 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:49:23 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	check_path(t_ast *el, char **path_tab)
 	int		i;
 
 	i = 0;
-	while (path_tab[i])
+	while (path_tab[i] && el->value[0] != '\0')
 	{
 		if ((com_path = complete_path(path_tab[i], el->value)) == NULL)
 		{

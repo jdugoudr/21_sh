@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:08:04 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:30:26 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static int		count_arg(t_ast *start)
 	int		count;
 
 	count = 1;
-	if (!start || start->type != WORD_TOK)
+	if (!start || start->level_prior != LEVEL_MIN)
 		return (0);
 	el = start;
-	while (el->prev && el->prev->type == WORD_TOK)
+	while (el->prev && el->prev->level_prior == LEVEL_MIN)
 	{
 		count++;
 		el = el->prev;

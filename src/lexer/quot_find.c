@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 16:52:49 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 10:33:11 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:17:21 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_ast	*quot_find(char **line, t_ast *tok, char c)
 	}
 	else
 	{
-		tok->type = WORD_TOK;
+		tok->type = QUOT_TOK;
 		tok->f_tok_next = &check_for_word;
 		tok->f_exec = &exec_word;
 		(*line) += i + 1;

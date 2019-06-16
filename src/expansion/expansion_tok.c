@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:06:39 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 18:33:21 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 ** new string.
 */
 
-static int	init_convert(char ***tmp, char **str, t_ast **new)
+static int	init_convert(char ***tmp, char **str, t_ast **new, t_ast *el)
 {
 	char	*new_str;
 	int		count;
@@ -39,6 +39,12 @@ static int	init_convert(char ***tmp, char **str, t_ast **new)
 	count = 0;
 	if ((new_str = env_subst(ft_strdup(*str))) == NULL)
 		return (-1);
+	if (el->type == QUOT_TOK)
+	{
+		free(el->value);
+		el->value = new_str;
+		return (count);
+	}
 	if ((*tmp = ft_strsplit_ws(new_str)) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
@@ -65,14 +71,14 @@ static int	init_convert(char ***tmp, char **str, t_ast **new)
  ** more than one word in the variable => $VAR="ls -l"
 */
 
-static int	convert_var(char *str, int *count, t_ast **new)
+static int	convert_var(char *str, int *count, t_ast **new, t_ast *el)
 {
 	char	**tmp;
 	int		i;
 
 	i = 1;
 	tmp = NULL;
-	if ((*count = init_convert(&tmp, &str, new)) == -1)
+	if ((*count = init_convert(&tmp, &str, new, el)) == -1)
 		return (1);
 	else if (*count)
 	{
@@ -134,7 +140,7 @@ static int	check_var(t_ast **el, int count, t_ast **end)
 	t_ast	*tmp_del;
 
 	tmp_del = (*el)->next;
-	if ((convert_var((*el)->next->value, &count, &new)))
+	if ((convert_var((*el)->next->value, &count, &new, (*el)->next)))
 		return (1);
 	if (tmp_del->type == WORD_TOK)
 	{
@@ -150,7 +156,7 @@ int			expansion_tok(t_ast *el, t_ast **end)
 {
 	while (el->next && el->next != (*end)->next)
 	{
-		if (el->next->type & WORD_TOK && (!el->next->next
+		if (el->next->level_prior == LEVEL_MIN && (!el->next->next
 			|| (el->next->next && (el->next->next->type & DLESS_TOK) == 0)))
 		{
 			if (ft_strchr(el->next->value, '$'))
