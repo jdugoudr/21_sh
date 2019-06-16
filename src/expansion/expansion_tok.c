@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_tok.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/10 18:51:54 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/16 12:28:44 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ static int	check_var(t_ast **el, int count)
 	return (0);
 }
 
-int			expansion_tok(t_ast *el)
+int			expansion_tok(t_ast *el, t_ast **end)
 {
-	while (el->next)
+	while (el->next && el->next != (*end)->next)
 	{
 		if (el->next->type & WORD_TOK && (!el->next->next
 			|| (el->next->next && (el->next->next->type & DLESS_TOK) == 0)))
@@ -153,5 +153,6 @@ int			expansion_tok(t_ast *el)
 		else
 			el = el->next;
 	}
+	*end = el;
 	return (0);
 }

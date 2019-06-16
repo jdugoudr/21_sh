@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 10:05:24 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/15 14:42:46 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 12:30:39 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int		sub_parser(char *line, t_ast **token_head, t_ast **ast_root)
 		ft_dprintf(STDERR_FILENO, SYNTAX_ERR);
 		ret = 1;
 	}
-	else if (!(tmp = look_arg(*token_head)) || expansion_tok(*token_head)
+	else if (!(tmp = look_arg(*token_head)) /*|| expansion_tok(*token_head)*/
 				|| ambigous_redirect(*token_head) || create_arg(*token_head)
 	 			|| create_ast(ast_root, *token_head))
 		// else if (!(tmp = look_arg(*token_head))

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/15 15:22:29 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 12:58:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "sh_error.h"
 #include "fcntl.h"
 #include "libft.h"
+#include "ast.h"
 
 /*
 ** Here we execute simple command.
@@ -78,30 +79,30 @@ static void	free_reset_fd(t_save_fd **fd_lst, t_ast *head)
 		reset_term(head, 1);
 }
 
-static int	loop_redirect(t_work_ast w_ast, t_built *blt, t_save_fd **fd_lst)
+static int	loop_redirect(t_ast *el, t_ast *head, t_built *blt, t_save_fd **fd_lst)
 {
 	int	r;
 
 	r = 0;
-	if (w_ast.el->father && w_ast.el->father->level_prior == level_4)
+	if (el->father && el->father->level_prior == level_4)
 	{
-		if (find_and_exec_redirect(w_ast.el->father, fd_lst))
+		if (find_and_exec_redirect(el->father, fd_lst))
 		{
-			free_reset_fd(fd_lst, w_ast.head);
+			free_reset_fd(fd_lst, head);
 			return (1);
 		}
-		w_ast.el = w_ast.el->father;
-		return (loop_redirect(w_ast, blt, fd_lst));
+		el = el->father;
+		return (loop_redirect(el, head, blt, fd_lst));
 	}
 	else if (blt)
-		r = blt->func(w_ast.cmd->arg_cmd);
+		r = blt->func(el->arg_cmd);
 	else
-		r = check_bin(w_ast.cmd);
-	free_reset_fd(fd_lst, w_ast.head);
+		r = check_bin(el);
+	free_reset_fd(fd_lst, head);
 	return (r);
 }
 
-static int	fork_command(t_work_ast w_ast, t_save_fd **save_fd)
+static int	fork_command(t_ast *el, t_ast *head, t_save_fd **save_fd)
 {
 	int	child;
 	int	ret;
@@ -114,8 +115,8 @@ static int	fork_command(t_work_ast w_ast, t_save_fd **save_fd)
 	}
 	else if (child == 0)
 	{
-		ret = loop_redirect(w_ast, NULL, save_fd);
-		reset_term(w_ast.head, ret);
+		ret = loop_redirect(el, head, NULL, save_fd);
+		reset_term(head, ret);
 	}
 	else
 		waitpid(child, &ret, 0);
@@ -124,23 +125,25 @@ static int	fork_command(t_work_ast w_ast, t_save_fd **save_fd)
 
 int			exec_word(t_ast *el, t_ast *head)
 {
-	t_work_ast	w_ast;
 	t_built		built_tab[NB_BUILT];
 	int			i;
 	t_save_fd	*save_fd;
+	t_ast		*end;
 
+	end = el;
+	while (end && end->level_prior < level_3 && end->level_prior >= LEVEL_MIN)
+		end = end->prev;
 	save_fd = NULL;
 	init_built(built_tab);
 	i = 0;
-	w_ast.head = head;
-	w_ast.el = el;
-	w_ast.cmd = el;
-	if (create_arg(el))
+	if (expansion_tok(end, &el) || create_arg(el))
 		return 1;
+	if (!el || el->type != WORD_TOK)
+		return (0);
 	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
 		i++;
 	if (i < NB_BUILT)
-		return (loop_redirect(w_ast, built_tab + i, &save_fd));
+		return (loop_redirect(el, head, built_tab + i, &save_fd));
 	else
-		return (fork_command(w_ast, &save_fd));
+		return (fork_command(el, head, &save_fd));
 }

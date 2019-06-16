@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/28 11:00:24 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/16 12:52:03 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct			s_work_ast
 {
 	t_ast				*head;
 	t_ast				*el;
-	t_ast				*cmd;
 }						t_work_ast;
 
 typedef struct			s_save_fd
