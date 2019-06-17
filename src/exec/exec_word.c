@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 11:08:47 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 19:30:14 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:19:11 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,8 @@ int			exec_word(t_ast *el, t_ast *head, int ret)
 	save_fd = NULL;
 	init_blt(built_tab);
 	i = 0;
-	if (expansion_tok(end, &el, ret) || ambigous_redirect(end) || create_arg(el))
+	if (expansion_tok(end, &el, ret) || ambigous_redirect(end)
+		|| create_arg(el))
 		return (1);
 	w_ast.el = el;
 	w_ast.cmd = el;

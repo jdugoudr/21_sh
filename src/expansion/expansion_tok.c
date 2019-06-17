@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 20:05:17 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:11:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,33 @@
 ** Split on white space and create a new token with the first
 ** new string.
 */
-// cette fonction doit etre mise au propre... le fichier complet serai pas mal en vrai...
-static int	init_convert(char ***tmp, char **str, t_ast **new, t_ast *el, int ret)
+
+static int	convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
 {
 	char	*new_str;
-	int		count;
+	int		r;
 
-	count = 0;
-	if ((new_str = env_subst(ft_strdup(*str), ret)) == NULL)
+	r = 0;
+	if ((new_str = env_subst(ft_strdup(el->value), ret)) == NULL)
 		return (-1);
 	if (el->type == QUOT_TOK || (el->next && el->next->type == DLESS_TOK))
 	{
 		free(el->value);
 		el->value = new_str;
-		return (count);
+		return (r);
 	}
-	if ((*tmp = ft_strsplit_ws(new_str)) == NULL)
-	{
-		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		free(new_str);
-		ft_strdel(str);
-		return (-1);
-	}
-	if ((*tmp)[0] == NULL)
+	if ((*tmp = ft_strsplit_ws(new_str)) != NULL && (*tmp)[0] == NULL)
 		*new = NULL;
-	else if ((*new = create_tok_el((*tmp)[0], NULL, NULL)) == NULL)
+	else if (*tmp == NULL || !(*new = create_tok_el((*tmp)[0], NULL, NULL)))
 	{
-		ft_tabstrdel(tmp, 0);
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		return (-1);
+		ft_tabstrdel(tmp, 0);
+		r = -1;
 	}
 	else
-		count = 1;
+		r = 1;
 	free(new_str);
-	return (count);
+	return (r);
 }
 
 /*
@@ -71,14 +64,14 @@ static int	init_convert(char ***tmp, char **str, t_ast **new, t_ast *el, int ret
  ** more than one word in the variable => $VAR="ls -l"
 */
 
-static int	convert_var(char *str, int *count, t_ast **new, t_ast *el, int ret)
+static int	fill_var(int *count, t_ast **new, t_ast *el, int ret)
 {
 	char	**tmp;
 	int		i;
 
 	i = 1;
 	tmp = NULL;
-	if ((*count = init_convert(&tmp, &str, new, el, ret)) == -1)
+	if ((*count = convert_var(&tmp, new, el, ret)) == -1)
 		return (1);
 	else if (*count)
 	{
@@ -105,7 +98,7 @@ static int	convert_var(char *str, int *count, t_ast **new, t_ast *el, int ret)
  ** We re-build connexion with new token
 */
 
-static void	new_token(t_ast **el, int count, t_ast *tmp_del, t_ast *new)
+static void	cp_link(t_ast **el, int count, t_ast *tmp_del, t_ast *new)
 {
 	if (!new)
 	{
@@ -140,11 +133,12 @@ static int	check_var(t_ast **el, int count, t_ast **end, int ret)
 	t_ast	*tmp_del;
 
 	tmp_del = (*el)->next;
-	if ((convert_var((*el)->next->value, &count, &new, (*el)->next, ret)))
+	if ((fill_var(&count, &new, (*el)->next, ret)))
 		return (1);
-	if (tmp_del->type == WORD_TOK && (!tmp_del->next || tmp_del->next->type != DLESS_TOK))
+	if (tmp_del->type == WORD_TOK
+		&& (!tmp_del->next || tmp_del->next->type != DLESS_TOK))
 	{
-		new_token(el, count, tmp_del, new);
+		cp_link(el, count, tmp_del, new);
 		if (tmp_del == *end)
 			*end = *el;
 		del_token(&(tmp_del));
