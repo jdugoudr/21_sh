@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 19:22:18 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:24:53 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct			s_fd
 	int					save_fd;
 	struct s_fd			*next;
 }						t_fd;
+
+int						run_ast(t_ast *root, t_ast *head, int ret);
+
+int						expansion_tok(t_ast *el, t_ast **end, int ret);
+char					*env_subst(char *str, int ret);
+int						convert_tild(char **str);
 
 int						exec_semi_col(t_ast *el, t_ast *head, int ret);
 int						exec_or_if(t_ast *el, t_ast *head, int ret);

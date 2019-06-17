@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:09:14 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 19:33:04 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:25:48 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include "sh_error.h"
 #include "ast.h"
+#include "exec_cmd.h"
 
 /*
 ** This is the file where  we build a list of tokens by calling next_token.
