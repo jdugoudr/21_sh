@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:25:45 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/21 17:02:06 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/17 15:52:34 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SH_ERROR_H
 
 # define INTERN_ERR	"21sh: Sorry an intern issue appeared. Please try again.\n"
+# define NO_ASCII	"21sh: Your command contain non ascii characters\n"
 
 /*
 ** Parse error

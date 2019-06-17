@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/29 16:08:39 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/17 15:50:00 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,33 @@ static void			init_editor(void)
 	g_editor->flag_sigint = 0;
 }
 
-int					main(int argc, char **argv, char **enviro)
+static void			not_tty(void)
 {
 	char	*str;
+	int		i;
 
+	while (get_next_line(STDIN_FILENO, &str) != 0)
+	{
+		i = 0;
+		while (str[i])
+		{
+			if (ft_isascii(str[i]) == 0)
+				break ;
+			i++;
+		}
+		if (str[i] == '\0')
+			parser(ft_strdup(str));
+		else
+		{
+			ft_dprintf(STDERR_FILENO, NO_ASCII);
+			break ;
+		}
+		free(str);
+	}
+}
+
+int					main(int argc, char **argv, char **enviro)
+{
 	(void)argv;
 	(void)argc;
 	init_editor();
@@ -98,11 +121,7 @@ int					main(int argc, char **argv, char **enviro)
 	init_signal_handlers();
 	if (!isatty(STDIN_FILENO))
 	{
-		while (get_next_line(STDIN_FILENO, &str) != 0)
-		{
-			parser(ft_strdup(str));
-			free(str);
-		}
+		not_tty();
 		restore_default_conf();
 		return (0);
 	}
