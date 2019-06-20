@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/18 15:20:23 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:20:49 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static int	convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
 }
 
 /*
- ** We create and fill all other token if they are
- ** more than one word in the variable => $VAR="ls -l"
+** We create and fill all other token if they are
+** more than one word in the variable => $VAR="ls -l"
 */
 
 static int	fill_var(int *count, t_ast **new, t_ast *el, int ret)
@@ -95,8 +95,8 @@ static int	fill_var(int *count, t_ast **new, t_ast *el, int ret)
 }
 
 /*
- ** If it's non quot word
- ** We re-build connexion with new token
+** If it's non quot word
+** We re-build connexion with new token
 */
 
 static void	cp_link(t_ast **el, int count, t_ast *tmp_del, t_ast *new)
@@ -160,7 +160,8 @@ int			expansion_tok(t_ast *el, t_ast **end, int ret)
 			}
 			else
 			{
-				if (el->next->value[0] == '~' && !ft_isalnum(el->next->value[1]))
+				if (el->next->value[0] == '~'
+					&& !ft_isalnum(el->next->value[1]))
 					if (convert_tild(&(el->next->value)))
 						return (1);
 				el = el->next;

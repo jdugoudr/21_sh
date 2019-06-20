@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 11:34:20 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/17 12:43:41 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:25:32 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int		ft_cpt_word(char *str)
 	len_w = 0;
 	while (str[i] != '\0')
 	{
-		while ((str[i] == ' ' || str[i] == '\t'
-					|| str[i] == '\n') && str[i] != '\0')
+		while ((str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+			&& str[i] != '\0')
 			i++;
 		while (str[i] >= 33 && str[i] <= 126 && str[i] != '\0')
 		{

@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 16:22:34 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/18 14:20:45 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:17:22 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static char	*replace_each(int *i, char *str)
 	char	*tmp;
 
 	j = *i + 1;
-	// while (str[j] && str[j] != '$' && str[j] != '~'
-			// && str[j] != ' ' && str[j] != '\t' && str[j] != '\n')
 	while (str[j] && ft_isalnum(str[j]))
 		j++;
 	c = str[j];
