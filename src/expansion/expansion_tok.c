@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 13:48:54 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/17 14:26:31 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/18 15:20:23 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,7 @@ int			expansion_tok(t_ast *el, t_ast **end, int ret)
 			}
 			else
 			{
-				if (el->next->value[0] == '~' && (el->next->value[1] == '/'
-						|| el->next->value[1] == '\0'))
+				if (el->next->value[0] == '~' && !ft_isalnum(el->next->value[1]))
 					if (convert_tild(&(el->next->value)))
 						return (1);
 				el = el->next;
