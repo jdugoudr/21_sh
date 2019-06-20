@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+         #
+#    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/06/17 14:29:32 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/06/20 15:32:58 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,7 +113,7 @@ SRC				+=	env_subst.c expansion_tok.c convert_tild.c
 ##################################################
 SRC				+=	add_env_var.c change_directory.c check_cmd_format.c display_history.c \
 					free_string_array.c get_env_var_count.c get_env_value.c get_env_ind.c history_append.c \
-					set_last_history_entry.c ft_exit.c
+					set_last_history_entry.c ft_exit.c init_shell_level.c
 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 

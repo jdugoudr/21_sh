@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 19:01:09 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/20 15:32:48 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ size_t					get_env_var_count(char **t);
 char					*get_env_value(char *key);
 int						get_env_ind(char *env_var);
 void					history_append(char *name);
+void					init_shell_level(void);
 void					set_last_history_entry(void);
 
 /*

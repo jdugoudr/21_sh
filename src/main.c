@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:29:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/17 15:50:00 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:35:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int					main(int argc, char **argv, char **enviro)
 	g_shell = init_shell(enviro);
 	init_term();
 	init_signal_handlers();
+	init_shell_level();
 	if (!isatty(STDIN_FILENO))
 	{
 		not_tty();

@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 18:11:32 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/31 16:44:14 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/20 15:47:41 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int		process_keypress(unsigned int val)
 
 static void		exit_search_mode(char *prmpt, char *search_str)
 {
+	g_editor->term->c_lflag |= ISIG;
+	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
 	prompt_set(prmpt);
 	if (g_shell->hist_ptr == NULL || search_str[0] == '\0')
 		command_reset();
@@ -75,6 +77,9 @@ static void		exit_search_mode(char *prmpt, char *search_str)
 
 static void		init_search(char prmpt[], char srch[], char tmp[])
 {
+	set_terminfo();
+	g_editor->term->c_lflag &= ~ISIG;
+	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
 	ft_strcpy(prmpt, g_editor->prompt);
 	command_erase();
 	command_reset();
