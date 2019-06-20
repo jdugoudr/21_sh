@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 03:30:49 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 19:01:10 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/20 15:11:56 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			add_env_var(char *key, char *val)
 	}
 	free(g_shell->env);
 	if ((new_env[count] = ft_strjoin(key, "=", 0)) == NULL
-			|| (new_env[count] = ft_strjoin(new_env[count], val, 1)) == NULL)
+		|| (new_env[count] = ft_strjoin(new_env[count], val, 1)) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		return (1);

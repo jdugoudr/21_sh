@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_find.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 16:10:04 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/05/20 11:17:29 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/20 15:07:41 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	is_it_assign(char *line, t_ast *tok, bool *is_name)
 
 	i = 0;
 	while (line[i] != ' ' && ft_strchr(RESERVED, line[i]) == NULL
-			&& line[i] != '\0')
+		&& line[i] != '\0')
 		i++;
 	if (*is_name && *line == '=')
 	{
