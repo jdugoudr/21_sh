@@ -18,15 +18,9 @@ static int		set_env_value(size_t ind, char *key, char *val)
 {
 	free(g_shell->env[ind]);
 	if ((g_shell->env[ind] = ft_strjoin(key, "=", 0)) == NULL)
-	{
-		write(STDERR_FILENO, INTERN_ERR, ft_strlen(INTERN_ERR));
 		return (1);
-	}
 	if ((g_shell->env[ind] = ft_strjoin(g_shell->env[ind], val, 1)) == NULL)
-	{
-		write(STDERR_FILENO, INTERN_ERR, ft_strlen(INTERN_ERR));
 		return (1);
-	}
 	return (0);
 }
 
@@ -43,9 +37,13 @@ void			init_shell_level(void)
 		return ;
 	}
 	tmp = get_env_value("SHLVL");
-	free(tmp);
 	shlvl = ft_atoi(tmp) + 1;
-	tmp = ft_itoa(shlvl);
+	free(tmp);
+	if ((tmp = ft_itoa(shlvl)) == NULL || set_env_value(ind, "SHLVL", tmp))
+	{
+		free(tmp);
+		ft_exit(INTERN_ERR, 1, 1, EXIT_FAILURE);
+	}
 	set_env_value(ind, "SHLVL", tmp);
 	free(tmp);
 }
