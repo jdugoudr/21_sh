@@ -31,11 +31,13 @@
 # define DGREAT_FD_TOK	0x800
 # define SUB_SHELL		0x1000
 # define QUOT_TOK		0x2000
-# define ASSIGN_TOK		0x4000
-# define WORD_TOK		0x8000
-# define NAME_TOK		0x10000
-# define TYPE_END		0x20000
+# define DQUOT_TOK		0x4000
+# define ASSIGN_TOK		0x8000
+# define WORD_TOK		0x10000
+# define NAME_TOK		0x20000
+# define TYPE_END		0x40000
 
+# define G_QUOT		QUOT_TOK | DQUOT_TOK
 # define LEVEL_MIN	level_6
 # define LEVEL_REDI	level_4
 # define IS_REDIR	(GREAT_TOK | DGREAT_TOK | LESS_TOK | DLESS_TOK)
@@ -44,7 +46,7 @@
 # define FD_REDIR	(GREAT_FD_TOK | DGREAT_FD_TOK | LESS_FD_TOK)
 # define L_IS_NAME	(WORD_TOK | IS_REDIR)
 
-# define ENA_FIRST	(NAME_TOK|WORD_TOK|SUB_SHELL|QUOT_TOK|TYPE_END|SEMI_COL)
+# define ENA_FIRST	(NAME_TOK|WORD_TOK|SUB_SHELL|G_QUOT|TYPE_END|SEMI_COL)
 
 /*
 ** level_1 ';'
