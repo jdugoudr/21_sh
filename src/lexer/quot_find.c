@@ -17,6 +17,17 @@
 #include "libft.h"
 #include "sh_error.h"
 
+static void	set_quot(t_ast *tok, char c)
+{
+
+	if (c == '"')
+		tok->type = DQUOT_TOK;
+	else
+		tok->type = QUOT_TOK;
+	tok->f_tok_next = &check_for_word;
+	tok->f_exec = &exec_word;
+}
+
 t_ast	*quot_find(char **line, t_ast *tok, char c)
 {
 	int	i;
@@ -37,12 +48,7 @@ t_ast	*quot_find(char **line, t_ast *tok, char c)
 	}
 	else
 	{
-		if ((*line)[0] == '"')
-			tok->type = DQUOT_TOK;
-		else
-			tok->type = QUOT_TOK;
-		tok->f_tok_next = &check_for_word;
-		tok->f_exec = &exec_word;
+		set_quot(tok, c);
 		(*line) += i + 1;
 	}
 	return (tok);

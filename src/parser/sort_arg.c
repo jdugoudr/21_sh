@@ -107,8 +107,6 @@ t_ast			*sort_arg(t_ast *start, t_ast *end)
 		el->next = start->next;
 		el->prev = start;
 		start->next = el;
-		// if (start->prev)
-		// start->prev->prev = tmp;
 	}
 	while (el != end && el->prev != end && el->prev->type == WORD_TOK)
 	{
