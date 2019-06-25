@@ -45,7 +45,8 @@ static void		repair_oldpwd(void)
 
 	if (get_env_ind("OLDPWD") >= 0)
 		return ;
-	getcwd(current_dir, PATH_MAX);
+	if (getcwd(current_dir, PATH_MAX) == NULL)
+		current_dir[0] = '\0';
 	add_env_var("OLDPWD", current_dir);
 }
 
