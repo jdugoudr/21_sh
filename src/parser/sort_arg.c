@@ -92,9 +92,27 @@ static t_ast	*loop_sort(t_ast *start, t_ast *end)
 t_ast			*sort_arg(t_ast *start, t_ast *end)
 {
 	t_ast	*el;
+	t_ast	*tmp;
 
 	el = start;
+	if (start && start->type != WORD_TOK)
+	{
+		while (el != end && (el->type != WORD_TOK || (el->next && el->next->level_prior == LEVEL_REDI)))
+			el = el->prev;
+		tmp = el->prev;
+		if (el->prev)
+			el->prev->next = el->next;
+		if (el->next)
+			el->next->prev = el->prev;
+		el->next = start->next;
+		el->prev = start;
+		start->next = el;
+		// if (start->prev)
+		// start->prev->prev = tmp;
+	}
 	while (el != end && el->prev != end && el->prev->type == WORD_TOK)
+	{
 		el = el->prev;
+	}
 	return (loop_sort(el, end));
 }
