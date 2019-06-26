@@ -40,7 +40,7 @@ static int	convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
 	r = 0;
 	if ((new_str = env_subst(ft_strdup(el->value), ret)) == NULL)
 		return (-1);
-	if (el->type == QUOT_TOK || (el->next && el->next->type == DLESS_TOK))
+	if (el->type == DQUOT_TOK || (el->next && el->next->type == DLESS_TOK))
 	{
 		free(el->value);
 		el->value = new_str;
@@ -151,7 +151,7 @@ int			expansion_tok(t_ast *el, t_ast **end, int ret)
 {
 	while (el->next && el->next != (*end)->next)
 	{
-		if (el->next->level_prior == LEVEL_MIN)
+		if (el->next->level_prior == LEVEL_MIN && el->next->type != QUOT_TOK)
 		{
 			if (ft_strchr(el->next->value, '$'))
 			{
