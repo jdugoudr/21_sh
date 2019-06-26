@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_setenv.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:14:16 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/28 16:16:02 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/26 18:07:21 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,23 @@
 
 static int		set_env_value(size_t ind, char *key, char *val)
 {
+	char	*tmp;
+	char	*backup;
+	
+	if ((tmp = ft_strjoin(key, "=", 0)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
+	}
+	backup = tmp;
+	if ((tmp = ft_strjoin(tmp, val, 1)) == NULL)
+	{
+		free(backup);
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
+	}
 	free(g_shell->env[ind]);
-	if ((g_shell->env[ind] = ft_strjoin(key, "=", 0)) == NULL)
-	{
-		write(STDERR_FILENO, INTERN_ERR, ft_strlen(INTERN_ERR));
-		return (1);
-	}
-	if ((g_shell->env[ind] = ft_strjoin(g_shell->env[ind], val, 1)) == NULL)
-	{
-		write(STDERR_FILENO, INTERN_ERR, ft_strlen(INTERN_ERR));
-		return (1);
-	}
+	g_shell->env[ind] = tmp;
 	return (0);
 }
 
@@ -42,7 +48,7 @@ int				builtin_setenv(char **cmd)
 
 	if (check_cmd_format(cmd, 2) == -1)
 	{
-		write(STDERR_FILENO, "usage: setenv key value\n", 24);
+		ft_dprintf(STDERR_FILENO, "usage: setenv key value\n");
 		return (1);
 	}
 	key = cmd[1];

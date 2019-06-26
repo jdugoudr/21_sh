@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 19:12:43 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/26 16:42:21 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/26 17:39:18 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ int				builtin_cd(char **cmd)
 		ft_dprintf(STDERR_FILENO, "usage: cd directory\n");
 		return (1);
 	}
-	path = get_path(cmd[1], &print_dir);
+	if ((path = get_path(cmd[1], &print_dir)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
+	}
 	if (print_dir && (get_env_ind("OLDPWD") < 0))
 	{
 		ft_dprintf(STDERR_FILENO, "failed to get old working directory\n");
