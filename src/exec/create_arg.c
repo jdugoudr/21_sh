@@ -25,13 +25,15 @@ static int		count_arg(t_ast *start)
 	t_ast	*el;
 	int		count;
 
-	count = 1;
+	count = 0;
 	if (!start || start->level_prior != LEVEL_MIN)
 		return (0);
 	el = start;
-	while (el->prev && el->prev->level_prior == LEVEL_MIN)
+	while (el && el->level_prior <= LEVEL_REDI && el->type !=  TYPE_END)
 	{
-		count++;
+		if (el->type == WORD_TOK
+			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+			count++;
 		el = el->prev;
 	}
 	return (count);
@@ -41,6 +43,13 @@ static int		add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 {
 	char	*el_arg;
 
+	while (count < nb_arg && el && el->level_prior <= LEVEL_REDI)
+	{
+		if (el->type == WORD_TOK
+			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+			break ;
+		el = el->prev;
+	}
 	if (!el || count == nb_arg)
 		return (0);
 	if ((el_arg = ft_strdup(el->value)) == NULL)
@@ -61,6 +70,15 @@ int				create_arg(t_ast *start)
 	int		count;
 
 	el = start;
+	while (el && el->level_prior <= LEVEL_REDI)
+	{
+		if (el->type == WORD_TOK
+			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+			break ;
+		el = el->prev;
+	}
+	if (!el || el->level_prior >= LEVEL_REDI)
+		return (0);
 	count = count_arg(el);
 	if (count)
 	{

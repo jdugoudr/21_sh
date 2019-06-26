@@ -30,11 +30,47 @@ static t_ast	*looking_token(t_ast *start, t_ast *end, int lvl_pty)
 		el = el->next;
 	if (el == end)
 		return (NULL);
-	if (lvl_pty == LEVEL_MIN)
+	return (el);
+}
+
+static t_ast	*find_cmd(t_ast *start, t_ast *end, t_ast *fth)
+{
+	t_ast	*first;
+	t_ast	*el;
+
+	first = NULL;
+	el = start;
+	while (el != end)
 	{
-		while (el->next && el->next->level_prior == lvl_pty)
-			el = el->next;
+		if (el->level_prior < LEVEL_REDI)
+		{
+			if (el->next && el->next->level_prior == LEVEL_REDI)
+				el = el->next;
+			else
+				first = el;
+		}
+		el = el->next;
 	}
+	if (first)
+		first->father = fth;
+	return (first);
+}
+
+static t_ast	*build_redir(t_ast *start, t_ast *end, t_ast *prev_redir, t_ast *fth)
+{
+	t_ast	*el;
+
+	el = looking_token(prev_redir, end, LEVEL_REDI);
+	if (el && el->level_prior == LEVEL_REDI)
+	{
+		el->father = fth;
+		el->right = el->prev;
+		if (el->prev)
+			el->prev->father = el;
+		el->left = build_redir(start, end, el->next, el);
+	}
+	if (el == end)
+		el = find_cmd(start, end, fth);
 	return (el);
 }
 
@@ -42,16 +78,16 @@ static t_ast	*build_tree(t_ast *start, t_ast *end, int lvl_pty, t_ast *fth)
 {
 	t_ast		*el;
 
-	if (lvl_pty == LEVEL_MIN - 1)
-		return (NULL);
+	if (lvl_pty == LEVEL_REDI)
+		return (build_redir(start, end, start, fth));
 	el = looking_token(start, end, lvl_pty);
-	if (el)
+	if (el && lvl_pty > LEVEL_REDI)
 	{
 		el->father = fth;
 		el->right = build_tree(start, el, lvl_pty - 1, el);
 		el->left = build_tree(el->next, end, lvl_pty, el);
 	}
-	else if (lvl_pty > LEVEL_MIN)
+	else if (lvl_pty > LEVEL_REDI)
 		el = build_tree(start, end, lvl_pty - 1, fth);
 	return (el);
 }

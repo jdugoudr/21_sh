@@ -148,6 +148,8 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 ** and if this variable doesn't exist.
 */
 
+// #include "../../print_ast.c"
+	// print_ast(*root, 0);
 int			exec_word(t_ast *el, t_ast *head, int ret)
 {
 	t_blt		built_tab[NB_BUILT];
@@ -156,17 +158,25 @@ int			exec_word(t_ast *el, t_ast *head, int ret)
 	t_fd		*save_fd;
 	t_ast		*end;
 
+(void)ret;////////
 	end = el;
 	while (end && end->level_prior < level_3 && end->level_prior >= LEVEL_MIN)
 		end = end->prev;
 	save_fd = NULL;
 	init_blt(built_tab);
 	i = 0;
-	if (expansion_tok(end, &el, ret) || ambigous_redirect(end)
-		|| create_arg(el))
+	if (/*expansion_tok(end, &el, ret) || ambigous_redirect(end)
+		||*/ create_arg(el))
 		return (1);
 	w_ast.el = el;
 	w_ast.cmd = el;
+	while (el && el->level_prior <= LEVEL_REDI)
+	{
+		if (el->type == WORD_TOK
+			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+			break ;
+		el = el->prev;
+	}
 	if (!el || el->level_prior != LEVEL_MIN)
 		return (0);
 	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
