@@ -93,5 +93,4 @@ void			change_directory(char *path, int print_dir)
 	valid_getcwd = getcwd(dir, PATH_MAX) != NULL;
 	if (valid_getcwd)
 		set_pwd(dir);
-
 }

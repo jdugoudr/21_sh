@@ -37,7 +37,10 @@ t_ast	*quot_find(char **line, t_ast *tok, char c)
 	}
 	else
 	{
-		tok->type = QUOT_TOK;
+		if ((*line)[0] == '"')
+			tok->type = DQUOT_TOK;
+		else
+			tok->type = QUOT_TOK;
 		tok->f_tok_next = &check_for_word;
 		tok->f_exec = &exec_word;
 		(*line) += i + 1;
