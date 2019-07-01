@@ -16,6 +16,7 @@
 #include "editor.h"
 #include "libft.h"
 #include <sys/types.h>
+#include <signal.h>
 
 /*
 ** Here we redirect el->left output in el->right input.
@@ -58,14 +59,15 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head, int ret)
 	close(pdes[WRITE_END]);
 	r = run_ast(el->right, head, ret);
 	close(pdes[READ_END]);
+	kill(child, SIGTERM);
 	return (r);
 }
 
-int			exec_pipe(t_ast *el, t_ast *head, int ret)
+static int	first_fork(t_ast *el, t_ast *head, int ret)
 {
+	int		r;
 	int		pdes[2];
 	pid_t	child;
-	int		r;
 
 	r = 0;
 	child = fork();
@@ -86,5 +88,25 @@ int			exec_pipe(t_ast *el, t_ast *head, int ret)
 	}
 	else
 		waitpid(child, &r, 0);
+	return (r);
+}
+
+int			exec_pipe(t_ast *el, t_ast *head, int ret)
+{
+	int		pdes[2];
+	int		r;
+
+	r = 0;
+	if (el->father == NULL || el->father->type != PIPE_TOK)
+		r = first_fork(el, head, ret);
+	else
+	{
+		if (pipe(pdes) == -1)
+		{
+			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+			return (1);
+		}
+		r = do_pipe(el, pdes, head, ret);
+	}
 	return (r);
 }
