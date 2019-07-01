@@ -35,6 +35,16 @@ static void	free_exit(int r, t_ast *head)
 	exit(r);
 }
 
+static int 		dup_pipe(int *pdes)
+{
+	if (pipe(pdes) == -1)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
+	}
+	return (0);
+}
+
 static int	do_pipe(t_ast *el, int *pdes, t_ast *head, int ret)
 {
 	int		r;
@@ -49,24 +59,24 @@ static int	do_pipe(t_ast *el, int *pdes, t_ast *head, int ret)
 	}
 	if (child == 0)
 	{
-		dup2(pdes[WRITE_END], STDOUT_FILENO);
-		close(pdes[READ_END]);
-		r = run_ast(el->left, head, ret);
+		dup2(pdes[READ_END], STDIN_FILENO);
 		close(pdes[WRITE_END]);
+		r = run_ast(el->right, head, ret);
+		close(pdes[READ_END]);
 		free_exit(r, head);
 	}
-	dup2(pdes[READ_END], STDIN_FILENO);
-	close(pdes[WRITE_END]);
-	r = run_ast(el->right, head, ret);
+	dup2(pdes[WRITE_END], STDOUT_FILENO);
 	close(pdes[READ_END]);
-	kill(child, SIGTERM);
+	run_ast(el->left, head, ret);
+	close(pdes[WRITE_END]);
+	close(STDOUT_FILENO);
+	waitpid(child, &r, 0);
 	return (r);
 }
 
-static int	first_fork(t_ast *el, t_ast *head, int ret)
+static int	first_fork(t_ast *el, t_ast *head, int ret, int pdes[2])
 {
 	int		r;
-	int		pdes[2];
 	pid_t	child;
 
 	r = 0;
@@ -78,11 +88,8 @@ static int	first_fork(t_ast *el, t_ast *head, int ret)
 	}
 	else if (child == 0)
 	{
-		if (pipe(pdes) == -1)
-		{
-			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		if (dup_pipe(pdes) == 1)
 			return (1);
-		}
 		r = do_pipe(el, pdes, head, ret);
 		free_exit(r, head);
 	}
@@ -96,16 +103,13 @@ int			exec_pipe(t_ast *el, t_ast *head, int ret)
 	int		pdes[2];
 	int		r;
 
-	r = 0;
 	if (el->father == NULL || el->father->type != PIPE_TOK)
-		r = first_fork(el, head, ret);
+		r = first_fork(el, head, ret, pdes);
 	else
 	{
-		if (pipe(pdes) == -1)
-		{
-			ft_dprintf(STDERR_FILENO, INTERN_ERR);
+
+		if (dup_pipe(pdes) == 1)
 			return (1);
-		}
 		r = do_pipe(el, pdes, head, ret);
 	}
 	return (r);
