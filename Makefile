@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/06/20 15:32:58 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/07/01 18:58:41 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ SRC				+=	run_ast.c exec_pipe.c exec_in_redir.c exec_out_redir.c \
 					exec_sub_shell.c exec_assign.c exec_word.c exec_semi_col.c \
 					exec_and_if.c exec_or_if.c exec_bin.c exec_redirect.c \
 					exec_utils.c check_valid_fd.c ambigous_redirect.c \
-					create_arg.c 
+					create_arg.c
 
 ##################################################
 ##########			KEYPRESS			##########
@@ -87,7 +87,7 @@ SRC				+=	dispatch_keypress.c keypress_backspace.c keypress_ctrl_b.c \
 					start_search_mode.c keypress_ctrl_u.c keypress_delete.c \
 					keypress_downarrow.c keypress_end.c keypress_home.c  start_visual_mode.c \
 					keypress_shift_down.c keypress_shift_left.c keypress_shift_right.c \
-					keypress_shift_up.c keypress_uparrow.c start_heredoc_mode.c
+					keypress_shift_up.c keypress_uparrow.c start_heredoc_mode.c keypress_ctrl_c.c
 
 ##################################################
 ##########			LEXER				##########
@@ -102,7 +102,7 @@ SRC				+=	check_for_and_or.c check_for_assign.c check_for_dgreat.c \
 					check_for_dless.c check_for_great.c check_for_less.c check_for_name.c \
 					check_for_pipe.c check_for_semi.c check_for_sub.c check_for_word.c check_for_redir_fd.c \
 					parser.c sort_arg.c parser_tools.c
-	
+
 ##################################################
 ##########			EXPANSION			##########
 ##################################################

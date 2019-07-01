@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:13:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/20 15:47:18 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/01 18:51:57 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void		init_heredoc_mode(char **line, int *done)
 {
 	*line = NULL;
 	set_terminfo();
-	g_editor->term->c_lflag &= ~ISIG;
-	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
 	command_reset();
 	prompt_set("heredoc> ");
 	*done = 0;
@@ -63,13 +61,6 @@ static void		process_keypress(int ret, int *done, char **line, char *end)
 	}
 }
 
-static char		*exit_heredoc_mode(char *line)
-{
-	g_editor->term->c_lflag |= ISIG;
-	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
-	return (line);
-}
-
 char			*start_heredoc_mode(char *end_here)
 {
 	char	*line;
@@ -92,5 +83,5 @@ char			*start_heredoc_mode(char *end_here)
 		command_reset();
 		ft_dprintf(g_editor->tty_fd, "\n");
 	}
-	return (exit_heredoc_mode(line));
+	return (line);
 }

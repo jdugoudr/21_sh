@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 17:23:40 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 18:58:22 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/01 18:45:58 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static void		exit_visual_mode(void)
 {
 	command_erase();
 	command_write();
-	g_editor->term->c_lflag |= ISIG;
-	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
 	if (g_editor->flag_sigint)
 	{
 		g_editor->flag_sigint = 0;
@@ -110,8 +108,6 @@ void			start_visual_mode(void)
 
 	end = g_editor->cur_pos;
 	start = g_editor->cur_pos;
-	g_editor->term->c_lflag &= ~ISIG;
-	tcsetattr(g_editor->tty_fd, TCSANOW, g_editor->term);
 	while ((buf = reader()))
 	{
 		if (buf == LEFT_KEY)
