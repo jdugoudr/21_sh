@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 17:55:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 18:42:39 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/01 18:58:24 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 int						dispatch_keypress(unsigned long val);
 void					keypress_backspace(void);
 void					keypress_ctrl_b(size_t s, size_t e);
+void					keypress_ctrl_c(void);
 void					keypress_ctrl_k(size_t s, size_t e);
 void					keypress_ctrl_l(void);
 void					keypress_ctrl_p(void);
