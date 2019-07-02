@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/17 22:06:31 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 18:59:00 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/02 18:20:32 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void		dispatch_shift(unsigned long touch)
 
 static void		dispatch_ctrl(unsigned long touch)
 {
+	if (touch == CTRL_C_KEY)
+		keypress_ctrl_c();
 	if (touch == CTRL_L_KEY)
 		keypress_ctrl_l();
 	else if (touch == CTRL_P_KEY)
@@ -76,7 +78,7 @@ int				dispatch_keypress(unsigned long touch)
 	else if (touch == SHIFT_UP_KEY || touch == SHIFT_DOWN_KEY
 		|| touch == SHIFT_LEFT_KEY || touch == SHIFT_RIGHT_KEY)
 		dispatch_shift(touch);
-	else if (touch == CTRL_U_KEY || touch == CTRL_L_KEY
+	else if (touch == CTRL_U_KEY || touch == CTRL_L_KEY || touch == CTRL_C_KEY
 		|| touch == CTRL_R_KEY || touch == CTRL_W_KEY || touch == CTRL_P_KEY)
 		dispatch_ctrl(touch);
 	else if (touch == BCKSPCE_KEY)
