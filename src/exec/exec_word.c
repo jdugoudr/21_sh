@@ -151,6 +151,7 @@ int			exec_word(t_ast *el, t_ast *head, int ret)
 	w_ast.el = el;
 	w_ast.start = el;
 	save_fd = NULL;
+	// subsition have to be done here
 	(void)ret;/////////////////////////////////
 	while (w_ast.cmd->level_prior <= LEVEL_REDI && w_ast.cmd->type != TYPE_END)
 	{
@@ -159,7 +160,6 @@ int			exec_word(t_ast *el, t_ast *head, int ret)
 			break ;
 		w_ast.cmd = w_ast.cmd->prev;
 	}
-	// subsition have to be done here
 	if (w_ast.cmd->level_prior > LEVEL_REDI || w_ast.cmd->type == TYPE_END)
 		return (loop_redirect(w_ast, head, NULL, &save_fd));
 	init_blt(w_ast.cmd->value, &func);
