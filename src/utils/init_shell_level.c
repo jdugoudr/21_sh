@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:24:07 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/20 15:50:53 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/02 17:57:04 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void			init_shell_level(void)
 		add_env_var("SHLVL", "1");
 		return ;
 	}
-	tmp = get_env_value("SHLVL");
+	if ((tmp = get_env_value("SHLVL")) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "malloc: could not get SHLVL variable\n");
+		return ;
+	}
 	shlvl = ft_atoi(tmp) + 1;
 	free(tmp);
 	if ((tmp = ft_itoa(shlvl)) == NULL || set_env_value(ind, "SHLVL", tmp))
