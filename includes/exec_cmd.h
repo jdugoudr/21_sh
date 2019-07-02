@@ -51,7 +51,7 @@ int						exec_semi_col(t_ast *el, t_ast *head, int ret);
 int						exec_or_if(t_ast *el, t_ast *head, int ret);
 int						exec_and_if(t_ast *el, t_ast *head, int ret);
 int						exec_pipe(t_ast *el, t_ast *head, int ret);
-int						exec_redirect(t_ast *el, t_ast *head, int ret);
+// int						exec_redirect(t_ast *el, t_ast *head, int ret);
 int						exec_sub_shell(t_ast *el, t_ast *head, int ret);
 int						exec_assign(t_ast *el, t_ast *head, int ret);
 int						exec_word(t_ast *el, t_ast *head, int ret);
@@ -59,6 +59,7 @@ int						exec_dless_fd(t_ast *el, t_ast *head, int ret);
 
 int						check_bin(t_ast *el);
 int						find_and_exec_redirect(t_ast *el, t_fd **fd_lst);
+int						free_reset_fd(t_fd **fd_lst, t_ast *head, int ret);
 
 int						ambigous_redirect(t_ast *token);
 

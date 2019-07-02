@@ -43,7 +43,8 @@ VPATH			+=	src \
 					src/parser \
 					src/parser/check_next \
 					src/utils \
-					src/expansion
+					src/expansion \
+					src/exec/utils
 
 
 SRC				=	main.c
