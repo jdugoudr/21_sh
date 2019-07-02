@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 00:52:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 18:59:18 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/22 19:33:08 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,51 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
+#include "sh_error.h"
 
-static void		set_oldpwd(char *val)
+static int		set_oldpwd(char *val)
 {
 	int			ind;
 	char		*var;
 
 	ind = get_env_ind("OLDPWD");
+	if (ind < 0)
+	{
+		if (ind == -1 || add_env_var("OLDPWD", val))
+		{
+			ft_dprintf(STDERR_FILENO, "Could not set the OLDPWD\n");
+			return (-1);
+		}
+		return (0);
+	}
 	free(g_shell->env[ind]);
 	var = ft_strjoin("OLDPWD=", val, 0);
 	g_shell->env[ind] = var;
+	return (0);
 }
 
-static void		set_pwd(void)
+static int		set_pwd(char *curr_dir)
 {
 	int			ind;
 	char		*var;
-	char		curr_dir[PATH_MAX];
 
-	getcwd(curr_dir, PATH_MAX);
 	if ((ind = get_env_ind("PWD")) < 0)
 	{
-		add_env_var("PWD", curr_dir);
-		return ;
+		if (ind == -1 || add_env_var("PWD", curr_dir))
+		{
+			ft_dprintf(STDERR_FILENO, "Could not set the PWD variable\n");
+			return (-1);
+		}
+		return (0);
 	}
 	free(g_shell->env[ind]);
-	var = ft_strjoin("PWD=", curr_dir, 0);
+	if ((var = ft_strjoin("PWD=", curr_dir, 0)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (-1);
+	}
 	g_shell->env[ind] = var;
+	return (0);
 }
 
 /*
@@ -53,11 +71,12 @@ static void		set_pwd(void)
 
 void			change_directory(char *path, int print_dir)
 {
-	char	old_dir[PATH_MAX];
+	char	dir[PATH_MAX];
+	int		valid_getcwd;
 
+	valid_getcwd = getcwd(dir, PATH_MAX) != NULL;
 	if (print_dir)
 		ft_dprintf(STDOUT_FILENO, "%s\n", path);
-	getcwd(old_dir, PATH_MAX);
 	if (chdir(path) == -1)
 	{
 		if ((access(path, F_OK) == -1))
@@ -69,6 +88,10 @@ void			change_directory(char *path, int print_dir)
 			ft_dprintf(STDERR_FILENO, "cd: not a directory: %s\n", path);
 		return ;
 	}
-	set_oldpwd(old_dir);
-	set_pwd();
+	if (valid_getcwd)
+		set_oldpwd(dir);
+	valid_getcwd = getcwd(dir, PATH_MAX) != NULL;
+	if (valid_getcwd)
+		set_pwd(dir);
+
 }
