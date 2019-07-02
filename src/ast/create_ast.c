@@ -33,44 +33,50 @@ static t_ast	*looking_token(t_ast *start, t_ast *end, int lvl_pty)
 	return (el);
 }
 
-static t_ast	*find_cmd(t_ast *start, t_ast *end, t_ast *fth)
+// static t_ast	*find_cmd(t_ast *start, t_ast *end, t_ast *fth)
+// {
+// 	t_ast	*first;
+// 	t_ast	*el;
+
+// 	first = NULL;
+// 	el = start;
+// 	while (el != end)
+// 	{
+// 		if (el->level_prior < LEVEL_REDI)
+// 		{
+// 			if (el->next && el->next->level_prior == LEVEL_REDI)
+// 				el = el->next;
+// 			else
+// 				first = el;
+// 		}
+// 		el = el->next;
+// 	}
+// 	if (first)
+// 		first->father = fth;
+// 	return (first);
+// }
+
+static t_ast	*build_cmd(t_ast *start, t_ast *end, t_ast *prev_redir, t_ast *fth)
 {
-	t_ast	*first;
 	t_ast	*el;
 
-	first = NULL;
 	el = start;
-	while (el != end)
-	{
-		if (el->level_prior < LEVEL_REDI)
-		{
-			if (el->next && el->next->level_prior == LEVEL_REDI)
-				el = el->next;
-			else
-				first = el;
-		}
+	(void)end;
+	(void)prev_redir;
+	// el = looking_token(prev_redir, end, LEVEL_REDI);
+	while (el->next && el->next->level_prior <= LEVEL_REDI)
 		el = el->next;
-	}
-	if (first)
-		first->father = fth;
-	return (first);
-}
-
-static t_ast	*build_redir(t_ast *start, t_ast *end, t_ast *prev_redir, t_ast *fth)
-{
-	t_ast	*el;
-
-	el = looking_token(prev_redir, end, LEVEL_REDI);
-	if (el && el->level_prior == LEVEL_REDI)
-	{
-		el->father = fth;
-		el->right = el->prev;
-		if (el->prev)
-			el->prev->father = el;
-		el->left = build_redir(start, end, el->next, el);
-	}
-	if (el == end)
-		el = find_cmd(start, end, fth);
+	el->father = fth;
+	// if (el && el->level_prior == LEVEL_REDI)
+	// {
+	// 	el->father = fth;
+	// 	el->right = el->prev;
+	// 	if (el->prev)
+	// 		el->prev->father = el;
+	// 	el->left = build_redir(start, end, el->next, el);
+	// }
+	// if (el == end)
+	// 	el = find_cmd(start, end, fth);
 	return (el);
 }
 
@@ -79,7 +85,7 @@ static t_ast	*build_tree(t_ast *start, t_ast *end, int lvl_pty, t_ast *fth)
 	t_ast		*el;
 
 	if (lvl_pty == LEVEL_REDI)
-		return (build_redir(start, end, start, fth));
+		return (build_cmd(start, end, start, fth));
 	el = looking_token(start, end, lvl_pty);
 	if (el && lvl_pty > LEVEL_REDI)
 	{

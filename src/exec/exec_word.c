@@ -89,21 +89,33 @@ static void	free_reset_fd(t_fd **fd_lst, t_ast *head)
 static int	loop_redirect(t_w_ast w_ast, t_ast *head, t_blt *blt, t_fd **fd_lst)
 {
 	int	r;
+	int	nb_arg;
 
 	r = 0;
-	if (w_ast.el->father && w_ast.el->father->level_prior == level_4)
+	nb_arg = 0;
+	while (w_ast.el && w_ast.el->level_prior <= LEVEL_REDI && w_ast.el->type != TYPE_END)
 	{
-		if (find_and_exec_redirect(w_ast.el->father, fd_lst))
+		if (w_ast.el && w_ast.el->level_prior == LEVEL_REDI)
 		{
-			free_reset_fd(fd_lst, head);
-			return (1);
+			if (find_and_exec_redirect(w_ast.el, fd_lst))
+			{
+				free_reset_fd(fd_lst, head);
+				return (1);
+			}
+			w_ast.el = w_ast.el->prev->prev;
 		}
-		w_ast.el = w_ast.el->father;
-		return (loop_redirect(w_ast, head, blt, fd_lst));
+		else if (w_ast.el && w_ast.el->level_prior <= LEVEL_REDI && w_ast.el->type != TYPE_END)
+		{
+			if (w_ast.el->level_prior == LEVEL_MIN)
+				nb_arg++;
+			w_ast.el = w_ast.el->prev;
+		}	
 	}
-	else if (blt)
+	if (create_arg(w_ast, nb_arg))
+		return (1);
+	if (blt)
 		r = blt->func(w_ast.cmd->arg_cmd);
-	else
+	else if (w_ast.cmd && w_ast.cmd->level_prior == LEVEL_MIN)
 		r = check_bin(w_ast.cmd);
 	free_reset_fd(fd_lst, head);
 	return (r);
@@ -152,37 +164,69 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 	// print_ast(*root, 0);
 int			exec_word(t_ast *el, t_ast *head, int ret)
 {
-	t_blt		built_tab[NB_BUILT];
-	int			i;
-	t_w_ast		w_ast;
-	t_fd		*save_fd;
-	t_ast		*end;
+	t_ast	*cmd;
+	t_blt	built_tab[NB_BUILT];
+	t_w_ast	w_ast;
+	t_fd	*save_fd;
+	int		i;
 
-(void)ret;////////
-	end = el;
-	while (end && end->level_prior < level_3 && end->level_prior >= LEVEL_MIN)
-		end = end->prev;
-	save_fd = NULL;
-	init_blt(built_tab);
 	i = 0;
-	if (/*expansion_tok(end, &el, ret) || ambigous_redirect(end)
-		||*/ create_arg(el))
-		return (1);
-	w_ast.el = el;
-	w_ast.cmd = el;
-	while (el && el->level_prior <= LEVEL_REDI)
+	cmd = el;
+	save_fd = NULL;
+	(void)ret;/////////////////////////////////
+	init_blt(built_tab);
+	while (cmd && cmd->level_prior <= LEVEL_REDI && cmd->type != TYPE_END)
 	{
-		if (el->type == WORD_TOK
-			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+		if (cmd->level_prior == LEVEL_MIN && (!(cmd->next) || cmd->next->level_prior != LEVEL_REDI))
 			break ;
-		el = el->prev;
+		cmd = cmd->prev;
 	}
-	if (!el || el->level_prior != LEVEL_MIN)
-		return (0);
-	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
+	w_ast.el = el;
+	w_ast.start = el;
+	w_ast.cmd = cmd;
+	if (!cmd || cmd->level_prior > LEVEL_REDI || cmd->type == TYPE_END)
+		return (loop_redirect(w_ast, head, NULL, &save_fd));
+	while (i < NB_BUILT && ft_strcmp(cmd->value, built_tab[i].name) != 0)
 		i++;
 	if (i < NB_BUILT)
 		return (loop_redirect(w_ast, head, built_tab + i, &save_fd));
 	else
 		return (fork_command(w_ast, head, &save_fd));
 }
+
+// int			exec_word(t_ast *el, t_ast *head, int ret)
+// {
+// 	t_blt		built_tab[NB_BUILT];
+// 	int			i;
+// 	t_w_ast		w_ast;
+// 	t_fd		*save_fd;
+// 	t_ast		*end;
+
+// (void)ret;////////
+// 	end = el;
+// 	while (end && end->level_prior < level_3 && end->level_prior >= LEVEL_MIN)
+// 		end = end->prev;
+// 	save_fd = NULL;
+// 	init_blt(built_tab);
+// 	i = 0;
+// 	if (/*expansion_tok(end, &el, ret) || ambigous_redirect(end)
+// 		||*/ create_arg(el))
+// 		return (1);
+// 	w_ast.el = el;
+// 	w_ast.cmd = el;
+// 	while (el && el->level_prior <= LEVEL_REDI)
+// 	{
+// 		if (el->type == WORD_TOK
+// 			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+// 			break ;
+// 		el = el->prev;
+// 	}
+// 	if (!el || el->level_prior != LEVEL_MIN)
+// 		return (0);
+// 	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
+// 		i++;
+// 	if (i < NB_BUILT)
+// 		return (loop_redirect(w_ast, head, built_tab + i, &save_fd));
+// 	else
+// 		return (fork_command(w_ast, head, &save_fd));
+// }

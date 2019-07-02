@@ -21,7 +21,6 @@ int		loop_tok(t_ast **token_head, char **line);
 t_ast	*look_arg(t_ast *start);
 
 int		parser(char *line);
-int		create_arg(t_ast *start);
 t_ast	*sort_arg(t_ast *start, t_ast *end);
 
 #endif

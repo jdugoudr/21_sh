@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "token_define.h"
-#include "parser.h"
+// #include "parser.h"
+#include "exec_cmd.h"
 #include "ast.h"
 #include "sh_error.h"
 #include "libft.h"
@@ -20,24 +21,24 @@
 ** Create a array of string and del all word token which are argument
 */
 
-static int		count_arg(t_ast *start)
-{
-	t_ast	*el;
-	int		count;
+// static int		count_arg(t_ast *start)
+// {
+// 	t_ast	*el;
+// 	int		count;
 
-	count = 0;
-	if (!start || start->level_prior != LEVEL_MIN)
-		return (0);
-	el = start;
-	while (el && el->level_prior <= LEVEL_REDI && el->type !=  TYPE_END)
-	{
-		if (el->type == WORD_TOK
-			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
-			count++;
-		el = el->prev;
-	}
-	return (count);
-}
+// 	count = 0;
+// 	if (!start || start->level_prior != LEVEL_MIN)
+// 		return (0);
+// 	el = start;
+// 	while (el && el->level_prior <= LEVEL_REDI && el->type !=  TYPE_END)
+// 	{
+// 		if (el->type == WORD_TOK
+// 			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+// 			count++;
+// 		el = el->prev;
+// 	}
+// 	return (count);
+// }
 
 static int		add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 {
@@ -46,7 +47,7 @@ static int		add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 	while (count < nb_arg && el && el->level_prior <= LEVEL_REDI)
 	{
 		if (el->type == WORD_TOK
-			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
+			&& (!el->next || el->next->level_prior != LEVEL_REDI))
 			break ;
 		el = el->prev;
 	}
@@ -63,34 +64,23 @@ static int		add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 	return (add_arg(el->prev, lst_arg, count, nb_arg));
 }
 
-int				create_arg(t_ast *start)
+int				create_arg(t_w_ast w_ast, int nb_arg)
 {
 	char	**lst_arg;
-	t_ast	*el;
-	int		count;
 
-	el = start;
-	while (el && el->level_prior <= LEVEL_REDI)
-	{
-		if (el->type == WORD_TOK
-			&& (!el->next || (el->next && el->next->level_prior != LEVEL_REDI)))
-			break ;
-		el = el->prev;
-	}
-	if (!el || el->level_prior >= LEVEL_REDI)
+	if (nb_arg == 0)
 		return (0);
-	count = count_arg(el);
-	if (count)
+	if ((lst_arg = malloc((nb_arg + 1) * sizeof(char *))) == NULL)
 	{
-		if ((lst_arg = malloc((count + 1) * sizeof(char *))) == NULL)
-			return (1);
-		lst_arg[0] = NULL;
-		if (add_arg(el, lst_arg, 0, count))
-		{
-			ft_tabstrdel(&lst_arg, 0);
-			return (1);
-		}
-		el->arg_cmd = lst_arg;
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		return (1);
 	}
+	lst_arg[0] = NULL;
+	if (add_arg(w_ast.start, lst_arg, 0, nb_arg))
+	{
+		ft_tabstrdel(&lst_arg, 0);
+		return (1);
+	}
+	w_ast.cmd->arg_cmd = lst_arg;
 	return (0);
 }

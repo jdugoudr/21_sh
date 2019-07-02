@@ -29,7 +29,7 @@ typedef struct			s_blt
 
 typedef struct			s_w_ast
 {
-	t_ast				*head;
+	t_ast				*start;
 	t_ast				*el;
 	t_ast				*cmd;
 }						t_w_ast;
@@ -77,5 +77,8 @@ int						check_right_fd(t_fd *fd_lst, int fd, int tok_red);
 int						get_fd(char *name_file, int open_flag, int *new_fd,
 							t_fd **fd_lst);
 int						file_descriptor(char *value, int *new_fd);
+
+
+int						create_arg(t_w_ast w_ast, int nb_arg);
 
 #endif
