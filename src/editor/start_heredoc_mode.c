@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 14:13:25 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/07/01 18:51:57 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/02 18:11:05 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static void		init_heredoc_mode(char **line, int *done)
 
 static char		*heredoc_intern_error(char **line)
 {
-	ft_dprintf(STDERR_FILENO, INTERN_ERR);
+	char	msg[100];
+
+	ft_strcpy(msg, "\n21sh: An intern issue appeared. Please try again.");
+	ft_dprintf(STDERR_FILENO, msg);
 	if (*line)
 		free(*line);
 	return (NULL);
