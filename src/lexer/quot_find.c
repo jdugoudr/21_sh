@@ -19,7 +19,6 @@
 
 static void	set_quot(t_ast *tok, char c)
 {
-
 	if (c == '"')
 		tok->type = DQUOT_TOK;
 	else
@@ -28,7 +27,7 @@ static void	set_quot(t_ast *tok, char c)
 	tok->f_exec = &exec_word;
 }
 
-t_ast	*quot_find(char **line, t_ast *tok, char c)
+t_ast		*quot_find(char **line, t_ast *tok, char c)
 {
 	int	i;
 

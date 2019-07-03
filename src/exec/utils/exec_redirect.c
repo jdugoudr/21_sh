@@ -18,7 +18,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-
 int	find_and_exec_redirect(t_ast *el, t_fd **fd_lst)
 {
 	int r;

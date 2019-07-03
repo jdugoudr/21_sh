@@ -39,7 +39,6 @@ static int	init_parser(char *line, t_ast **head, t_ast **root)
 int			parser(char *line)
 {
 	t_ast		*token_head;
-	// t_ast		*tmp;
 	t_ast		*ast_root;
 	static int	ret = 0;
 	char		*save_line;
@@ -50,7 +49,7 @@ int			parser(char *line)
 		ret = 1;
 	else if (token_head->next)
 	{
-		if (/*!(tmp = look_arg(token_head)) ||*/ create_ast(&ast_root, token_head))
+		if (create_ast(&ast_root, token_head))
 			ret = 1;
 		else
 			ret = run_ast(ast_root, token_head, ret);

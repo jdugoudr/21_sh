@@ -22,7 +22,8 @@
 ** a simple command is one command with 0, 1 or more arguments
 ** and redirection and assignation.
 **
-** If the command exist and is a not a builtin, we fork before applying redirection.
+** If the command exist and is a not a builtin,
+** we fork before applying redirection.
 **
 ** After the execution of the command we need unset redirection.
 ** Every changed file descriptor are stock in a list.
@@ -59,7 +60,6 @@ static void	init_blt(char *cmd, int (**f)(char **))
 		*f = built_tab[i].func;
 }
 
-
 /*
 ** We apply redirection and reset them after the command execution.
 ** Fd redirect are saved in list with the old fd id and the save fd id.
@@ -67,7 +67,7 @@ static void	init_blt(char *cmd, int (**f)(char **))
 ** to close it again before to leave.
 */
 
-static int 		exec_cmd(t_ast *cmd, int (*blt)(char **), t_fd **fd_lst, t_ast *head)
+static int	exec_cmd(t_ast *cmd, int (*blt)(char **))
 {
 	int	r;
 
@@ -76,20 +76,22 @@ static int 		exec_cmd(t_ast *cmd, int (*blt)(char **), t_fd **fd_lst, t_ast *hea
 		r = blt(cmd->arg_cmd);
 	else if (cmd && cmd->level_prior == LEVEL_MIN)
 		r = check_bin(cmd);
-	return (free_reset_fd(fd_lst, head, r));
+	return (r);
 }
 
-static int	loop_redirect(t_w_ast w_ast, t_ast *head, int (*blt)(char **), t_fd **fd_lst)
+static int	lp_redir(t_cmd w_ast, t_ast *hd, int (*blt)(char **), t_fd **fd_lt)
 {
 	int	nb_arg;
+	int	r;
 
 	nb_arg = 0;
+	r = 1;
 	while (w_ast.el->level_prior <= LEVEL_REDI && w_ast.el->type != TYPE_END)
 	{
 		if (w_ast.el->level_prior == LEVEL_REDI)
 		{
-			if (find_and_exec_redirect(w_ast.el, fd_lst))
-				return (free_reset_fd(fd_lst, head, 1));
+			if (find_and_exec_redirect(w_ast.el, fd_lt))
+				return (free_reset_fd(fd_lt, hd, 1));
 			w_ast.el = w_ast.el->prev->prev;
 		}
 		else if (w_ast.el->level_prior <= LEVEL_REDI)
@@ -97,11 +99,11 @@ static int	loop_redirect(t_w_ast w_ast, t_ast *head, int (*blt)(char **), t_fd *
 			if (w_ast.el->level_prior == LEVEL_MIN)
 				nb_arg++;
 			w_ast.el = w_ast.el->prev;
-		}	
+		}
 	}
-	if (create_arg(w_ast, nb_arg))
-		return (free_reset_fd(fd_lst, head, 1));
-	return (exec_cmd(w_ast.cmd, blt, fd_lst, head));
+	if (!create_arg(w_ast, nb_arg))
+		r = exec_cmd(w_ast.cmd, blt);
+	return (free_reset_fd(fd_lt, hd, r));
 }
 
 /*
@@ -110,7 +112,7 @@ static int	loop_redirect(t_w_ast w_ast, t_ast *head, int (*blt)(char **), t_fd *
 ** the command exist in the path.
 */
 
-static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
+static int	fork_command(t_cmd w_ast, t_ast *head, t_fd **save_fd)
 {
 	int	child;
 	int	ret;
@@ -123,7 +125,7 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 	}
 	else if (child == 0)
 	{
-		ret = loop_redirect(w_ast, head, NULL, save_fd);
+		ret = lp_redir(w_ast, head, NULL, save_fd);
 		reset_term(head, ret);
 	}
 	else
@@ -132,17 +134,18 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 }
 
 /*
-** We first try to find the command which will be execute. This could be a builtin, a binary
+** We first try to find the command which will be execute.
+** This could be a builtin, a binary
 ** in the PATH, or not be present in command line.
-** Then we fork if it's exist and it's not a builtin and we execute redirection.
-** After that we create the list of argument and execute the command if it's exist.
+** Then we fork if it's exist and it's not a builtin
+** and we execute redirection.
+** After that we create the list of argument
+** and execute the command if it's exist.
 */
 
-// #include "../../print_ast.c"
-	// print_ast(*root, 0);
 int			exec_word(t_ast *el, t_ast *head, int ret)
 {
-	t_w_ast	w_ast;
+	t_cmd	w_ast;
 	t_fd	*save_fd;
 	int		(*func)(char **cmd);
 
@@ -160,10 +163,10 @@ int			exec_word(t_ast *el, t_ast *head, int ret)
 		w_ast.cmd = w_ast.cmd->prev;
 	}
 	if (w_ast.cmd->level_prior > LEVEL_REDI || w_ast.cmd->type == TYPE_END)
-		return (loop_redirect(w_ast, head, NULL, &save_fd));
+		return (lp_redir(w_ast, head, NULL, &save_fd));
 	init_blt(w_ast.cmd->value, &func);
 	if (func)
-		return (loop_redirect(w_ast, head, func, &save_fd));
+		return (lp_redir(w_ast, head, func, &save_fd));
 	else
 		return (fork_command(w_ast, head, &save_fd));
 }

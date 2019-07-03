@@ -44,7 +44,7 @@ static int	add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 	return (add_arg(el->prev, lst_arg, count, nb_arg));
 }
 
-int			create_arg(t_w_ast w_ast, int nb_arg)
+int			create_arg(t_cmd w_ast, int nb_arg)
 {
 	char	**lst_arg;
 

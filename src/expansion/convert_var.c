@@ -23,14 +23,13 @@
 ** 1  if no error and is needed to create new ast element
 */
 
-
 /*
 ** We take the new string.
 ** Split on white space and create a new token with the first
 ** new string.
 */
 
-static int 		was_split(char ***tmp, t_ast *el, t_ast **new)
+static int	was_split(char ***tmp, t_ast *el, t_ast **new)
 {
 	if ((*tmp)[0] == NULL)
 	{
@@ -53,7 +52,7 @@ static int 		was_split(char ***tmp, t_ast *el, t_ast **new)
 		return (1);
 }
 
-int				convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
+int			convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
 {
 	char	*new_str;
 	int		r;

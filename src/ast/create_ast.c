@@ -23,7 +23,7 @@
 ** The commande could constitute of redirection, assignation and/or command
 ** The parents of a leaf point to the token the most on the right :
 ** ls > f && < f cat
-** The token '&&' will point on the left to 'f' and on the right to 'cat' 
+** The token '&&' will point on the left to 'f' and on the right to 'cat'
 */
 
 static t_ast	*looking_token(t_ast *start, t_ast *end, int lvl_pty)
@@ -42,7 +42,7 @@ static t_ast	*build_tree(t_ast *start, t_ast *end, int lvl_pty, t_ast *fth)
 {
 	t_ast		*el;
 
-	if (lvl_pty == LEVEL_REDI)
+	if (start != end && lvl_pty == LEVEL_REDI)
 	{
 		start->father = fth;
 		return (start);

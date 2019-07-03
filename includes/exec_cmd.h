@@ -27,12 +27,12 @@ typedef struct			s_blt
 	int					(*func)(char **cmd);
 }						t_blt;
 
-typedef struct			s_w_ast
+typedef struct			s_cmd
 {
 	t_ast				*start;
 	t_ast				*el;
 	t_ast				*cmd;
-}						t_w_ast;
+}						t_cmd;
 
 typedef struct			s_fd
 {
@@ -46,13 +46,13 @@ int						run_ast(t_ast *root, t_ast *head, int ret);
 int						expansion_tok(t_ast *el, t_ast **end, int ret);
 char					*env_subst(char *str, int ret);
 int						convert_tild(char **str);
-int						convert_var(char ***tmp, t_ast **new, t_ast *el, int ret);
+int						convert_var(char ***tmp, t_ast **new,
+										t_ast *el, int ret);
 
 int						exec_semi_col(t_ast *el, t_ast *head, int ret);
 int						exec_or_if(t_ast *el, t_ast *head, int ret);
 int						exec_and_if(t_ast *el, t_ast *head, int ret);
 int						exec_pipe(t_ast *el, t_ast *head, int ret);
-// int						exec_redirect(t_ast *el, t_ast *head, int ret);
 int						exec_sub_shell(t_ast *el, t_ast *head, int ret);
 int						exec_assign(t_ast *el, t_ast *head, int ret);
 int						exec_word(t_ast *el, t_ast *head, int ret);
@@ -80,7 +80,6 @@ int						get_fd(char *name_file, int open_flag, int *new_fd,
 							t_fd **fd_lst);
 int						file_descriptor(char *value, int *new_fd);
 
-
-int						create_arg(t_w_ast w_ast, int nb_arg);
+int						create_arg(t_cmd w_ast, int nb_arg);
 
 #endif

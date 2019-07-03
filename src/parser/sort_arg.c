@@ -97,7 +97,8 @@ t_ast			*sort_arg(t_ast *start, t_ast *end)
 	el = start;
 	if (start && start->type != WORD_TOK)
 	{
-		while (el != end && (el->type != WORD_TOK || (el->next && el->next->level_prior == LEVEL_REDI)))
+		while (el != end && (el->type != WORD_TOK
+				|| (el->next && el->next->level_prior == LEVEL_REDI)))
 			el = el->prev;
 		tmp = el->prev;
 		if (el->prev)

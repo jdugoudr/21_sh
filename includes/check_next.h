@@ -19,9 +19,10 @@
 ** This the token which CAN NOT appear after the token AFTER_[TOKEN]
 */
 
-# define AFTER_ASS		(WORD_TOK | NAME_TOK | G_QUOT | SUB_SHELL)
+# define AFTER_ASS		(WORD_TOK | NAME_TOK | G_QUOT | SUB_SHELL | ASSIGN_TOK)
 # define AFTER_WORD		(SUB_SHELL | NAME_TOK | ASSIGN_TOK)
-# define AFTER_SUB		(WORD_TOK | NAME_TOK | G_QUOT | SUB_SHELL)
+# define AFTER_SUB		(WORD_TOK | NAME_TOK | G_QUOT | SUB_SHELL | ASSIGN_TOK)
+# define AFTER_SEMI		(ASSIGN_TOK | SEMI_COL)
 
 /*
 ** This is the token which CAN appear after the token AFTER_[TOKEN]
@@ -30,7 +31,6 @@
 # define AFTER_ANOR		(NAME_TOK | WORD_TOK | SUB_SHELL | G_QUOT | IS_REDI)
 # define AFTER_NAME		(ASSIGN_TOK)
 # define AFTER_PIPE		(WORD_TOK | SUB_SHELL | G_QUOT | NAME_TOK | IS_REDI)
-# define AFTER_SEMI		(WORD_TOK|NAME_TOK|SUB_SHELL|G_QUOT|TYPE_END|SEMI_COL|IS_REDI)
 # define AFTER_REDIR_FD	(WORD_TOK | G_QUOT)
 # define AFTER_DLESS	(WORD_TOK | G_QUOT)
 # define AFTER_LESS		(WORD_TOK | G_QUOT)
