@@ -26,7 +26,7 @@ static int	add_arg(t_ast *el, char **lst_arg, int count, int nb_arg)
 
 	while (count < nb_arg && el && el->level_prior <= LEVEL_REDI)
 	{
-		if (el->type == WORD_TOK
+		if (el->level_prior == LEVEL_MIN
 			&& (!el->next || el->next->level_prior != LEVEL_REDI))
 			break ;
 		el = el->prev;

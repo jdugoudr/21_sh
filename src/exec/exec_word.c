@@ -146,13 +146,12 @@ int			exec_word(t_ast *el, t_ast *head, int ret)
 	t_fd	*save_fd;
 	int		(*func)(char **cmd);
 
+	if (expansion_tok(el->prev, &(w_ast.start), ret))
+		return (1);
 	func = NULL;
-	w_ast.cmd = el;
-	w_ast.el = el;
-	w_ast.start = el;
+	w_ast.cmd = w_ast.start;
+	w_ast.el = w_ast.start;
 	save_fd = NULL;
-	// subsition have to be done here
-	(void)ret;/////////////////////////////////
 	while (w_ast.cmd->level_prior <= LEVEL_REDI && w_ast.cmd->type != TYPE_END)
 	{
 		if (w_ast.cmd->level_prior == LEVEL_MIN && (!(w_ast.cmd->next)

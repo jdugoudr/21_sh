@@ -27,40 +27,6 @@
 */
 
 /*
-** We take the new string.
-** Split on white space and create a new token with the first
-** new string.
-*/
-
-static int	convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
-{
-	char	*new_str;
-	int		r;
-
-	r = 0;
-	if ((new_str = env_subst(ft_strdup(el->value), ret)) == NULL)
-		return (-1);
-	if (el->type == DQUOT_TOK || (el->next && el->next->type == DLESS_TOK))
-	{
-		free(el->value);
-		el->value = new_str;
-		return (r);
-	}
-	if ((*tmp = ft_strsplit_ws(new_str)) != NULL && (*tmp)[0] == NULL)
-		*new = NULL;
-	else if (*tmp == NULL || !(*new = create_tok_el((*tmp)[0], NULL, NULL)))
-	{
-		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		ft_tabstrdel(tmp, 0);
-		r = -1;
-	}
-	else
-		r = 1;
-	free(new_str);
-	return (r);
-}
-
-/*
 ** We create and fill all other token if they are
 ** more than one word in the variable => $VAR="ls -l"
 */
@@ -128,7 +94,7 @@ static void	cp_link(t_ast **el, int count, t_ast *tmp_del, t_ast *new)
 	}
 }
 
-static int	check_var(t_ast **el, int count, t_ast **end, int ret)
+static int	check_var(t_ast **el, int count, int ret)
 {
 	t_ast	*new;
 	t_ast	*tmp_del;
@@ -140,8 +106,6 @@ static int	check_var(t_ast **el, int count, t_ast **end, int ret)
 		&& (!tmp_del->next || tmp_del->next->type != DLESS_TOK))
 	{
 		cp_link(el, count, tmp_del, new);
-		if (tmp_del == *end)
-			*end = *el;
 		del_token(&(tmp_del));
 	}
 	return (0);
@@ -149,13 +113,13 @@ static int	check_var(t_ast **el, int count, t_ast **end, int ret)
 
 int			expansion_tok(t_ast *el, t_ast **end, int ret)
 {
-	while (el->next && el->next != (*end)->next)
+	while (el->next && el->next->level_prior <= LEVEL_REDI)
 	{
 		if (el->next->level_prior == LEVEL_MIN && el->next->type != QUOT_TOK)
 		{
 			if (ft_strchr(el->next->value, '$'))
 			{
-				if (check_var(&el, 0, end, ret))
+				if (check_var(&el, 0, ret))
 					return (1);
 			}
 			else
@@ -170,5 +134,6 @@ int			expansion_tok(t_ast *el, t_ast **end, int ret)
 		else
 			el = el->next;
 	}
+	*end = el;
 	return (0);
 }

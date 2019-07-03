@@ -30,7 +30,7 @@
 ** Exec error
 */
 # define BAD_FD		"21sh: %s: Bad file desciptor\n"
-# define AMBI_REDIR	"21sh: Ambiguous redirect\n"
+# define AMBI_REDIR	"21sh: %s: Ambiguous redirect\n"
 # define CANT_OPEN	"21sh: %s: Failed to open\n"
 # define NO_CMD		"21sh: %s: Command not found\n"
 # define NO_PERM	"21sh: %s: Permission denied\n"

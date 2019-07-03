@@ -46,6 +46,7 @@ int						run_ast(t_ast *root, t_ast *head, int ret);
 int						expansion_tok(t_ast *el, t_ast **end, int ret);
 char					*env_subst(char *str, int ret);
 int						convert_tild(char **str);
+int						convert_var(char ***tmp, t_ast **new, t_ast *el, int ret);
 
 int						exec_semi_col(t_ast *el, t_ast *head, int ret);
 int						exec_or_if(t_ast *el, t_ast *head, int ret);
