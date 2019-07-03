@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:37:29 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/05/08 19:18:15 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/03 15:54:17 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void			free_shell(void)
 	size_t		i;
 	t_history	*tmp;
 
+	if (g_shell == NULL)
+		return ;
 	if (g_shell->env != NULL)
 	{
 		i = 0;
@@ -34,4 +36,5 @@ void			free_shell(void)
 		free(g_shell->hist);
 		g_shell->hist = tmp;
 	}
+	free(g_shell);
 }
