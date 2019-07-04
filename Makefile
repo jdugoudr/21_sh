@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/06/20 15:32:58 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/07/03 17:19:07 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ VPATH			+=	src \
 					src/parser \
 					src/parser/check_next \
 					src/utils \
-					src/expansion
+					src/expansion \
+					src/exec/utils
 
 
 SRC				=	main.c
@@ -76,8 +77,7 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 SRC				+=	run_ast.c exec_pipe.c exec_in_redir.c exec_out_redir.c \
 					exec_sub_shell.c exec_assign.c exec_word.c exec_semi_col.c \
 					exec_and_if.c exec_or_if.c exec_bin.c exec_redirect.c \
-					exec_utils.c check_valid_fd.c ambigous_redirect.c \
-					create_arg.c 
+					exec_utils.c check_valid_fd.c create_arg.c convert_var.c
 
 ##################################################
 ##########			KEYPRESS			##########
@@ -101,7 +101,7 @@ SRC				+=	and_find.c or_find.c word_find.c consume.c quot_find.c \
 SRC				+=	check_for_and_or.c check_for_assign.c check_for_dgreat.c \
 					check_for_dless.c check_for_great.c check_for_less.c check_for_name.c \
 					check_for_pipe.c check_for_semi.c check_for_sub.c check_for_word.c check_for_redir_fd.c \
-					parser.c sort_arg.c parser_tools.c
+					parser.c parser_tools.c
 	
 ##################################################
 ##########			EXPANSION			##########

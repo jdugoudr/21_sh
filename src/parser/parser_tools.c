@@ -23,7 +23,7 @@
 ** or sub_shell
 */
 
-int		check_token(t_ast **token_head, t_ast *tok, char **line)
+static int		check_token(t_ast **token_head, t_ast *tok, char **line)
 {
 	int	r;
 
@@ -80,22 +80,3 @@ int		loop_tok(t_ast **token_head, char **line)
 	return (0);
 }
 
-t_ast	*look_arg(t_ast *start)
-{
-	t_ast	*el;
-
-	el = start;
-	if (start == NULL)
-		return (NULL);
-	while (el && el->next && el->level_prior > level_4)
-		el = el->next;
-	while (el->next)
-	{
-		if (el->next->level_prior > level_4)
-			break ;
-		el = el->next;
-	}
-	if ((start = sort_arg(el, start)))
-		el->next = look_arg(el->next);
-	return (start);
-}

@@ -37,7 +37,7 @@ static t_ast	*dgreat_find(char **line, t_ast *tok, char *value)
 		tok->type = DGREAT_FD_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_redir_fd;
-		tok->f_exec = &exec_redirect;
+		tok->f_exec = &exec_word;
 		(*line) += 1;
 	}
 	else
@@ -45,7 +45,7 @@ static t_ast	*dgreat_find(char **line, t_ast *tok, char *value)
 		tok->type = DGREAT_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_dgreat;
-		tok->f_exec = &exec_redirect;
+		tok->f_exec = &exec_word;
 	}
 	(*line) += 1;
 	return (tok);
@@ -62,7 +62,7 @@ t_ast			*great_find(char **line, t_ast *tok, char *value)
 			tok->type = GREAT_FD_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_redir_fd;
-			tok->f_exec = &exec_redirect;
+			tok->f_exec = &exec_word;
 			(*line) += 1;
 		}
 		else
@@ -70,7 +70,7 @@ t_ast			*great_find(char **line, t_ast *tok, char *value)
 			tok->type = GREAT_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_great;
-			tok->f_exec = &exec_redirect;
+			tok->f_exec = &exec_word;
 		}
 		(*line) += 1;
 	}

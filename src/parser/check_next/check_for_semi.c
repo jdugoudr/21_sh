@@ -15,7 +15,7 @@
 int	check_for_semi(t_ast *next, char **line)
 {
 	(void)line;
-	if ((next->type & AFTER_SEMI) == 0)
+	if ((next->type & AFTER_SEMI))
 		return (1);
 	return (0);
 }

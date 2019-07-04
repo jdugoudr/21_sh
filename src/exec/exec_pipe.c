@@ -32,10 +32,13 @@ static void	free_exit(int r, t_ast *head)
 	free_shell();
 	free_editor();
 	del_ast(&head);
-	exit(r);
+	if (r)
+		exit(EXIT_FAILURE);
+	else
+		exit(EXIT_SUCCESS);
 }
 
-static int 		dup_pipe(int *pdes)
+static int	dup_pipe(int *pdes)
 {
 	if (pipe(pdes) == -1)
 	{
@@ -107,7 +110,6 @@ int			exec_pipe(t_ast *el, t_ast *head, int ret)
 		r = first_fork(el, head, ret, pdes);
 	else
 	{
-
 		if (dup_pipe(pdes) == 1)
 			return (1);
 		r = do_pipe(el, pdes, head, ret);

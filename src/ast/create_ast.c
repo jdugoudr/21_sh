@@ -19,6 +19,11 @@
 ** Each token apply recursively what's appear between himself and the previous
 ** token with a lvl_ptyity sup or egual on the right of the tree,
 ** and next tokens in the list are applied on his left.
+** The leaf of the tree are the command line.
+** The commande could constitute of redirection, assignation and/or command
+** The parents of a leaf point to the token the most on the right :
+** ls > f && < f cat
+** The token '&&' will point on the left to 'f' and on the right to 'cat'
 */
 
 static t_ast	*looking_token(t_ast *start, t_ast *end, int lvl_pty)
@@ -30,11 +35,6 @@ static t_ast	*looking_token(t_ast *start, t_ast *end, int lvl_pty)
 		el = el->next;
 	if (el == end)
 		return (NULL);
-	if (lvl_pty == LEVEL_MIN)
-	{
-		while (el->next && el->next->level_prior == lvl_pty)
-			el = el->next;
-	}
 	return (el);
 }
 
@@ -42,16 +42,19 @@ static t_ast	*build_tree(t_ast *start, t_ast *end, int lvl_pty, t_ast *fth)
 {
 	t_ast		*el;
 
-	if (lvl_pty == LEVEL_MIN - 1)
-		return (NULL);
+	if (start != end && lvl_pty == LEVEL_REDI)
+	{
+		start->father = fth;
+		return (start);
+	}
 	el = looking_token(start, end, lvl_pty);
-	if (el)
+	if (el && lvl_pty > LEVEL_REDI)
 	{
 		el->father = fth;
 		el->right = build_tree(start, el, lvl_pty - 1, el);
 		el->left = build_tree(el->next, end, lvl_pty, el);
 	}
-	else if (lvl_pty > LEVEL_MIN)
+	else if (lvl_pty > LEVEL_REDI)
 		el = build_tree(start, end, lvl_pty - 1, fth);
 	return (el);
 }

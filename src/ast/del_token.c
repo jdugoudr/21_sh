@@ -13,7 +13,7 @@
 #include "ast.h"
 #include "libft.h"
 
-void	del_tab(char **tabs)
+static void	del_tab(char **tabs)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void	del_tab(char **tabs)
 	free(tabs);
 }
 
-void	del_token(t_ast **el)
+void		del_token(t_ast **el)
 {
 	if (*el == NULL)
 		return ;
