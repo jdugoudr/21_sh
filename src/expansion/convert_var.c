@@ -29,25 +29,18 @@
 ** new string.
 */
 
-static int	was_split(char ***tmp, t_ast *el, t_ast **new, char *new_str)
+static int	will_split(char ***tmp, t_ast **new, char *new_str)
 {
-	if ((*tmp)[0] == NULL)
+	*new = NULL;
+	if ((*tmp = ft_strsplit_ws(new_str)) == NULL)
 	{
-		if (el->next && el->next->level_prior == LEVEL_REDI)
-		{
-			ft_dprintf(STDERR_FILENO, AMBI_REDIR, el->value);
-			ft_tabstrdel(tmp, 0);
-			return (-1);
-		}
-		*new = NULL;
-		return (0);
-	}
-	else if ((*tmp)[1] && el->next && el->next->level_prior == LEVEL_REDI)
-	{
-		ft_dprintf(STDERR_FILENO, AMBI_REDIR, new_str);
-		ft_tabstrdel(tmp, 0);
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
+		free(new_str);
 		return (-1);
 	}
+	free(new_str);
+	if ((*tmp)[0] == NULL)
+		return (0);
 	else if ((*new = create_tok_el((*tmp)[0], NULL, NULL)) == NULL)
 	{
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
@@ -61,25 +54,26 @@ static int	was_split(char ***tmp, t_ast *el, t_ast **new, char *new_str)
 int			convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
 {
 	char	*new_str;
-	int		r;
 
-	r = 0;
 	if ((new_str = env_subst(ft_strdup(el->value), ret)) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 		return (-1);
-	if (el->type == DQUOT_TOK || (el->next && el->next->type == DLESS_TOK))
+	}
+	if (new_str[0] == '\0' && el->next
+		&& el->next->level_prior == LEVEL_REDI && el->next->type != DLESS_TOK)
+	{
+		ft_dprintf(STDERR_FILENO, AMBI_REDIR, el->value);
+		free(new_str);
+		return (-1);
+	}
+	if (el->type == DQUOT_TOK
+		|| (el->next && el->next->level_prior == LEVEL_REDI))
 	{
 		free(el->value);
 		el->value = new_str;
 		return (0);
 	}
-	if ((*tmp = ft_strsplit_ws(new_str)) == NULL)
-	{
-		ft_dprintf(STDERR_FILENO, INTERN_ERR);
-		ft_tabstrdel(tmp, 0);
-		r = -1;
-	}
 	else
-		r = was_split(tmp, el, new, new_str);
-	free(new_str);
-	return (r);
+		return(will_split(tmp, new, new_str));
 }

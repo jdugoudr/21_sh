@@ -103,7 +103,7 @@ static int	check_var(t_ast **el, int count, int ret)
 	if ((fill_var(&count, &new, (*el)->next, ret)))
 		return (1);
 	if (tmp_del->type == WORD_TOK
-		&& (!tmp_del->next || tmp_del->next->type != DLESS_TOK))
+		&& (!tmp_del->next || tmp_del->next->level_prior != LEVEL_REDI))
 	{
 		cp_link(el, count, tmp_del, new);
 		del_token(&(tmp_del));
