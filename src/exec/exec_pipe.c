@@ -32,7 +32,10 @@ static void	free_exit(int r, t_ast *head)
 	free_shell();
 	free_editor();
 	del_ast(&head);
-	exit(r);
+	if (r)
+		exit(EXIT_FAILURE);
+	else
+		exit(EXIT_SUCCESS);
 }
 
 static int	dup_pipe(int *pdes)
