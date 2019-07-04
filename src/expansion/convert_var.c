@@ -29,7 +29,7 @@
 ** new string.
 */
 
-static int	was_split(char ***tmp, t_ast *el, t_ast **new)
+static int	was_split(char ***tmp, t_ast *el, t_ast **new, char *new_str)
 {
 	if ((*tmp)[0] == NULL)
 	{
@@ -41,6 +41,12 @@ static int	was_split(char ***tmp, t_ast *el, t_ast **new)
 		}
 		*new = NULL;
 		return (0);
+	}
+	else if ((*tmp)[1] && el->next && el->next->level_prior == LEVEL_REDI)
+	{
+		ft_dprintf(STDERR_FILENO, AMBI_REDIR, new_str);
+		ft_tabstrdel(tmp, 0);
+		return (-1);
 	}
 	else if ((*new = create_tok_el((*tmp)[0], NULL, NULL)) == NULL)
 	{
@@ -73,7 +79,7 @@ int			convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
 		r = -1;
 	}
 	else
-		r = was_split(tmp, el, new);
+		r = was_split(tmp, el, new, new_str);
 	free(new_str);
 	return (r);
 }
