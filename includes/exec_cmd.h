@@ -62,8 +62,6 @@ int						check_bin(t_ast *el);
 int						find_and_exec_redirect(t_ast *el, t_fd **fd_lst);
 int						free_reset_fd(t_fd **fd_lst, t_ast *head, int ret);
 
-int						ambigous_redirect(t_ast *token);
-
 int						exec_in_redir(t_ast *el, t_fd **fd_lst,
 							int open_flag, int fd_in);
 int						exec_out_redir(t_ast *el, t_fd **fd_lst,

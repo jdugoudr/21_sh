@@ -16,11 +16,8 @@
 # include "token_define.h"
 # include "shell21.h"
 
-int		check_token(t_ast **token_head, t_ast *tok, char **line);
 int		loop_tok(t_ast **token_head, char **line);
-t_ast	*look_arg(t_ast *start);
 
 int		parser(char *line);
-t_ast	*sort_arg(t_ast *start, t_ast *end);
 
 #endif
