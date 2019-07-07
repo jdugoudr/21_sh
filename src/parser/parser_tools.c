@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:08:27 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:12:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int		check_token(t_ast **token_head, t_ast *tok, char **line)
 ** this kind of command are given  :  cmd >&2
 */
 
-int		loop_tok(t_ast **token_head, char **line)
+int				loop_tok(t_ast **token_head, char **line)
 {
 	t_ast	*token;
 	bool	is_name;
@@ -79,4 +79,3 @@ int		loop_tok(t_ast **token_head, char **line)
 		return (1);
 	return (0);
 }
-

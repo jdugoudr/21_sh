@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 17:09:29 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/07/03 17:09:32 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:10:40 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ int			convert_var(char ***tmp, t_ast **new, t_ast *el, int ret)
 		return (0);
 	}
 	else
-		return(will_split(tmp, new, new_str));
+		return (will_split(tmp, new, new_str));
 }

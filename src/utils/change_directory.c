@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 00:52:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/22 19:33:08 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/07 14:12:02 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,4 @@ void			change_directory(char *path, int print_dir)
 	valid_getcwd = getcwd(dir, PATH_MAX) != NULL;
 	if (valid_getcwd)
 		set_pwd(dir);
-
 }

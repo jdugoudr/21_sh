@@ -6,11 +6,10 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:24:07 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/07/03 08:43:06 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:13:46 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "shell42.h"
 #include "shell21.h"
 #include "libft.h"
 #include "sh_error.h"
@@ -39,6 +38,7 @@ static int		set_env_value(size_t ind, char *key, char *val)
 static void		raise_shell_level(int ind, char *tmp)
 {
 	int		shlvl;
+
 	shlvl = ft_atoi(tmp) + 1;
 	free(tmp);
 	if ((tmp = ft_itoa(shlvl)) == NULL || set_env_value(ind, "SHLVL", tmp))

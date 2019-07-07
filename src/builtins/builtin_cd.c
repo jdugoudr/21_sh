@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 19:12:43 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/26 17:39:18 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/07 14:09:14 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ int				builtin_cd(char **cmd)
 {
 	char	*path;
 	int		print_dir;
-	int		sy_link;
 
-	sy_link = 0;
 	path = NULL;
 	print_dir = 0;
 	if (check_cmd_format(cmd, 0) < 0 && check_cmd_format(cmd, 1) < 0)
