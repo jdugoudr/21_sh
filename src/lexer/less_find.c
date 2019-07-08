@@ -42,7 +42,7 @@ static t_ast	*dless_find(char **line, t_ast *tok, char *value)
 		tok->type = DLESS_TOK;
 		tok->value = value;
 		tok->f_tok_next = &check_for_dless;
-		tok->f_exec = &exec_redirect;
+		tok->f_exec = &exec_word;
 	}
 	(*line) += 1;
 	return (tok);
@@ -60,7 +60,7 @@ t_ast			*less_find(char **line, t_ast *tok, char *value)
 			tok->type = LESS_FD_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_redir_fd;
-			tok->f_exec = &exec_redirect;
+			tok->f_exec = &exec_word;
 			(*line) += 1;
 		}
 		else
@@ -68,7 +68,7 @@ t_ast			*less_find(char **line, t_ast *tok, char *value)
 			tok->type = LESS_TOK;
 			tok->value = value;
 			tok->f_tok_next = &check_for_less;
-			tok->f_exec = &exec_redirect;
+			tok->f_exec = &exec_word;
 		}
 		(*line) += 1;
 	}

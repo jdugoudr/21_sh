@@ -6,7 +6,7 @@
 /*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 09:47:51 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/16 18:08:27 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:12:05 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ** or sub_shell
 */
 
-int		check_token(t_ast **token_head, t_ast *tok, char **line)
+static int		check_token(t_ast **token_head, t_ast *tok, char **line)
 {
 	int	r;
 
@@ -58,7 +58,7 @@ int		check_token(t_ast **token_head, t_ast *tok, char **line)
 ** this kind of command are given  :  cmd >&2
 */
 
-int		loop_tok(t_ast **token_head, char **line)
+int				loop_tok(t_ast **token_head, char **line)
 {
 	t_ast	*token;
 	bool	is_name;
@@ -78,24 +78,4 @@ int		loop_tok(t_ast **token_head, char **line)
 	if (!token)
 		return (1);
 	return (0);
-}
-
-t_ast	*look_arg(t_ast *start)
-{
-	t_ast	*el;
-
-	el = start;
-	if (start == NULL)
-		return (NULL);
-	while (el && el->next && el->level_prior > level_4)
-		el = el->next;
-	while (el->next)
-	{
-		if (el->next->level_prior > level_4)
-			break ;
-		el = el->next;
-	}
-	if ((start = sort_arg(el, start)))
-		el->next = look_arg(el->next);
-	return (start);
 }

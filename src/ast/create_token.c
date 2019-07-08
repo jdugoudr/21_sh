@@ -61,5 +61,6 @@ t_ast	*create_token(void)
 	new_tok->ast_sub = NULL;
 	new_tok->value = NULL;
 	new_tok->f_exec = NULL;
+	new_tok->f_tok_next = NULL;
 	return (new_tok);
 }

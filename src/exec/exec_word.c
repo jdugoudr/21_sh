@@ -20,9 +20,10 @@
 /*
 ** Here we execute simple command.
 ** a simple command is one command with 0, 1 or more arguments
-** and redirection.
+** and redirection and assignation.
 **
-** If the command is a not a builtin, we fork before applying redirection.
+** If the command exist and is a not a builtin,
+** we fork before applying redirection.
 **
 ** After the execution of the command we need unset redirection.
 ** Every changed file descriptor are stock in a list.
@@ -33,8 +34,12 @@
 ** We have to dup saved fd in the executive fd and then close the save fd.
 */
 
-static void	init_blt(t_blt *built_tab)
+static void	init_blt(char *cmd, int (**f)(char **))
 {
+	t_blt	built_tab[NB_BUILT];
+	int		i;
+
+	i = 0;
 	built_tab[0].name = "echo";
 	built_tab[0].func = builtin_echo;
 	built_tab[1].name = "cd";
@@ -49,34 +54,10 @@ static void	init_blt(t_blt *built_tab)
 	built_tab[5].func = builtin_history;
 	built_tab[6].name = "exit";
 	built_tab[6].func = builtin_exit;
-}
-
-static void	free_reset_fd(t_fd **fd_lst, t_ast *head)
-{
-	int		r;
-	t_fd	*lst;
-
-	r = 0;
-	lst = *fd_lst;
-	while (lst)
-	{
-		if (lst->save_fd >= 0)
-		{
-			if (dup2(lst->save_fd, lst->old_fd) == -1)
-			{
-				r = 1;
-				ft_dprintf(STDERR_FILENO, INTERN_ERR);
-				break ;
-			}
-			close(lst->save_fd);
-		}
-		else
-			close(lst->old_fd);
-		lst = lst->next;
-	}
-	del_saved_fd(fd_lst);
-	if (r)
-		reset_term(head, 1);
+	while (i < NB_BUILT && ft_strcmp(cmd, built_tab[i].name) != 0)
+		i += 1;
+	if (i < NB_BUILT)
+		*f = built_tab[i].func;
 }
 
 /*
@@ -86,36 +67,52 @@ static void	free_reset_fd(t_fd **fd_lst, t_ast *head)
 ** to close it again before to leave.
 */
 
-static int	loop_redirect(t_w_ast w_ast, t_ast *head, t_blt *blt, t_fd **fd_lst)
+static int	exec_cmd(t_ast *cmd, int (*blt)(char **))
 {
 	int	r;
 
 	r = 0;
-	if (w_ast.el->father && w_ast.el->father->level_prior == level_4)
-	{
-		if (find_and_exec_redirect(w_ast.el->father, fd_lst))
-		{
-			free_reset_fd(fd_lst, head);
-			return (1);
-		}
-		w_ast.el = w_ast.el->father;
-		return (loop_redirect(w_ast, head, blt, fd_lst));
-	}
-	else if (blt)
-		r = blt->func(w_ast.cmd->arg_cmd);
-	else
-		r = check_bin(w_ast.cmd);
-	free_reset_fd(fd_lst, head);
+	if (blt)
+		r = blt(cmd->arg_cmd);
+	else if (cmd && cmd->level_prior == LEVEL_MIN)
+		r = check_bin(cmd);
 	return (r);
+}
+
+static int	lp_redir(t_cmd w_ast, t_ast *hd, int (*blt)(char **), t_fd **fd_lt)
+{
+	int	nb_arg;
+	int	r;
+
+	nb_arg = 0;
+	r = 1;
+	while (w_ast.el->level_prior <= LEVEL_REDI && w_ast.el->type != TYPE_END)
+	{
+		if (w_ast.el->level_prior == LEVEL_REDI)
+		{
+			if (find_and_exec_redirect(w_ast.el, fd_lt))
+				return (free_reset_fd(fd_lt, hd, 1));
+			w_ast.el = w_ast.el->prev->prev;
+		}
+		else if (w_ast.el->level_prior <= LEVEL_REDI)
+		{
+			if (w_ast.el->level_prior == LEVEL_MIN)
+				nb_arg++;
+			w_ast.el = w_ast.el->prev;
+		}
+	}
+	if (!create_arg(w_ast, nb_arg))
+		r = exec_cmd(w_ast.cmd, blt);
+	return (free_reset_fd(fd_lt, hd, r));
 }
 
 /*
 ** If it's a not a built in we fork before
 ** to do redirection and before to check if
-** the command exist.
+** the command exist in the path.
 */
 
-static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
+static int	fork_command(t_cmd w_ast, t_ast *head, t_fd **save_fd)
 {
 	int	child;
 	int	ret;
@@ -128,7 +125,7 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 	}
 	else if (child == 0)
 	{
-		ret = loop_redirect(w_ast, head, NULL, save_fd);
+		ret = lp_redir(w_ast, head, NULL, save_fd);
 		reset_term(head, ret);
 	}
 	else
@@ -137,42 +134,39 @@ static int	fork_command(t_w_ast w_ast, t_ast *head, t_fd **save_fd)
 }
 
 /*
-** We first back to the end of the command line.
-** This is easier to apply variable subsitution that way.
-** Then we look for ambigous redirection, create the argument list
-** and execute the command.
-**
-** We need to check if el is always a LEVEL_MIN token (command) after
-** expansion_tok.
-** Because at this moment, the token could be removed if it was a variable and
-** and if this variable doesn't exist.
+** We first try to find the command which will be execute.
+** This could be a builtin, a binary
+** in the PATH, or not be present in command line.
+** Then we fork if it's exist and it's not a builtin
+** and we execute redirection.
+** After that we create the list of argument
+** and execute the command if it's exist.
 */
 
 int			exec_word(t_ast *el, t_ast *head, int ret)
 {
-	t_blt		built_tab[NB_BUILT];
-	int			i;
-	t_w_ast		w_ast;
-	t_fd		*save_fd;
-	t_ast		*end;
+	t_cmd	w_ast;
+	t_fd	*save_fd;
+	int		(*func)(char **cmd);
 
-	end = el;
-	while (end && end->level_prior < level_3 && end->level_prior >= LEVEL_MIN)
-		end = end->prev;
-	save_fd = NULL;
-	init_blt(built_tab);
-	i = 0;
-	if (expansion_tok(end, &el, ret) || ambigous_redirect(end)
-		|| create_arg(el))
+	if (expansion_tok(el->prev, &(w_ast.start), ret))
 		return (1);
-	w_ast.el = el;
-	w_ast.cmd = el;
-	if (!el || el->level_prior != LEVEL_MIN)
-		return (0);
-	while (i < NB_BUILT && ft_strcmp(el->value, built_tab[i].name) != 0)
-		i++;
-	if (i < NB_BUILT)
-		return (loop_redirect(w_ast, head, built_tab + i, &save_fd));
+	func = NULL;
+	w_ast.cmd = w_ast.start;
+	w_ast.el = w_ast.start;
+	save_fd = NULL;
+	while (w_ast.cmd->level_prior <= LEVEL_REDI && w_ast.cmd->type != TYPE_END)
+	{
+		if (w_ast.cmd->level_prior == LEVEL_MIN && (!(w_ast.cmd->next)
+				|| w_ast.cmd->next->level_prior != LEVEL_REDI))
+			break ;
+		w_ast.cmd = w_ast.cmd->prev;
+	}
+	if (w_ast.cmd->level_prior > LEVEL_REDI || w_ast.cmd->type == TYPE_END)
+		return (lp_redir(w_ast, head, NULL, &save_fd));
+	init_blt(w_ast.cmd->value, &func);
+	if (func)
+		return (lp_redir(w_ast, head, func, &save_fd));
 	else
 		return (fork_command(w_ast, head, &save_fd));
 }

@@ -27,7 +27,6 @@
 
 static int		sub_parser(char *line, t_ast **token_head, t_ast **ast_root)
 {
-	t_ast	*tmp;
 	int		ret;
 
 	ret = 0;
@@ -38,8 +37,7 @@ static int		sub_parser(char *line, t_ast **token_head, t_ast **ast_root)
 		ft_dprintf(STDERR_FILENO, SYNTAX_ERR);
 		ret = 1;
 	}
-	else if (!(tmp = look_arg(*token_head))
-		|| create_ast(ast_root, *token_head))
+	else if (create_ast(ast_root, *token_head))
 		ret = 1;
 	if (ret)
 		del_ast(token_head);

@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 12:38:55 by mdaoud            #+#    #+#              #
-#    Updated: 2019/06/10 18:50:22 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/07/08 09:54:31 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,7 @@ MATH_FILES		=	ft_abs.c \
 					ft_pow.c \
 					ft_max.c \
 					ft_min.c
-					
+
 
 OBJ_DIR			=	./objs
 
@@ -144,20 +144,24 @@ ALL_DIR			=	$(OBJ_DIR) \
 all: $(NAME)
 
 $(NAME): $(ALL_DIR) $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME) 
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "\n\033[1;36mLinking $(NAME)\033[0m\n"
 
 $(ALL_DIR):
 	mkdir -p $@
 
 $(OBJ_DIR)/%.o: $(SRC)/%.c
-	$(CC) $(CFlAGS) -o $@ -c $< -I$(HEADERS)
+	@echo "\033[0;36mCompiling\033[0m $<"
+	@$(CC) $(CFlAGS) -o $@ -c $< -I$(HEADERS)
 
 clean:
-	rm -rf $(OBJ_DIR)
+	@echo "\033[0;33mRemoving\033[0m $(OBJ_DIR)"
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "\033[0;31mRemoving\033[0m $(NAME)"
+	@rm -f $(NAME)
 
 re: fclean
 	$(MAKE)

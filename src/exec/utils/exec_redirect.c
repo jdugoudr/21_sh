@@ -18,11 +18,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-int	exec_redirect(t_ast *el, t_ast *head, int ret)
-{
-	return (run_ast(el->left, head, ret));
-}
-
 int	find_and_exec_redirect(t_ast *el, t_fd **fd_lst)
 {
 	int r;
@@ -45,4 +40,33 @@ int	find_and_exec_redirect(t_ast *el, t_fd **fd_lst)
 	else
 		ft_dprintf(STDERR_FILENO, INTERN_ERR);
 	return (r);
+}
+
+int	free_reset_fd(t_fd **fd_lst, t_ast *head, int ret)
+{
+	int		r;
+	t_fd	*lst;
+
+	r = 0;
+	lst = *fd_lst;
+	while (lst)
+	{
+		if (lst->save_fd >= 0)
+		{
+			if (dup2(lst->save_fd, lst->old_fd) == -1)
+			{
+				r = 1;
+				ft_dprintf(STDERR_FILENO, INTERN_ERR);
+				break ;
+			}
+			close(lst->save_fd);
+		}
+		else
+			close(lst->old_fd);
+		lst = lst->next;
+	}
+	del_saved_fd(fd_lst);
+	if (r)
+		reset_term(head, 1);
+	return (ret);
 }

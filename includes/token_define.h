@@ -24,29 +24,28 @@
 # define LESS_TOK		0x10
 # define LESS_FD_TOK	0x20
 # define DLESS_TOK		0x40
-# define DLESS_FD_TOK	0x80
-# define GREAT_TOK		0x100
-# define GREAT_FD_TOK	0x200
-# define DGREAT_TOK		0x400
-# define DGREAT_FD_TOK	0x800
-# define SUB_SHELL		0x1000
-# define QUOT_TOK		0x2000
-# define DQUOT_TOK		0x4000
-# define ASSIGN_TOK		0x8000
-# define WORD_TOK		0x10000
-# define NAME_TOK		0x20000
-# define TYPE_END		0x40000
+# define GREAT_TOK		0x80
+# define GREAT_FD_TOK	0x100
+# define DGREAT_TOK		0x200
+# define DGREAT_FD_TOK	0x400
+# define SUB_SHELL		0x800
+# define QUOT_TOK		0x1000
+# define DQUOT_TOK		0x2000
+# define ASSIGN_TOK		0x4000
+# define WORD_TOK		0x8000
+# define NAME_TOK		0x10000
+# define TYPE_END		0x20000
 
 # define G_QUOT		QUOT_TOK | DQUOT_TOK
 # define LEVEL_MIN	level_6
 # define LEVEL_REDI	level_4
-# define IS_REDIR	(GREAT_TOK | DGREAT_TOK | LESS_TOK | DLESS_TOK)
 # define OUT_REDIR	(GREAT_TOK | DGREAT_TOK | GREAT_FD_TOK | DGREAT_FD_TOK)
-# define IN_REDIR	(LESS_TOK | DLESS_TOK | LESS_FD_TOK | DLESS_FD_TOK)
+# define IN_REDIR	(LESS_TOK | DLESS_TOK | LESS_FD_TOK)
 # define FD_REDIR	(GREAT_FD_TOK | DGREAT_FD_TOK | LESS_FD_TOK)
-# define L_IS_NAME	(WORD_TOK | IS_REDIR)
+# define IS_REDI	(OUT_REDIR | IN_REDIR)
+# define L_IS_NAME	(WORD_TOK | IS_REDI)
 
-# define ENA_FIRST	(NAME_TOK|WORD_TOK|SUB_SHELL|G_QUOT|TYPE_END|SEMI_COL)
+# define ENA_FIRST	(NAME_TOK|WORD_TOK|SUB_SHELL|G_QUOT|TYPE_END|IS_REDI)
 
 /*
 ** level_1 ';'

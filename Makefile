@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/07/01 18:58:41 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/07/08 10:36:03 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ VPATH			+=	src \
 					src/parser \
 					src/parser/check_next \
 					src/utils \
-					src/expansion
+					src/expansion \
+					src/exec/utils
 
 
 SRC				=	main.c
@@ -76,8 +77,7 @@ SRC				+=	add_char.c command_append.c command_erase.c command_reset.c command_se
 SRC				+=	run_ast.c exec_pipe.c exec_in_redir.c exec_out_redir.c \
 					exec_sub_shell.c exec_assign.c exec_word.c exec_semi_col.c \
 					exec_and_if.c exec_or_if.c exec_bin.c exec_redirect.c \
-					exec_utils.c check_valid_fd.c ambigous_redirect.c \
-					create_arg.c
+					exec_utils.c check_valid_fd.c create_arg.c convert_var.c
 
 ##################################################
 ##########			KEYPRESS			##########
@@ -101,7 +101,7 @@ SRC				+=	and_find.c or_find.c word_find.c consume.c quot_find.c \
 SRC				+=	check_for_and_or.c check_for_assign.c check_for_dgreat.c \
 					check_for_dless.c check_for_great.c check_for_less.c check_for_name.c \
 					check_for_pipe.c check_for_semi.c check_for_sub.c check_for_word.c check_for_redir_fd.c \
-					parser.c sort_arg.c parser_tools.c
+					parser.c parser_tools.c
 
 ##################################################
 ##########			EXPANSION			##########
@@ -120,26 +120,29 @@ OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(LIB_FT) $(OBJ_DIR) $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LIB_FT) -I $(HEAD_DIR) -I $(LIB_HEAD) -ltermcap
-	@echo "\n\033[34m\033[1m$(NAME) correctly done.\033[0m\n"
+	@echo "\n\033[1;36mLinking $(NAME)\033[0m"
+	@$(CC) -o $@ $(OBJS) $(LIB_FT) -I $(HEAD_DIR) -I $(LIB_HEAD) -ltermcap
+	@echo "\n\033[1;35m$(NAME) successfully created.\033[0m\n"
 
 $(LIB_FT):
 	@make -C $(LIB_DIR)
-	@echo "\n\033[34m\033[1mLibft correctly done.\033[0m\n"
+	@echo "\n\033[1;35mLibft successfully created.\033[0m\n"
 
 $(OBJ_DIR):
 	mkdir $@
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
-	@echo $<
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(HEAD_DIR) -I $(LIB_HEAD)
+	@echo "\033[0;36mCompiling\033[0m $<"
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEAD_DIR) -I $(LIB_HEAD)
 
 clean:
 	@make clean -C $(LIB_DIR)
+	@echo "\033[0;33mRemoving\033[0m $(OBJ_DIR)"
 	@$(RM) $(OBJ_DIR)
 
 fclean: clean
 	@make fclean -C $(LIB_DIR)
+	@echo "\033[0;31mRemoving\033[0m $(NAME)"
 	@$(RM) $(NAME)
 
 re: fclean all
