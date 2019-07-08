@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/02 12:38:55 by mdaoud            #+#    #+#              #
-#    Updated: 2019/07/04 15:51:25 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/07/08 09:54:31 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,21 +146,21 @@ all: $(NAME)
 $(NAME): $(ALL_DIR) $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\n\e[1;36mLinking $(NAME)\033[0m\n"
+	@echo "\n\033[1;36mLinking $(NAME)\033[0m\n"
 
 $(ALL_DIR):
 	mkdir -p $@
 
 $(OBJ_DIR)/%.o: $(SRC)/%.c
-	@echo "\e[36mCompiling\033[0m $<"
+	@echo "\033[0;36mCompiling\033[0m $<"
 	@$(CC) $(CFlAGS) -o $@ -c $< -I$(HEADERS)
 
 clean:
-	@echo "\e[33mRemoving\033[0m $(OBJ_DIR)"
+	@echo "\033[0;33mRemoving\033[0m $(OBJ_DIR)"
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@echo "\e[31mRemoving\033[0m $(NAME)"
+	@echo "\033[0;31mRemoving\033[0m $(NAME)"
 	@rm -f $(NAME)
 
 re: fclean

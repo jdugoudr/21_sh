@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/07/04 15:48:39 by mdaoud           ###   ########.fr        #
+#    Updated: 2019/07/08 09:55:43 by jdugoudr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,29 +120,29 @@ OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(LIB_FT) $(OBJ_DIR) $(OBJS)
-	@echo "\n\e[1;36mLinking $(NAME)\033[0m"
+	@echo "\n\033[1;36mLinking $(NAME)\033[0m"
 	@$(CC) -o $@ $(OBJS) $(LIB_FT) -I $(HEAD_DIR) -I $(LIB_HEAD) -ltermcap
-	@echo "\n\033[34m\033[1m$(NAME) successfully created.\033[0m\n"
+	@echo "\n\033[1;35m$(NAME) successfully created.\033[0m\n"
 
 $(LIB_FT):
 	@make -C $(LIB_DIR)
-	@echo "\n\033[34m\033[1mLibft successfully created.\033[0m\n"
+	@echo "\n\033[1;35mLibft successfully created.\033[0m\n"
 
 $(OBJ_DIR):
 	mkdir $@
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
-	@echo "\e[36mCompiling\033[0m $<"
+	@echo "\033[0;36mCompiling\033[0m $<"
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEAD_DIR) -I $(LIB_HEAD)
 
 clean:
 	@make clean -C $(LIB_DIR)
-	@echo "\e[33mRemoving\033[0m $(OBJ_DIR)"
+	@echo "\033[0;33mRemoving\033[0m $(OBJ_DIR)"
 	@$(RM) $(OBJ_DIR)
 
 fclean: clean
 	@make fclean -C $(LIB_DIR)
-	@echo "\e[31mRemoving\033[0m $(NAME)"
+	@echo "\033[0;31mRemoving\033[0m $(NAME)"
 	@$(RM) $(NAME)
 
 re: fclean all
