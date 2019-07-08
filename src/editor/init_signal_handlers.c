@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 15:21:22 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/07/01 18:41:57 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/07/08 10:32:15 by jdugoudr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ void			init_signal_handlers(void)
 	signal(SIGWINCH, handler_sigwinch);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
-	// signal(SIGTTOU, SIG_IGN);
 }
