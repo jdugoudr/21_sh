@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/20 15:32:48 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/08/26 02:43:33 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <term.h>
 # include <termios.h>
 # include <stdlib.h>
-
+# define ARG_MAX	10000	//delete and keep empty line
 /*
 ** Implementation of the command history using a doubly-linked list.
 */
@@ -33,6 +33,7 @@ struct					s_shell
 	char				**env;
 	struct s_history	*hist;
 	struct s_history	*hist_ptr;
+	pid_t				pgid;
 };
 
 typedef struct s_shell		t_shell;

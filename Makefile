@@ -6,7 +6,7 @@
 #    By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/22 13:52:36 by jdugoudr          #+#    #+#              #
-#    Updated: 2019/07/08 10:36:03 by jdugoudr         ###   ########.fr        #
+#    Updated: 2019/08/26 02:05:54 by mdaoud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ HEADERS			=	ast.h \
 					parser.h \
 					sh_error.h \
 					shell21.h \
-					token_define.h
+					token_define.h \
+					job_control.h \
 
 OBJ_DIR			=	objs/
 
@@ -117,6 +118,8 @@ SRC				+=	add_env_var.c change_directory.c check_cmd_format.c display_history.c 
 
 OBJS			=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
+## DELETE
+SRC				+=	job_control.c
 all: $(NAME)
 
 $(NAME): $(LIB_FT) $(OBJ_DIR) $(OBJS)

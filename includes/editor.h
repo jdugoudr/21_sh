@@ -6,7 +6,7 @@
 /*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 14:26:41 by mdaoud            #+#    #+#             */
-/*   Updated: 2019/06/10 19:34:40 by mdaoud           ###   ########.fr       */
+/*   Updated: 2019/06/22 00:29:00 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define RED				"\033[1;31m"
 # define RES_COL			"\033[0m"
 # define GREEN				"\033[1;32m"
-
+# define ARG_MAX	10000 //delete and keep empty line
 /*
 ** Our Structure for line editing.
 ** cmd: 		the command being written.

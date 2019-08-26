@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdugoudr <jdugoudr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdaoud <mdaoud@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 10:17:12 by jdugoudr          #+#    #+#             */
-/*   Updated: 2019/06/17 14:24:53 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/06/22 00:30:06 by mdaoud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define WRITE_END		1
 # define HERE_DOC		"/tmp/heredoc_21"
 # define NB_BUILT		7
-
+#include <wait.h> //delete and keep empty line
 typedef struct			s_blt
 {
 	char				*name;

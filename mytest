@@ -1,0 +1,17 @@
+
+
+Redirections:
+
+ls >
+
+-----------------
+setenv out "f1 f2"
+ls > $out
+	-> Bash: ambiguous redirect
+	-> zsh: create a file named "f1 f2"
+	-> 21sh: create a file named "f1 f2"
+-----------------
+echo hello > f1 f2
+-----------------
+cat < auteur < Makefile
+-----------------
